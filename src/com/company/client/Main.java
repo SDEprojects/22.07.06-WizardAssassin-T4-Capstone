@@ -1,3 +1,7 @@
+package com.company.client;
+
+import com.company.models.Game;
+
 import java.io.IOException;
 
 class Main {

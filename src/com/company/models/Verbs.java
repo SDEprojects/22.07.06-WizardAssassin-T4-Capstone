@@ -1,3 +1,5 @@
+package com.company.models;
+
 import com.google.gson.Gson;
 
 import java.io.Reader;

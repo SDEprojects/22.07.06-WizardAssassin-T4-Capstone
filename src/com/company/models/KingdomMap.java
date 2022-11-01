@@ -1,3 +1,5 @@
+package com.company.models;
+
 import java.util.*;
 
 class KingdomMap {
