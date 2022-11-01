@@ -1,10 +1,10 @@
 package com.company.models;
 
-import com.google.gson.Gson;
+import com.company.enums.AreaVerbs;
+import com.company.enums.CharacterVerbs;
+import com.company.enums.ItemVerbs;
+import com.company.enums.MoveVerbs;
 
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashSet;
 
 public interface Verbs {

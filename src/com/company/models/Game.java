@@ -1,5 +1,6 @@
 package com.company.models;
 
+
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
@@ -7,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+
+import com.apps.util.Console;
 import com.google.gson.Gson;
 
 public class Game implements Verbs {
@@ -28,63 +31,6 @@ public class Game implements Verbs {
         Reader reader = Files.newBufferedReader(Paths.get("./resources/Location.json"));
         Data obj = gson.fromJson(reader, Data.class);
         return obj;
-    }
-
-    public void execute() throws IOException {
-        title();
-        gameObjective();
-        beginGame();
-    }
-
-    private void title() throws IOException {
-        System.out.println();
-        System.out.println("\033[35m" + Files.readString(Path.of("./resources/welcome.txt")) + "\033[0m");
-        System.out.println();
-    }
-
-    private void gameObjective() throws IOException {
-        Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(Paths.get("./resources/introduction.json"));
-
-        Introduction obj = gson.fromJson(reader, (Type) Introduction.class);
-        String gameIntro = obj.getIntroduction();
-        String gameObj = obj.getObjective();
-        String gameWin = obj.getWin();
-        System.out.println("\033[35m" + gameIntro + "\n" + gameObj + "\n" + gameWin + "\033[0m");
-        System.out.println();
-    }
-
-    private void beginGame() throws IOException {
-        String start;
-
-        System.out.println("\033[35m" + "Do you want to start the game? yes | no" + "\033[0m");
-        start = inputScanner.nextLine().trim().toLowerCase();
-        if (start.equals("yes") || start.equals("y")) {
-
-            ClearConsole.clearConsole();
-            chooseLocation();
-        } else if (start.equals("no") || start.equals("n")) {
-            System.out.println("Thank you for playing");
-            System.exit(0);
-        } else {
-            System.out.println("Please enter 'yes' to continue or 'no' to quit the game.");
-            beginGame();
-        }
-    }
-
-    private void quitGame() throws IOException {
-        String quit;
-
-        System.out.println("Are you sure you want to 'quit'? yes| no");
-        quit = inputScanner.nextLine().trim().toLowerCase();
-        if (quit.equals("yes")) {
-            System.out.println("Thank you for playing");
-            System.exit(0);
-        }
-        else {
-            System.out.println("\n\u001B[91m                         *********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
-            chooseLocation();
-        }
     }
 
     public void getItem(String itemInput, Location currentLocation, String verb) throws IOException {
@@ -146,33 +92,19 @@ public class Game implements Verbs {
             if (currentLocation.getName().equals("Laboratory") && (inventoryItems.contains("poison")))
             {
                 System.out.println("\033[36mYou have poisoned the wizard. You return home as a hero who saved your kingdom\033[0m.");
-                break;
+                resetGame();
             }
 
             if(!oldLocation.equals(currentLocation.getName())) {
-                System.out.println("\n\u001B[35m                                              *********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
-
-                System.out.println(currentLocation.getDescription() + "\n");
-                System.out.println("You see the following characters: ");
-                npcNames.clear();
-                for (ExtraCharacters extraCharacters : object.getCharacters()) {
-                    if ((currentLocation.getName().equals(extraCharacters.getRoom()))) {
-                        System.out.printf("             \u001B[93m%s\u001B[0m%n", extraCharacters.getName().toUpperCase());
-                        npcNames.add(extraCharacters.getName().toLowerCase());
-                        characterQuotes.put(extraCharacters.getName(), extraCharacters.getQuote());
-                    }
-                }
-
+                getStatus(object, characterQuotes);
                 System.out.println();
                 if(currentLocation.getName().equals("Wizard's Foyer") && !inventoryItems.contains("wizard robes")){
                     System.out.println("\033[91mThe monster bites your head off and you die!\033[0m");
                     System.out.println("\033[91mG\033[0m\033[30mA\033[0m\033[91mM\033[0m\033[30mE\033[0m \033[91mO\033[0m\033[30mV\033[0m\033[91mE\033[0m\033[30mR\033[0m!");
-                    break;
+                    resetGame();
                 }
 
-                if(currentLocation.getItem().length > 0) {
-                    System.out.printf("You see these items: \u001B[32m %s \u001B[0m%n", Arrays.deepToString(currentLocation.getItem()));
-                }
+
                 if(!currentLocation.getDirections().isEmpty()) {
                     System.out.println("From the " + currentLocation.getName() + " you can go to the:");
                     for (Map.Entry<String, String> direction : currentLocation.getDirections().entrySet()) {
@@ -184,35 +116,18 @@ public class Game implements Verbs {
 
             System.out.println("");
             System.out.println("\033[36m What would you like to do now?\033[0m\n\033[90mEnter 'quit' to exit game.\nEnter 'view' to see the map.\nEnter 'help' for list of valid commands.\n Enter 'inventory' to list all your items.\033[0m");
+
+
             String userInput = inputScanner.nextLine().trim().toLowerCase();
-
             String[] parseInput = userInput.split(" ");
-
-            if(userInput.equals("quit")) {
-                quitGame();
-            }
-            else if(userInput.equals("inventory")) {
-                checkInventory();
-            }
-
-            else if(userInput.equals("help")) {
-                System.out.println("All commands must be in this format 'VERB<space>NOUN'\nOr 'quit' to exit game");
-                HelpMenu.printMenuHeader();
-                HelpMenu.buildMenu().forEach(HelpMenu::printMenu);
-            }
-            else if(userInput.equals("view")) {
-                KingdomMap.printMapHeader();
-                KingdomMap.showKingdomMap().forEach(KingdomMap::printMap);
-                System.out.println("\n\u001B[91m                         *********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
-            }
-            else if(parseInput.length == 2 || parseInput.length == 3) {
+            handleActions(userInput);
+            if(parseInput.length == 2 || parseInput.length == 3) {
                 String inputVerb = parseInput[0];
                 String inputNoun = parseInput[1];
                 if(parseInput.length == 3) {
                     inputNoun = String.format("%s %s", inputNoun, parseInput[2]);
                 }
                 if (Verbs.getMoveActions().contains(inputVerb)) {
-
                         if (currentLocation.directions.get(inputNoun) != null) {
                             String locationInput = currentLocation.directions.get(inputNoun);
                             if(locationInput.equals("Courtyard") && currentLocation.getName().equals("Church")) {
@@ -302,38 +217,77 @@ public class Game implements Verbs {
                 else if (Verbs.getCharacterActions().contains(inputVerb)) {
                     if(npcNames.contains(inputNoun)) {
                         if(inputVerb.equals("talk")) {
-                            if(!inputNoun.equals("queen")) {
-                                System.out.printf("\u001B[93m%s\u001B[0m: '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
-                            }
-                            else {
-                                System.out.printf("\u001B[93m%s\u001B[0m: '\033[95m%s\033[0m'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
-                                while(true) {
-                                    System.out.println();
-                                    System.out.println("Input 'yes' to continue, 'no' to quit");
-                                    userInput = inputScanner.nextLine().trim().toLowerCase();
-                                    if(userInput.equals("yes")) {
-                                        currentLocation = obj.getPickedLocation("Church");
-                                        break;
-                                    }
-                                    else if(userInput.equals("no")) {
-                                        quitGame();
-                                    }
-                                }
-                            }
+                            handleTalk(inputNoun, userInput, characterQuotes);
                         }
                         else if(inputVerb.equals("fight")) {
-                            if(inputNoun.equals("evil wizard")) {
-                                if(!inventoryItems.contains("knife")) {
-                                    System.out.println("\033[91mThe Wizard suddenly blasts your head off with a thunder bolt... and you die!\033[0m");
-                                    System.out.println("\033[91mG\033[0m\033[30mA\033[0m\033[91mM\033[0m\033[30mE\033[0m \033[91mO\033[0m\033[30mV\033[0m\033[91mE\033[0m\033[30mR\033[0m!");
-                                    break;
-                                }
-                                else if(inventoryItems.contains("knife")){
-                                    System.out.println("\033[36mThe Wizard suddenly attacks you with a thunder bolt but you matrix dodge it.\n You shank him with the\033[0m \033[92mKNIFE\033[0m \033[36mand he dies!\033[0m");
-                                    System.out.println("You have shanked the wizard to death. You return home as a hero who saved your kingdom!");
-                                    break;
-                                }
-                            }
+                            handleFight(object, inputNoun);
+                        }
+                    } else {
+                        System.out.printf("There is no \u001B[93m%s\u001B[0m here... You must be seeing ghosts.%n", inputNoun.toUpperCase());
+                    }
+                }
+                else if (Verbs.getAreaActions().contains(inputVerb)) {
+                    System.out.println("This VERB is for area interactions");
+                } else {
+                    System.out.println("I do not understand " + userInput.toUpperCase() + ". Format command as 'VERB<space>NOUN' or 'quit' or 'view' or 'help' or 'inventory'");
+                }
+            }
+            else {
+                System.out.println("I do not understand " + userInput.toUpperCase() + ". Format command as 'VERB<space>NOUN' or 'quit' or 'view' or 'help' or 'inventory'");
+            }
+        }
+    }
+
+    private void getStatus(Characters object, Map<String, String> characterQuotes) {
+        System.out.println("\n\u001B[35m                                              *********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
+
+        System.out.println(currentLocation.getDescription() + "\n");
+        System.out.println("You see the following characters: ");
+        npcNames.clear();
+        for (ExtraCharacters extraCharacters : object.getCharacters()) {
+            if ((currentLocation.getName().equals(extraCharacters.getRoom()))) {
+                System.out.printf("             \u001B[93m%s\u001B[0m%n", extraCharacters.getName().toUpperCase());
+                npcNames.add(extraCharacters.getName().toLowerCase());
+                characterQuotes.put(extraCharacters.getName(), extraCharacters.getQuote());
+            }
+        }
+        if(currentLocation.getItem().length > 0) {
+            System.out.printf("You see these items: \u001B[32m %s \u001B[0m%n", Arrays.deepToString(currentLocation.getItem()));
+        }
+    }
+
+    private void handleActions (String userInput) throws IOException {
+        if(userInput.equals("quit")) {
+            quitGame();
+        }
+        else if(userInput.equals("inventory")) {
+            checkInventory();
+        }
+        else if(userInput.equals("help")) {
+            System.out.println("All commands must be in this format 'VERB<space>NOUN'\nOr 'quit' to exit game");
+            HelpMenu.printMenuHeader();
+            HelpMenu.buildMenu().forEach(HelpMenu::printMenu);
+        }
+        else if(userInput.equals("view")) {
+            KingdomMap.printMapHeader();
+            KingdomMap.showKingdomMap().forEach(KingdomMap::printMap);
+            System.out.println("\n\u001B[91m                         *********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
+        }
+    }
+
+    private void handleFight(Characters object, String inputNoun) throws IOException {
+        if(inputNoun.equals("evil wizard")) {
+            if(!inventoryItems.contains("knife")) {
+                System.out.println("\033[91mThe Wizard suddenly blasts your head off with a thunder bolt... and you die!\033[0m");
+                System.out.println("\033[91mG\033[0m\033[30mA\033[0m\033[91mM\033[0m\033[30mE\033[0m \033[91mO\033[0m\033[30mV\033[0m\033[91mE\033[0m\033[30mR\033[0m!");
+                resetGame();
+            }
+            else if(inventoryItems.contains("knife")){
+                System.out.println("\033[36mThe Wizard suddenly attacks you with a thunder bolt but you matrix dodge it.\n You shank him with the\033[0m \033[92mKNIFE\033[0m \033[36mand he dies!\033[0m");
+                System.out.println("You have shanked the wizard to death. You return home as a hero who saved your kingdom!");
+                resetGame();
+            }
+        }
                             else if(inventoryItems.contains("sword")){
                                 int characterIndex= npcNames.indexOf(inputNoun);
                                 object.getCharacters().remove(characterIndex);
@@ -345,36 +299,58 @@ public class Game implements Verbs {
                                     System.out.println("You've been found out!");
                                     System.out.println("Should've listened to the Queen and not gone on that killing spree... You lose");
                                     System.out.println("\033[91mG\033[0m\033[30mA\033[0m\033[91mM\033[0m\033[30mE\033[0m \033[91mO\033[0m\033[30mV\033[0m\033[91mE\033[0m\033[30mR\033[0m!");
-                                    break;
-
+                                    resetGame();
                                 }
                             }
-                            else if(inventoryItems.contains("stick") && inputNoun.equals("rat")) {
-                                System.out.printf("You beat the \033[91m%s\033[0m to death with the \033[92mSTICK\033[0m", inputNoun.toUpperCase());
-                                int characterIndex= npcNames.indexOf(inputNoun);
-                                object.getCharacters().remove(characterIndex);
+        else if(inventoryItems.contains("stick") && inputNoun.equals("rat")) {
+            System.out.printf("You beat the \033[91m%s\033[0m to death with the \033[92mSTICK\033[0m", inputNoun.toUpperCase());
+            int characterIndex= npcNames.indexOf(inputNoun);
+            object.getCharacters().remove(characterIndex);
+            npcNames.remove(inputNoun);
+        } else {
+            System.out.println("I'm going to advise against that.");
+        }
+    }
 
-                                npcNames.remove(inputNoun);
-                            }
-                            else {
-                                System.out.println("I'm going to advise against that.");
-                            }
-                        }
-                    }
-                    else {
-                        System.out.printf("There is no \u001B[93m%s\u001B[0m here... You must be seeing ghosts.%n", inputNoun.toUpperCase());
-                    }
+    private void handleTalk(String inputNoun, String userInput, Map<String, String> characterQuotes) throws IOException {
+        if(!inputNoun.equals("queen")) {
+            System.out.printf("\u001B[93m%s\u001B[0m: '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
+        }
+        else {
+            System.out.printf("\u001B[93m%s\u001B[0m: '\033[95m%s\033[0m'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
+            while(true) {
+                System.out.println();
+                System.out.println("Input 'yes' to continue, 'no' to quit");
+                userInput = inputScanner.nextLine().trim().toLowerCase();
+                if(userInput.equals("yes")) {
+                    currentLocation = obj.getPickedLocation("Church");
+                    break;
                 }
-                else if (Verbs.getAreaActions().contains(inputVerb)) {
-                    System.out.println("This VERB is for area interactions");
-                }
-                else {
-                    System.out.println("I do not understand " + userInput.toUpperCase() + ". Format command as 'VERB<space>NOUN' or 'quit' or 'view' or 'help' or 'inventory'");
+                else if(userInput.equals("no")) {
+                    quitGame();
                 }
             }
-            else {
-                System.out.println("I do not understand " + userInput.toUpperCase() + ". Format command as 'VERB<space>NOUN' or 'quit' or 'view' or 'help' or 'inventory'");
-            }
+        }
+    }
+    private void resetGame() throws IOException {
+        Console.pause(2000);
+        Console.clear();
+        Home app = new Home();
+        app.execute();
+    }
+
+    private void quitGame() throws IOException {
+        String quit;
+
+        System.out.println("Are you sure you want to 'quit'? yes| no");
+        quit = inputScanner.nextLine().trim().toLowerCase();
+        if (quit.equals("yes")) {
+            System.out.println("Thank you for playing");
+            System.exit(0);
+        }
+        else {
+            System.out.println("\n\u001B[91m                         *********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
+            chooseLocation();
         }
     }
 }
