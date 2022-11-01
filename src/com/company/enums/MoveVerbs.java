@@ -1,4 +1,4 @@
-package com.company.models;
+package com.company.enums;
 
 public enum MoveVerbs {
     MOVE("move"),
