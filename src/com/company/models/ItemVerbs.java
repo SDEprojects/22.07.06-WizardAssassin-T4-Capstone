@@ -1,3 +1,5 @@
+package com.company.models;
+
 public enum ItemVerbs {
     GET("get"),
     USE("use"),

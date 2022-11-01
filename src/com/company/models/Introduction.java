@@ -1,3 +1,5 @@
+package com.company.models;
+
 class Introduction {
 
     public String introduction;

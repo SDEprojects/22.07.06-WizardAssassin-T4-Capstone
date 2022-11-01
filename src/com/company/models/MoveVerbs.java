@@ -1,3 +1,5 @@
+package com.company.models;
+
 public enum MoveVerbs {
     MOVE("move"),
     GO("go");

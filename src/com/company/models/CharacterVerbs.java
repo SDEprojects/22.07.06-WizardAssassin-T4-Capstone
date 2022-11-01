@@ -1,3 +1,5 @@
+package com.company.models;
+
 public enum CharacterVerbs {
     TALK("talk"),
     FIGHT("fight");

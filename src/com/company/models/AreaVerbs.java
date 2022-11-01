@@ -1,3 +1,5 @@
+package com.company.models;
+
 public enum AreaVerbs {
     EXAMINE("examine"),
     EXA("exa");

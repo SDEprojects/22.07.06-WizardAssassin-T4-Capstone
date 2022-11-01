@@ -1,3 +1,5 @@
+package com.company.models;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -18,7 +20,7 @@ class Inventory {
 
         System.out.println(currentLocation.getDescription() + "\n");
         System.out.println("You see these items: " + Arrays.toString(currentLocation.getItem()));
-        //Location Inventory = masterObj.getLocations().get(13);
+        //Location com.company.models.Inventory = masterObj.getLocations().get(13);
 
 
         System.out.println("From the " + currentLocation.getName() + " you can go to the: ");
