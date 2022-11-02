@@ -1,8 +1,5 @@
-package com.wizardassassin.enums;<<<<<<<< HEAD:src/com/wizardassassin/domain/CharacterVerbs.java
-package com.wizardassassin.domain;
-========
-package com.company.enums;
->>>>>>>> dev:src/com/company/enums/CharacterVerbs.java
+package com.wizardassassin.enums;
+
 
 public enum CharacterVerbs {
     TALK("talk"),
