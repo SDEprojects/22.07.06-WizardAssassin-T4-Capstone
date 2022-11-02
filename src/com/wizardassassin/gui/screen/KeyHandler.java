@@ -2,7 +2,6 @@ package com.wizardassassin.gui.screen;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 
 public class KeyHandler implements KeyListener {
 
