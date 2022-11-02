@@ -1,4 +1,4 @@
-package com.company.models;
+package com.wizardassassin.domain;
 
 public enum AreaVerbs {
     EXAMINE("examine"),

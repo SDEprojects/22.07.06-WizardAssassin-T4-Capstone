@@ -1,4 +1,4 @@
-package com.company.models;
+package com.wizardassassin.domain;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -60,10 +60,10 @@ class HelpMenu implements Verbs {
 
     public static List<HelpMenu> buildMenu() {
         List<HelpMenu> itemList = new ArrayList<>();
-        itemList.add(new HelpMenu("Move to new area", Verbs.getMoveActions(), "DIRECTION name", "Go North"));
-        itemList.add(new HelpMenu("Interact with Items", Verbs.getItemActions(), "ITEM name", "Use Stick"));
-        itemList.add(new HelpMenu("Interact with com.company.models.Characters", Verbs.getCharacterActions(), "CHARACTER name", "Talk Queen"));
-        itemList.add(new HelpMenu("Interact with Area", Verbs.getAreaActions(), "OBJECT name", "Exa Window"));
+        itemList.add(new HelpMenu("Move to new area", getMoveActions(), "DIRECTION name", "Go North"));
+        itemList.add(new HelpMenu("Interact with Items", getItemActions(), "ITEM name", "Use Stick"));
+        itemList.add(new HelpMenu("Interact with com.company.models.Characters", getCharacterActions(), "CHARACTER name", "Talk Queen"));
+        itemList.add(new HelpMenu("Interact with Area", getAreaActions(), "OBJECT name", "Exa Window"));
         return itemList;
     }
 }

@@ -1,4 +1,4 @@
-package com.company.models;
+package com.wizardassassin.domain;
 
 public class ClearConsole {
     // https://stackoverflow.com/questions/46242330/clearing-console-in-intellij-idea

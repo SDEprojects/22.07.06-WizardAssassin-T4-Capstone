@@ -1,6 +1,6 @@
-package com.company.client;
+package com.wizardassassin.client;
 
-import com.company.models.Game;
+import com.wizardassassin.domain.Game;
 
 import java.io.IOException;
 

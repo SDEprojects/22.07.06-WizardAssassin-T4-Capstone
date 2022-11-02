@@ -1,4 +1,4 @@
-package com.company.models;
+package com.wizardassassin.domain;
 
 class Introduction {
 

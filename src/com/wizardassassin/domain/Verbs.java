@@ -1,10 +1,5 @@
-package com.company.models;
+package com.wizardassassin.domain;
 
-import com.google.gson.Gson;
-
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashSet;
 
 public interface Verbs {
