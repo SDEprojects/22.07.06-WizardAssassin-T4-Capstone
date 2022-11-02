@@ -1,13 +1,12 @@
 package com.wizardassassin.domain;
 
-<<<<<<< HEAD:src/com/wizardassassin/domain/Verbs.java
-=======
-import com.company.enums.AreaVerbs;
-import com.company.enums.CharacterVerbs;
-import com.company.enums.ItemVerbs;
-import com.company.enums.MoveVerbs;
 
->>>>>>> dev:src/com/company/models/Verbs.java
+
+import com.wizardassassin.enums.AreaVerbs;
+import com.wizardassassin.enums.CharacterVerbs;
+import com.wizardassassin.enums.ItemVerbs;
+import com.wizardassassin.enums.MoveVerbs;
+
 import java.util.HashSet;
 
 public interface Verbs {

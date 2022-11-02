@@ -1,8 +1,5 @@
-package com.wizardassassin.enums;<<<<<<<< HEAD:src/com/wizardassassin/domain/AreaVerbs.java
-package com.wizardassassin.domain;
-========
-package com.company.enums;
->>>>>>>> dev:src/com/company/enums/AreaVerbs.java
+package com.wizardassassin.enums;
+
 
 public enum AreaVerbs {
     EXAMINE("examine"),
