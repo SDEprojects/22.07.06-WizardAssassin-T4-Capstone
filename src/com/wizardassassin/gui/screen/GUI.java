@@ -1,8 +1,6 @@
-package com.wizardassassin.gui;
-import com.wizardassassin.domain.*;
+package com.wizardassassin.gui.screen;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,7 +10,7 @@ public class GUI implements ActionListener {
    private JLabel label;
    private JFrame frame;
    private JButton button;
-   private JPanel panel;
+//   private JPanel panel;
 
     public GUI() {
 
@@ -22,17 +20,27 @@ public class GUI implements ActionListener {
         button.addActionListener(this);
         label = new JLabel("Number of Wizards Killed: 0");
 
-        panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new GridLayout(0, 1));
-        panel.add(button);
-        panel.add(label);
+//        panel = new JPanel();
+//        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+//        panel.setLayout(new GridLayout(0, 1));
+//        panel.add(button);
+//        panel.add(label);
 
-        frame.add(panel, BorderLayout.CENTER);
+//        frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
         frame.setTitle("Wizard Assassin");
+
+        GamePanel gamePanel = new GamePanel();
+        frame.add(gamePanel);
+
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+
+        gamePanel.startGameThread();
+
+
 
     }
 
