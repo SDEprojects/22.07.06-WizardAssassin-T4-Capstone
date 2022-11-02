@@ -1,4 +1,4 @@
-<<<<<<<< HEAD:src/com/wizardassassin/domain/CharacterVerbs.java
+package com.wizardassassin.enums;<<<<<<<< HEAD:src/com/wizardassassin/domain/CharacterVerbs.java
 package com.wizardassassin.domain;
 ========
 package com.company.enums;
