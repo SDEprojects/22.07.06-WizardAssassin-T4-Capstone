@@ -1,6 +1,6 @@
 package com.wizardassassin.gui.tile;
 
-import com.wizardassassin.domain.Game;
+//import com.wizardassassin.domain.Game;
 import com.wizardassassin.gui.screen.GamePanel;
 
 import javax.imageio.ImageIO;

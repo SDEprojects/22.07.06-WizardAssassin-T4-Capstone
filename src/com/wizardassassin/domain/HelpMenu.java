@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-class HelpMenu implements Verbs {
+public class HelpMenu implements Verbs {
     private String purpose;
     private HashSet<String> verbs;
     private String noun;
@@ -63,7 +63,6 @@ class HelpMenu implements Verbs {
         itemList.add(new HelpMenu("Move to new area", Verbs.getMoveActions(), "DIRECTION name", "Go North"));
         itemList.add(new HelpMenu("Interact with Items", Verbs.getItemActions(), "ITEM name", "Use Stick"));
         itemList.add(new HelpMenu("Interact with com.company.models.Characters", Verbs.getCharacterActions(), "CHARACTER name", "Talk Queen"));
-        itemList.add(new HelpMenu("Interact with Area", Verbs.getAreaActions(), "OBJECT name", "Exa Window"));
         return itemList;
     }
 }
