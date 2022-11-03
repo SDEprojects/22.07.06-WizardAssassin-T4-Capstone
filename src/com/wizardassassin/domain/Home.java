@@ -2,7 +2,6 @@ package com.wizardassassin.domain;
 
 import com.apps.util.Console;
 import com.google.gson.Gson;
-import com.wizardassassin.domain.Game;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -51,7 +50,7 @@ public class Home {
         if (start.equals("yes") || start.equals("y")) {
 
             Console.clear();
-            newGame.chooseLocation();
+            newGame.playGame();
         } else if (start.equals("no") || start.equals("n")) {
             System.out.println("Thank you for playing");
             System.exit(0);

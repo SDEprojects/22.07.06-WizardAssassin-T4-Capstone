@@ -38,9 +38,12 @@ public class Location {
         this.items = items;
     }
     public void printDirections(Location currentLocation) {
-        System.out.println("\nFrom the " + currentLocation.getName() + " you can go to the: ");
-        for (Map.Entry<String, String> direction : currentLocation.getDirections().entrySet())
-            System.out.println("     " + direction.getKey() + ": " + direction.getValue());
+        if(!currentLocation.getDirections().isEmpty()) {
+            System.out.println("\n\nFrom the " + currentLocation.getName() + " you can go to the:");
+            for (Map.Entry<String, String> direction : currentLocation.getDirections().entrySet()) {
+                System.out.printf("       \u001B[31m %s: %s \u001B[0m%n", direction.getKey(), direction.getValue());
+            }
+        }
     }
 
     public String getName() {
