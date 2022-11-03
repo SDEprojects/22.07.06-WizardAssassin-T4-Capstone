@@ -1,45 +1,81 @@
 package com.wizardassassin.gui.screen;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI implements ActionListener {
+public class GUI  {
 
    private int count = 0;
-   private JLabel label;
+   private JLabel label, titleLabel;
    private JFrame frame;
-   private JButton button;
-
-    public GUI() {
-
-        frame = new JFrame();
-
-        button = new JButton("Click Me If You Are A Badass Wizard Assassin");
-        button.addActionListener(this);
-        label = new JLabel("Number of Wizards Killed: 0");
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setTitle("Wizard Assassin");
-
-        GamePanel gamePanel = new GamePanel();
-        frame.add(gamePanel);
-
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-
-        gamePanel.startGameThread();
-    }
+   Container con;
+   JButton startButton,QuitButton;
+   TitleScreenHandler tsHandler = new TitleScreenHandler();
 
     public static void main(String[] args) {
         new GUI();
+
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        count++;
-        label.setText("Number of Wizards You Have Killed: " + count);
+    public GUI() {
+       frame = new JFrame();
+
+       titleLabel = new JLabel();
+       titleLabel.setText("WIZARD ASSASSIN");
+       titleLabel.setVerticalAlignment(JLabel.TOP);
+       titleLabel.setHorizontalAlignment(JLabel.CENTER);
+       titleLabel.setForeground(Color.RED);
+       titleLabel.setFont(new Font("papyrus", Font.BOLD, 50));
+
+       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       frame.setResizable(false);
+       frame.setTitle("Wizard Assassin");
+       frame.setResizable(false);
+       frame.setSize(850, 600);
+       frame.setVisible(true);
+       frame.add(titleLabel);
+       con = frame.getContentPane();
+       //ImageIcon image = new ImageIcon("resources/logo.png");
+       // frame.setIconImage(image.getImage());
+       frame.getContentPane().setBackground(Color.BLACK);
+
+       startButton = new JButton("Start");
+       QuitButton = new JButton("Quit");
+       //Buttons
+       startButton.setBounds(350, 400, 80, 35);
+       startButton.setBackground(Color.BLACK);
+       startButton.setForeground(Color.RED);
+       con.add(startButton);
+       startButton.addActionListener(tsHandler);
+
+       QuitButton.setBounds(450, 400, 80, 35);
+       QuitButton.setBackground(Color.BLACK);
+       QuitButton.setForeground(Color.RED);
+       con.add(QuitButton);
+   }
+
+        public void nextLevel(){
+
+           GamePanel gamePanel = new GamePanel();
+           frame.add(gamePanel);
+
+           frame.pack();
+           frame.setLocationRelativeTo(null);
+           frame.setVisible(true);
+
+           gamePanel.startGameThread();
+
+       }
+
+       public class  TitleScreenHandler implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e){
+            nextLevel();
+
+        }
     }
+
 }
+
