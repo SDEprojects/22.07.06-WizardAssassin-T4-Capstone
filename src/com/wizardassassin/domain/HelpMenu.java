@@ -63,7 +63,6 @@ public class HelpMenu implements Verbs {
         itemList.add(new HelpMenu("Move to new area", Verbs.getMoveActions(), "DIRECTION name", "Go North"));
         itemList.add(new HelpMenu("Interact with Items", Verbs.getItemActions(), "ITEM name", "Use Stick"));
         itemList.add(new HelpMenu("Interact with com.company.models.Characters", Verbs.getCharacterActions(), "CHARACTER name", "Talk Queen"));
-//        itemList.add(new HelpMenu("Interact with Area", Verbs.getAreaActions(), "OBJECT name", "Exa Window"));
         return itemList;
     }
 }

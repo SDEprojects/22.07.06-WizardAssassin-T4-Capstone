@@ -13,6 +13,7 @@ import com.wizardassassin.domain.*;
 
 public class Game implements Verbs {
     private final Items items = new Items();
+    Characters characters = new Characters();
     private final Location location = new Location();
     private final Location obj = makeObj();
     private final Location inventory = obj.getLocations().get(13);
@@ -34,8 +35,8 @@ public class Game implements Verbs {
     }
 
     public void playGame() throws IOException {
-        Characters object = getCharacterData();
-        Map<String, String> characterQuotes = getQuotes(object);
+        Characters object = characters.getCharacterData();
+        Map<String, String> characterQuotes = characters.getQuotes(object);
         while (true) {
             gameState(object, characterQuotes);
             playerActions(object, characterQuotes);
@@ -64,7 +65,7 @@ public class Game implements Verbs {
         System.out.println("\033[36m What would you like to do now?\033[0m\n\033[90mEnter 'quit' to exit game.\nEnter 'view' to see the map.\nEnter 'help' for list of valid commands.\nEnter 'inventory' to list all your items.\033[0m");
 
     }
-
+    // Parses User input for appropriate action paths
     private void playerActions(Characters object,Map<String, String> characterQuotes) throws IOException {
         String userInput = inputScanner.nextLine().trim().toLowerCase();
         String[] parseInput = userInput.split(" ");
@@ -87,30 +88,12 @@ public class Game implements Verbs {
             else if (Verbs.getCharacterActions().contains(inputVerb)) {
                 handleCharacters(inputVerb, inputNoun, userInput, object, characterQuotes);
             }
-//            else if (Verbs.getAreaActions().contains(inputVerb)) {
-//                System.out.println("This VERB is for area interactions");
-//            } else {
-//                System.out.println("I do not understand " + userInput.toUpperCase() + ". Format command as 'VERB<space>NOUN' or 'quit' or 'view' or 'help' or 'inventory'");
-//            }
         } else {
             System.out.println("I do not understand " + userInput.toUpperCase() + ". Format command as 'VERB<space>NOUN' or 'quit' or 'view' or 'help' or 'inventory'");
         }
     }
 
-    private Characters getCharacterData() throws IOException {
-        Gson gson = new Gson();
-        Reader read = Files.newBufferedReader(Paths.get("./resources/characters.json"));
-        Characters object = gson.fromJson(read, Characters.class);
-        return object;
-    }
 
-    private Map<String, String> getQuotes(Characters object) {
-        Map<String, String> characterQuotes = new HashMap<>();
-        for (Characters extraCharacters : object.getCharacters()) {
-            characterQuotes.put(extraCharacters.getName().toLowerCase(), extraCharacters.getQuote());
-        }
-        return characterQuotes;
-    }
 
     private void handleMovement(String inputNoun) {
         if (getCurrentLocation().getDirections().get(inputNoun) != null) {

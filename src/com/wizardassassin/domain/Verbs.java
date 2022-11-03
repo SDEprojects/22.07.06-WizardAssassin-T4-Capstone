@@ -2,7 +2,6 @@ package com.wizardassassin.domain;
 
 
 
-import com.wizardassassin.enums.AreaVerbs;
 import com.wizardassassin.enums.CharacterVerbs;
 import com.wizardassassin.enums.ItemVerbs;
 import com.wizardassassin.enums.MoveVerbs;
@@ -44,15 +43,4 @@ public interface Verbs {
 
         return characterVerbs;
     }
-
-//    static HashSet<String> getAreaActions() {
-//        HashSet<String> areaVerbs = new HashSet<>();
-//
-//        for(AreaVerbs verb : AreaVerbs.values()) {
-//            String lowerName = verb.name().toLowerCase();
-//            areaVerbs.add(lowerName);
-//        }
-//
-//        return areaVerbs;
-//    }
 }
