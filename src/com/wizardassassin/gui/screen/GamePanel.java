@@ -1,6 +1,7 @@
 package com.wizardassassin.gui.screen;
 
 import com.wizardassassin.gui.characters.Player;
+import com.wizardassassin.gui.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,14 +14,15 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3; // scaling for tile size, 16x3 = 48x48
 
     public final int tileSize = originalTileSize * scale; // 48x48 tile
-    final int maxScreenCol = 16; // 16 columns of tiles
-    final int maxScreenRow = 12; // 12 rows of tiles
-    final int screenWidth = tileSize * maxScreenCol; // 768 pixels
-    final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    public final int maxScreenCol = 24; // 16 columns of tiles
+    public final int maxScreenRow = 18; // 12 rows of tiles
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     // FPS
     int FPS = 60;
 
+    TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
@@ -84,19 +86,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
 
         player.update();
-
-//        if(keyH.upPressed) { // X values increase to the right, Y values increase as they go down
-//            playerY -= playerSpeed;
-//        }
-//        else if (keyH.downPressed) {
-//            playerY += playerSpeed;
-//        }
-//        else if (keyH.leftPressed) {
-//            playerX -= playerSpeed;
-//        }
-//        else if (keyH.rightPressed) {
-//            playerX += playerSpeed;
-//        }
     }
 
     public void paintComponent(Graphics g) {
@@ -105,9 +94,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D)g; // change Graphics g to Graphics 2D
 
-//        g2.setColor(Color.white);
-//
-//        g2.fillRect(playerX, playerY, tileSize, tileSize); // (x, y, width, height)
+        tileM.draw(g2);
+
         player.draw(g2);
 
         g2.dispose(); // dispose of this graphics context

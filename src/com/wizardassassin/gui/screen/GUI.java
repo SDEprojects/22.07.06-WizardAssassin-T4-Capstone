@@ -31,9 +31,6 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
 
         gamePanel.startGameThread();
-
-
-
     }
 
     public static void main(String[] args) {
