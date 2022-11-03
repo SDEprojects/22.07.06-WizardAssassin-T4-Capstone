@@ -2,7 +2,8 @@ package com.wizardassassin.domain;
 
 import java.util.*;
 
-class Data {
+public class Location {
+
     List<Location> locations;
 
     public List<Location> getLocations() {
@@ -20,19 +21,29 @@ class Data {
             }
         return null; // ThisLocationNotFoundException()
     }
-}
-class Location {
 
     public String name;
     public String description;
     Map<String, String> directions;
     public String [] items;
 
+    public Location() {
+
+    }
+
     public Location(String name, String description, Map<String, String> directions, String[] items) {
         this.name = name;
         this.description = description;
         this.directions = directions;
         this.items = items;
+    }
+    public void printDirections(Location currentLocation) {
+        if(!currentLocation.getDirections().isEmpty()) {
+            System.out.println("\n\nFrom the " + currentLocation.getName() + " you can go to the:");
+            for (Map.Entry<String, String> direction : currentLocation.getDirections().entrySet()) {
+                System.out.printf("       \u001B[31m %s: %s \u001B[0m%n", direction.getKey(), direction.getValue());
+            }
+        }
     }
 
     public String getName() {

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 class Inventory {
-    public void add(Data masterObj) throws IOException {
+    public void add(Location masterObj) throws IOException {
 
         String getItem = "Stick";
         Location currentLocation = masterObj.getLocations().get(0);
