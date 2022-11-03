@@ -6,23 +6,23 @@ import com.wizardassassin.gui.screen.GamePanel;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 public class TileManager {
 
     GamePanel gp;
     Tile[] tile;
+    int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
 
         this.gp = gp;
 
         tile = new Tile[10];
+        mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
 
         getTileImage();
+        loadMap();
     }
 
     public void getTileImage() {
@@ -34,12 +34,49 @@ public class TileManager {
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
 
+            tile[1] = new Tile();
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         System.out.println("Tile image loaded...");
 
+    }
+
+    public void loadMap() {
+
+        try {
+            InputStream inputStream = getClass().getResourceAsStream("/maps/map01.txt");
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+            int col = 0;
+            int row = 0;
+
+            while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
+
+                String line = bufferedReader.readLine();
+
+                while (col < gp.maxScreenCol) {
+
+                    String numbers[] = line.split(" ");
+
+                    int num = Integer.parseInt(numbers[col]);
+
+                    mapTileNum[col][row] = num;
+                    col++;
+                }
+                if (col == gp.maxScreenCol) {
+                    col = 0;
+                    row++;
+                }
+
+            }
+            bufferedReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -51,15 +88,17 @@ public class TileManager {
 
         while (col < gp.maxScreenCol && row < gp.maxScreenRow) {
 
-            g2.drawImage(tile[0].image, x, y, gp.tileSize, gp.tileSize, null);
-            col++;
-            x+= gp.tileSize;
+            int tileNum = mapTileNum[col][row];
 
-            if(col == gp.maxScreenCol) {
+            g2.drawImage(tile[tileNum].image, x, y, gp.tileSize, gp.tileSize, null);
+            col++;
+            x += gp.tileSize;
+
+            if (col == gp.maxScreenCol) {
                 col = 0;
-                x= 0;
+                x = 0;
                 row++;
-                y+= gp.tileSize;
+                y += gp.tileSize;
             }
         }
 
