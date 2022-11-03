@@ -1,3 +1,6 @@
+package com.wizardassassin.enums;
+
+
 public enum MoveVerbs {
     MOVE("move"),
     GO("go");

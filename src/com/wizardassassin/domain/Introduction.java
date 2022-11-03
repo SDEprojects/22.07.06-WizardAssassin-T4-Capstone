@@ -1,3 +1,5 @@
+package com.wizardassassin.domain;
+
 class Introduction {
 
     public String introduction;

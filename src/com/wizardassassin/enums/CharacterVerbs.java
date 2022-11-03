@@ -1,3 +1,6 @@
+package com.wizardassassin.enums;
+
+
 public enum CharacterVerbs {
     TALK("talk"),
     FIGHT("fight");
