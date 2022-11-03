@@ -1,4 +1,4 @@
-package com.wizardassassin.domain;
+package com.wizardassassin.controller;
 
 
 import java.io.IOException;
@@ -9,6 +9,7 @@ import java.util.*;
 
 import com.apps.util.Console;
 import com.google.gson.Gson;
+import com.wizardassassin.domain.*;
 
 public class Game implements Verbs {
     private final Items items = new Items();
@@ -224,9 +225,7 @@ public class Game implements Verbs {
             int characterIndex= npcNames.indexOf(inputNoun);
             object.getCharacters().remove(characterIndex);
             npcNames.remove(inputNoun);
-            if(!npcNames.isEmpty() || inputNoun.equals("rat")) {
-                System.out.printf("You stab \033[91m%s\033[0m in the heart and they die.\n Miraculously, no one notices.%n", inputNoun.toUpperCase());
-            } else {
+            if(!npcNames.isEmpty() || !inputNoun.equals("rat")) {
                 System.out.println("You've been found out!");
                 System.out.println("Should've listened to the Queen and not gone on that killing spree... You lose");
                 System.out.println("\033[91mG\033[0m\033[30mA\033[0m\033[91mM\033[0m\033[30mE\033[0m \033[91mO\033[0m\033[30mV\033[0m\033[91mE\033[0m\033[30mR\033[0m!");

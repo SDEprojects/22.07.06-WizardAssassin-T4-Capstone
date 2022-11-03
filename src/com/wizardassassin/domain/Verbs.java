@@ -45,14 +45,14 @@ public interface Verbs {
         return characterVerbs;
     }
 
-    static HashSet<String> getAreaActions() {
-        HashSet<String> areaVerbs = new HashSet<>();
-
-        for(AreaVerbs verb : AreaVerbs.values()) {
-            String lowerName = verb.name().toLowerCase();
-            areaVerbs.add(lowerName);
-        }
-
-        return areaVerbs;
-    }
+//    static HashSet<String> getAreaActions() {
+//        HashSet<String> areaVerbs = new HashSet<>();
+//
+//        for(AreaVerbs verb : AreaVerbs.values()) {
+//            String lowerName = verb.name().toLowerCase();
+//            areaVerbs.add(lowerName);
+//        }
+//
+//        return areaVerbs;
+//    }
 }

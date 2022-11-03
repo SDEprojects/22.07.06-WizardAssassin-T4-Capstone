@@ -2,6 +2,7 @@ package com.wizardassassin.domain;
 
 import com.apps.util.Console;
 import com.google.gson.Gson;
+import com.wizardassassin.controller.Game;
 
 import java.io.IOException;
 import java.io.Reader;

@@ -2,7 +2,7 @@ package com.wizardassassin.domain;
 
 import java.util.List;
 
-class Characters {
+public class Characters {
     List<Characters> characters;
 
     public Characters(List<Characters> characters) {

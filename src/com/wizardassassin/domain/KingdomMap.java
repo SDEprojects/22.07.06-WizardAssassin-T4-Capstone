@@ -2,7 +2,7 @@ package com.wizardassassin.domain;
 
 import java.util.*;
 
-class KingdomMap {
+public class KingdomMap {
     private String[][] kingdomMap;
 
     public KingdomMap(String[][] kingdomMap) {
