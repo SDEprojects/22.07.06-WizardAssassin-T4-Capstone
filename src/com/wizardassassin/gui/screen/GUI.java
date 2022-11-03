@@ -56,18 +56,22 @@ public class GUI  {
        con.add(QuitButton);
    }
 
-        public void nextLevel(){
 
-           GamePanel gamePanel = new GamePanel();
-           frame.add(gamePanel);
+      public void nextLevel(){
 
-           frame.pack();
-           frame.setLocationRelativeTo(null);
-           frame.setVisible(true);
+        titleLabel.setVisible(false);
+        startButton.setVisible(false);
+        QuitButton.setVisible(false);
+        GamePanel gamePanel = new GamePanel();
+        frame.add(gamePanel);
 
-           gamePanel.startGameThread();
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
-       }
+        gamePanel.startGameThread();
+
+      }
 
        public class  TitleScreenHandler implements ActionListener {
         @Override
@@ -75,7 +79,7 @@ public class GUI  {
             nextLevel();
 
         }
-    }
+       }
 
 }
 
