@@ -9,7 +9,6 @@ import java.awt.*;
 public class GamePanel extends JPanel implements Runnable {
 
     // Screen Settings
-
     final int originalTileSize = 16; // 16x16 tile, default size of player characters
     final int scale = 3; // scaling for tile size, 16x3 = 48x48
 
@@ -50,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        double drawInterval = 1000000000/FPS; // 0.01666 seconds
+        double drawInterval = 1000000000 / FPS; // 0.01666 seconds
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -59,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // every loop, add the passed time / drawInterval to delta. when delta reaches drawInterval then update and
         // repaint, then reset delta
-        while(gameThread != null) {
+        while (gameThread != null) {
 
             // check current time
             currentTime = System.nanoTime();
@@ -69,20 +68,20 @@ public class GamePanel extends JPanel implements Runnable {
             timer += (currentTime - lastTime);
             lastTime = currentTime;
 
-            if(delta > 1) {
+            if (delta > 1) {
                 update();
                 repaint();
                 delta--;
                 drawCount++;
             }
 
-            if(timer >= 1000000000) {
-                System.out.println("FPS: " + drawCount); // game is drawing at 60 FPS
+            if (timer >= 1000000000) {
                 drawCount = 0;
                 timer = 0;
             }
         }
     }
+
     public void update() {
 
         player.update();
@@ -92,7 +91,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D)g; // change Graphics g to Graphics 2D
+        Graphics2D g2 = (Graphics2D) g; // change Graphics g to Graphics 2D
 
         tileM.draw(g2);
 

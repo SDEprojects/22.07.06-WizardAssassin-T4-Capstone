@@ -9,9 +9,7 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
-
     // event when pressing key
     @Override
     public void keyPressed(KeyEvent e) {
