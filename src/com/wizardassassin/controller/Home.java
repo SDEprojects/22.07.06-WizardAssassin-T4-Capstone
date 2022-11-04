@@ -1,12 +1,14 @@
-package com.wizardassassin.domain;
+package com.wizardassassin.controller;
 
 import com.apps.util.Console;
 import com.google.gson.Gson;
-import com.wizardassassin.controller.Game;
+import com.wizardassassin.model.Introduction;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,24 +19,32 @@ public class Home {
     private Scanner inputScanner = new Scanner(System.in);
     Game newGame = new Game();
 
-    public Home() throws IOException {
+    public Home() throws IOException, URISyntaxException {
     }
 
-    public void execute() throws IOException {
+    public void execute() throws IOException, URISyntaxException {
         title();
         gameObjective();
         beginGame();
     }
 
-    private void title() throws IOException {
+    private void title() throws IOException, URISyntaxException {
         System.out.println();
-        System.out.println("\033[35m" + Files.readString(Path.of("./resources/welcome.txt")) + "\033[0m");
+        ClassLoader loader = getClass().getClassLoader();
+        URI uri = loader.getResource("welcome.txt").toURI();
+        String welcome = Files.readString(Path.of(uri));
+        System.out.println("\033[35m" + welcome + "\033[0m");
+
+        // *** Avoid the below method ***
+//        System.out.println("\033[35m" + Files.readString(Path.of("./resources/welcome.txt")) + "\033[0m");
         System.out.println();
     }
 
-    private void gameObjective() throws IOException {
+    private void gameObjective() throws IOException, URISyntaxException {
         Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(Paths.get("./resources/introduction.json"));
+        ClassLoader loader = getClass().getClassLoader();
+        URI uri = loader.getResource("introduction.json").toURI();
+        String reader = Files.readString(Path.of(uri));
         Introduction obj = gson.fromJson(reader, (Type) Introduction.class);
         String gameIntro = obj.getIntroduction();
         String gameObj = obj.getObjective();
@@ -43,7 +53,7 @@ public class Home {
         System.out.println();
     }
 
-    private void beginGame() throws IOException {
+    private void beginGame() throws IOException, URISyntaxException {
         String start;
 
         System.out.println("\033[35m" + "Do you want to start the game? yes | no" + "\033[0m");

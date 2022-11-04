@@ -1,16 +1,20 @@
-package com.wizardassassin.domain;
+package com.wizardassassin.model;
+
+import com.wizardassassin.controller.CharacterVerbs;
+import com.wizardassassin.controller.ItemVerbs;
+import com.wizardassassin.controller.MoveVerbs;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class HelpMenu implements Verbs {
+public class HelpMenu {
     private String purpose;
-    private HashSet<String> verbs;
+    private Set<String> verbs;
     private String noun;
     private String example;
 
-    public HelpMenu(String purpose, HashSet<String> verbs, String noun, String example) {
+    public HelpMenu(String purpose, Set<String> verbs, String noun, String example) {
         this.setPurpose(purpose);
         this.setVerbs(verbs);
         this.setNoun(noun);
@@ -26,11 +30,11 @@ public class HelpMenu implements Verbs {
         this.purpose = purpose;
     }
 
-    public HashSet<String> getVerbs() {
+    public Set<String> getVerbs() {
         return verbs;
     }
 
-    public void setVerbs(HashSet<String> verbs) {
+    public void setVerbs(Set<String> verbs) {
         this.verbs = verbs;
     }
 
@@ -60,9 +64,9 @@ public class HelpMenu implements Verbs {
 
     public static List<HelpMenu> buildMenu() {
         List<HelpMenu> itemList = new ArrayList<>();
-        itemList.add(new HelpMenu("Move to new area", Verbs.getMoveActions(), "DIRECTION name", "Go North"));
-        itemList.add(new HelpMenu("Interact with Items", Verbs.getItemActions(), "ITEM name", "Use Stick"));
-        itemList.add(new HelpMenu("Interact with com.company.models.Characters", Verbs.getCharacterActions(), "CHARACTER name", "Talk Queen"));
+        itemList.add(new HelpMenu("Move to new area", MoveVerbs.set(), "DIRECTION name", "Go North"));
+        itemList.add(new HelpMenu("Interact with Items", ItemVerbs.set(), "ITEM name", "Use Stick"));
+        itemList.add(new HelpMenu("Interact with com.company.models.Characters", CharacterVerbs.set(), "CHARACTER name", "Talk Queen"));
         return itemList;
     }
 }

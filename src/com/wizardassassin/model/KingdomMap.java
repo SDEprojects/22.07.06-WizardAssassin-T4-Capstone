@@ -1,4 +1,4 @@
-package com.wizardassassin.domain;
+package com.wizardassassin.model;
 
 import java.util.*;
 

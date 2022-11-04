@@ -1,6 +1,6 @@
-package com.wizardassassin.domain;
+package com.wizardassassin.model;
 
-class Introduction {
+public class Introduction {
 
     public String introduction;
     public String objective;
