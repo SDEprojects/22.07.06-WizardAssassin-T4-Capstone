@@ -5,13 +5,11 @@ import com.google.gson.Gson;
 import com.wizardassassin.model.Introduction;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Home {
@@ -40,7 +38,7 @@ public class Home {
         System.out.println();
     }
 
-    private void gameObjective() throws IOException, URISyntaxException {
+    public String gameObjective() throws IOException, URISyntaxException {
         Gson gson = new Gson();
         ClassLoader loader = getClass().getClassLoader();
         URI uri = loader.getResource("introduction.json").toURI();
@@ -49,8 +47,10 @@ public class Home {
         String gameIntro = obj.getIntroduction();
         String gameObj = obj.getObjective();
         String gameWin = obj.getWin();
-        System.out.println("\033[35m" + gameIntro + "\n" + gameObj + "\n" + gameWin + "\033[0m");
-        System.out.println();
+
+//        System.out.println("\033[35m" + gameIntro + "\n" + gameObj + "\n" + gameWin + "\033[0m");
+//        System.out.println();
+        return "\033[35m" + gameIntro + "\n" + gameObj + "\n" + gameWin + "\033[0m";
     }
 
     private void beginGame() throws IOException, URISyntaxException {
