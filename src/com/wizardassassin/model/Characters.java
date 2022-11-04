@@ -1,10 +1,13 @@
-package com.wizardassassin.domain;
+package com.wizardassassin.model;
 
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
@@ -48,11 +51,12 @@ public class Characters {
     }
 
     // Retrieves character data from json
-    public Characters getCharacterData() throws IOException {
+    public Characters getCharacterData() throws IOException, URISyntaxException {
         Gson gson = new Gson();
-        Reader read = Files.newBufferedReader(Paths.get("./resources/characters.json"));
-        Characters object = gson.fromJson(read, Characters.class);
-        return object;
+        ClassLoader loader = getClass().getClassLoader();
+        URI uri = loader.getResource("characters.json").toURI();
+        String read = Files.readString(Path.of(uri));
+        return gson.fromJson(read, Characters.class);
     }
 
     // extracts character quotes from json data

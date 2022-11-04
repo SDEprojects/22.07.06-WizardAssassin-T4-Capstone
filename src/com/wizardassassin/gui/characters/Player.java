@@ -30,6 +30,7 @@ public class Player extends Character{
         direction = "down";
     }
     public void getPlayerImage() {
+        // use getClass().getClassLoader().getResourcesAsStream(should not begin with opening slash)
         try {
             up1 = ImageIO.read((getClass().getResourceAsStream("/player/boy_up_1.png")));
             up2 = ImageIO.read((getClass().getResourceAsStream("/player/boy_up_2.png")));

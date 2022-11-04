@@ -3,15 +3,18 @@ package com.wizardassassin.controller;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
 import com.apps.util.Console;
 import com.google.gson.Gson;
-import com.wizardassassin.domain.*;
+import com.wizardassassin.model.*;
 
-public class Game implements Verbs {
+public class Game {
     private final Items items = new Items();
     Characters characters = new Characters();
     private final Location location = new Location();
@@ -24,17 +27,18 @@ public class Game implements Verbs {
     private String oldLocation = "";
     public List<String> npcNames = new ArrayList<>();
 
-    public Game() throws IOException {
+    public Game() throws IOException, URISyntaxException {
     }
 
-    public Location makeObj() throws IOException {
+    public Location makeObj() throws IOException, URISyntaxException {
         Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(Paths.get("./resources/Location.json"));
-        Location obj = gson.fromJson(reader, Location.class);
-        return obj;
+        ClassLoader loader = getClass().getClassLoader();
+        URI uri = loader.getResource("Location.json").toURI();
+        String reader = Files.readString(Path.of(uri));
+        return gson.fromJson(reader, Location.class);
     }
 
-    public void playGame() throws IOException {
+    public void playGame() throws IOException, URISyntaxException {
         Characters object = characters.getCharacterData();
         Map<String, String> characterQuotes = characters.getQuotes(object);
         while (true) {
@@ -43,7 +47,7 @@ public class Game implements Verbs {
         }
     }
 
-    private void gameState(Characters object, Map<String, String> characterQuotes) throws IOException {
+    private void gameState(Characters object, Map<String, String> characterQuotes) throws IOException, URISyntaxException {
         if (currentLocation.getName().equals("Laboratory") && (inventoryItems.contains("poison"))) {
             System.out.println("\033[36mYou have poisoned the wizard. You return home as a hero who saved your kingdom\033[0m.");
             resetGame();
@@ -66,7 +70,7 @@ public class Game implements Verbs {
 
     }
     // Parses User input for appropriate action paths
-    private void playerActions(Characters object,Map<String, String> characterQuotes) throws IOException {
+    private void playerActions(Characters object,Map<String, String> characterQuotes) throws IOException, URISyntaxException {
         String userInput = inputScanner.nextLine().trim().toLowerCase();
         String[] parseInput = userInput.split(" ");
         handleActions(userInput);
@@ -77,15 +81,15 @@ public class Game implements Verbs {
                 inputNoun = String.format("%s %s", inputNoun, parseInput[2]);
             }
             // Path for movement
-            if (Verbs.getMoveActions().contains(inputVerb)) {
+            if (MoveVerbs.set().contains(inputVerb)) {
                 handleMovement(inputNoun);
             }
             // Path for item actions
-            else if (Verbs.getItemActions().contains(inputVerb)) {
+            else if (ItemVerbs.set().contains(inputVerb)) {
                 handleItems(inputVerb, inputNoun);
             }
             // Path for character actions
-            else if (Verbs.getCharacterActions().contains(inputVerb)) {
+            else if (CharacterVerbs.set().contains(inputVerb)) {
                 handleCharacters(inputVerb, inputNoun, userInput, object, characterQuotes);
             }
         } else {
@@ -178,7 +182,7 @@ public class Game implements Verbs {
         }
     }
 
-    private void handleCharacters(String inputVerb, String inputNoun, String userInput, Characters object, Map<String, String> characterQuotes) throws IOException {
+    private void handleCharacters(String inputVerb, String inputNoun, String userInput, Characters object, Map<String, String> characterQuotes) throws IOException, URISyntaxException {
         if(npcNames.contains(inputNoun)) {
             if(inputVerb.equals("talk")) {
                 handleTalk(inputNoun, userInput, characterQuotes);
@@ -191,7 +195,7 @@ public class Game implements Verbs {
         }
     }
 
-    private void handleFight(Characters object, String inputNoun) throws IOException {
+    private void handleFight(Characters object, String inputNoun) throws IOException, URISyntaxException {
         if(inputNoun.equals("evil wizard")) {
             if(!inventoryItems.contains("knife")) {
                 System.out.println("\033[91mThe Wizard suddenly blasts your head off with a thunder bolt... and you die!\033[0m");
@@ -225,7 +229,7 @@ public class Game implements Verbs {
         }
     }
 
-    private void handleTalk(String inputNoun, String userInput, Map<String, String> characterQuotes) throws IOException {
+    private void handleTalk(String inputNoun, String userInput, Map<String, String> characterQuotes) throws IOException, URISyntaxException {
         if(!inputNoun.equals("queen")) {
             System.out.printf("\u001B[93m%s\u001B[0m: '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
         } else {
@@ -262,7 +266,7 @@ public class Game implements Verbs {
         }
     }
 
-    private void handleActions (String userInput) throws IOException {
+    private void handleActions (String userInput) throws IOException, URISyntaxException {
         if(userInput.equals("quit")) {
             quitGame();
         }
@@ -281,14 +285,14 @@ public class Game implements Verbs {
         }
     }
 
-    private void resetGame() throws IOException {
+    private void resetGame() throws IOException, URISyntaxException {
         Console.pause(2000);
         Console.clear();
         Home app = new Home();
         app.execute();
     }
 
-    private void quitGame() throws IOException {
+    private void quitGame() throws IOException, URISyntaxException {
         System.out.println("Are you sure you want to 'quit'? yes| no");
         String quit = inputScanner.nextLine().trim().toLowerCase();
         if (quit.equals("yes")) {
