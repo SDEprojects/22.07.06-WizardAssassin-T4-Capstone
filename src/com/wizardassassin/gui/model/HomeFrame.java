@@ -1,5 +1,6 @@
 package com.wizardassassin.gui.model;
 
+import com.wizardassassin.controller.Game;
 import com.wizardassassin.controller.Home;
 
 import javax.swing.*;
@@ -42,7 +43,15 @@ public class HomeFrame {
         startButton.setBounds(350, 400, 80, 35);
         startButton.setBackground(Color.BLACK);
         startButton.setForeground(Color.RED);
-        startButton.addActionListener(e -> startGame(frame, panel));
+        startButton.addActionListener(e -> {
+            try {
+                startGame(frame, panel);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         quitButton.setBounds(450, 400, 80, 35);
         quitButton.setBackground(Color.BLACK);
@@ -58,7 +67,7 @@ public class HomeFrame {
         frame.setVisible(true);
     }
 
-    private void startGame(JFrame frame, JPanel panel) {
+    private void startGame(JFrame frame, JPanel panel) throws IOException, URISyntaxException {
         panel.setVisible(false);
         new GameFrame(frame);
     }
