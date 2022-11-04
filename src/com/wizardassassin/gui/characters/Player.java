@@ -13,11 +13,6 @@ public class Player extends Character{
 
     GamePanel gp;
     KeyHandler keyH;
-//    public File readImage(String file) {
-//        String path = String.format("res/%s", file);
-//        return null;
-//    }
-
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -35,30 +30,7 @@ public class Player extends Character{
         direction = "down";
     }
     public void getPlayerImage() {
-
-        System.out.println("Image loading started...");
-
         try {
-
-
-//            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("resources/playerImages/boy_up_1.png")));
-//            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("resources/playerImages/boy_up_2.png")));
-//            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("resources/playerImages/boy_down_1.png")));
-//            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("resources/playerImages/boy_down_2.png")));
-//            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("resources/playerImages/boy_left_1.png")));
-//            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("resources/playerImages/boy_left_2.png")));
-//            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("resources/playerImages/boy_right_1.png")));
-//            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("resources/playerImages/boy_right_2.png")));
-
-//            up1 = ImageIO.read((readImage("boy_up_1.png")));
-//            up2 = ImageIO.read((readImage("boy_up_2.png")));
-//            down1 = ImageIO.read((readImage("boy_down_1.png")));
-//            down2 = ImageIO.read((readImage("boy_down_2.png")));
-//            left1 = ImageIO.read((readImage("boy_left_1.png")));
-//            left2 = ImageIO.read((readImage("boy_left_2.png")));
-//            right1 = ImageIO.read((readImage("boy_right_1.png")));
-//            right2 = ImageIO.read((readImage("boy_right_2.png")));
-
             up1 = ImageIO.read((getClass().getResourceAsStream("/player/boy_up_1.png")));
             up2 = ImageIO.read((getClass().getResourceAsStream("/player/boy_up_2.png")));
             down1 = ImageIO.read((getClass().getResourceAsStream("/player/boy_down_1.png")));
@@ -67,23 +39,9 @@ public class Player extends Character{
             left2 = ImageIO.read((getClass().getResourceAsStream("/player/boy_left_2.png")));
             right1 = ImageIO.read((getClass().getResourceAsStream("/player/boy_right_1.png")));
             right2 = ImageIO.read((getClass().getResourceAsStream("/player/boy_right_2.png")));
-
-//            up1 = ImageIO.read((getClass().getResourceAsStream(("./resources/guiPlayer/boy_up_1.png"))));
-//            up2 = ImageIO.read((getClass().getResourceAsStream("./resources/guiPlayer/boy_up_2.png")));
-//            down1 = ImageIO.read((getClass().getResourceAsStream("./resources/guiPlayer/boy_down_1.png")));
-//            down2 = ImageIO.read((getClass().getResourceAsStream("./resources/guiPlayer/boy_down_2.png")));
-//            left1 = ImageIO.read((getClass().getResourceAsStream("./resources/guiPlayer/boy_left_1.png")));
-//            left2 = ImageIO.read((getClass().getResourceAsStream("./resources/guiPlayer/boy_left_2.png")));
-//            right1 = ImageIO.read((getClass().getResourceAsStream("./resources/guiPlayer/boy_right_1.png")));
-//            right2 = ImageIO.read((getClass().getResourceAsStream("./resources/guiPlayer/boy_right_2.png")));
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Image loading ended...");
     }
     public void update() { // gets called 60x per second -- updating at 60 FPS
 
@@ -119,10 +77,6 @@ public class Player extends Character{
     }
 
     public void draw(Graphics2D g2){
-
-//        g2.setColor(Color.white);
-//
-//        g2.fillRect(x, y, gp.tileSize, gp.tileSize); // (x, y, width, height)
 
         BufferedImage image = null;
 
@@ -162,8 +116,5 @@ public class Player extends Character{
             }
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null); // image img, int x, int y, int width, int height,
         // ImageObserver observer
-
     }
-
-
 }

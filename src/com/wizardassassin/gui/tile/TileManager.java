@@ -5,7 +5,6 @@ import com.wizardassassin.gui.screen.GamePanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 public class TileManager {
@@ -18,33 +17,66 @@ public class TileManager {
 
         this.gp = gp;
 
-        tile = new Tile[10];
+        tile = new Tile[20];
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
 
         getTileImage();
         loadMap();
     }
-
     public void getTileImage() {
 
-        System.out.println("Loading tile image...");
-
         try {
-
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wall.png"));
 
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tiles/grass.png"));
 
+            tile[2] = new Tile();
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tiles/armory.png"));
+
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tiles/wizardTower.png"));
+
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tiles/church-32-32.png"));
+
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/dungeon.png"));
+
+            tile[6] = new Tile();
+            tile[6].image = ImageIO.read(getClass().getResourceAsStream("/tiles/foyer.png"));
+
+            tile[7] = new Tile();
+            tile[7].image = ImageIO.read(getClass().getResourceAsStream("/tiles/greatHall.png"));
+
+            tile[8] = new Tile();
+            tile[8].image = ImageIO.read(getClass().getResourceAsStream("/tiles/kingChambers.png"));
+
+            tile[9] = new Tile();
+            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/tiles/kitchen.png"));
+
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/tiles/lab.png"));
+
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/tiles/library.png"));
+
+            tile[12] = new Tile();
+            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/tiles/watchtower.png"));
+
+            tile[13] = new Tile();
+            tile[13].image = ImageIO.read(getClass().getResourceAsStream("/tiles/lounge.png"));
+
+            tile[14] = new Tile();
+            tile[14].image = ImageIO.read(getClass().getResourceAsStream("/tiles/door.png"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Tile image loaded...");
-
     }
 
+    // loading map from text file
     public void loadMap() {
 
         try {
@@ -71,14 +103,12 @@ public class TileManager {
                     col = 0;
                     row++;
                 }
-
             }
             bufferedReader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
     public void draw(Graphics2D g2) {
 
         int col = 0;
@@ -101,46 +131,6 @@ public class TileManager {
                 y += gp.tileSize;
             }
         }
-
-//        // Top Row
-//        g2.drawImage(tile[0].image, 0, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 48, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 96, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 144, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 192, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 240, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 288, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 336, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 384, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 432, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 480, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 528, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 576, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 624, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 672, 0, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 720, 0, gp.tileSize, gp.tileSize, null);
-//
-//        // Row 2
-//        g2.drawImage(tile[0].image, 0, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 48, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 96, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 144, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 192, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 240, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 288, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 336, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 384, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 432, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 480, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 528, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 576, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 624, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 672, 48, gp.tileSize, gp.tileSize, null);
-//        g2.drawImage(tile[0].image, 720, 48, gp.tileSize, gp.tileSize, null);
-
-
-//        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null); // image img, int x, int y, int width, int height,
-//        // ImageObserver observer
     }
 
 }
