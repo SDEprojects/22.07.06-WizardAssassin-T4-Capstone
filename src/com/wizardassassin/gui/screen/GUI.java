@@ -7,19 +7,25 @@ import java.awt.event.ActionListener;
 
 public class GUI {
 
-    private int count = 0;
-    private JLabel label, titleLabel;
     private JFrame frame;
+
+    private JLabel titleLabel;
     Container con;
     JButton startButton, QuitButton;
     TitleScreenHandler tsHandler = new TitleScreenHandler();
 
-    public static void main(String[] args) {
-        new GUI();
-    }
+//    public static void main(String[] args) {
+////        new GUI();
+//    }
 
     public GUI() {
         frame = new JFrame();
+        frame.setTitle("Wizard Assassin");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(850, 600);
+        frame.setResizable(false);
+        frame.setVisible(true);
+
 
         titleLabel = new JLabel();
         titleLabel.setText("WIZARD ASSASSIN");
@@ -28,12 +34,6 @@ public class GUI {
         titleLabel.setForeground(Color.RED);
         titleLabel.setFont(new Font("papyrus", Font.BOLD, 50));
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setTitle("Wizard Assassin");
-        frame.setResizable(false);
-        frame.setSize(850, 600);
-        frame.setVisible(true);
         frame.add(titleLabel);
         con = frame.getContentPane();
         frame.getContentPane().setBackground(Color.BLACK);
