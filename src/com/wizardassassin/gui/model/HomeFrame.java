@@ -14,6 +14,7 @@ public class HomeFrame {
         initialize(frame);
     }
 
+
     private void initialize(JFrame frame) throws IOException, URISyntaxException {
         frame.setTitle("Wizard Assassin");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,12 +68,16 @@ public class HomeFrame {
         frame.setVisible(true);
     }
 
+
+
+
     private void startGame(JFrame frame, JPanel panel) throws IOException, URISyntaxException {
+
         panel.setVisible(false);
         new GameFrame(frame);
     }
 
-    private void quitGame(JFrame frame) {
+    public void quitGame(JFrame frame) {
         frame.dispose();
     }
 }

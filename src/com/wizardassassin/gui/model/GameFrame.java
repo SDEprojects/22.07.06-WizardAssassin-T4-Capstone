@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.PrintStream;
+
 import java.net.URISyntaxException;
 
 public class GameFrame {
@@ -29,7 +30,28 @@ public class GameFrame {
         title.setForeground(Color.RED);
         title.setFont(new Font("papyrus", Font.BOLD, 50));
 
-        // Menu
+        //Menu
+        Font f = new Font("sans-serif", Font.PLAIN, 18);
+        UIManager.put("Menu.font",f);
+        UIManager.put("MenuItem.font",f);
+        UIManager.put("CheckBoxMenuItem.font",f);
+        UIManager.put("RadioButtonMenuItem.font",f);
+
+        JMenuBar menuBar = new JMenuBar();
+        JMenu Menu = new JMenu("Menu");
+        JMenuItem quitMenuItem = new JMenuItem("quit");
+        quitMenuItem.addActionListener(e -> frame.dispose());
+
+        JMenuItem helpMenuItem = new JMenuItem("help");
+        //quitMenuItem.addActionListener(e -> ("help"));
+
+        Menu.add(quitMenuItem);
+        Menu.add(helpMenuItem);
+
+        menuBar.add(Menu);
+        frame.setJMenuBar(menuBar);
+
+        panel.add(title);
 
 
         // Dialogue
@@ -47,6 +69,7 @@ public class GameFrame {
         panel.add(textArea);
         printLog();
         frame.add(panel);
+
 
     }
 
@@ -72,5 +95,6 @@ public class GameFrame {
             }
         });
         thread.start();
+
     }
 }
