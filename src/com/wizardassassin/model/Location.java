@@ -30,7 +30,7 @@ public class Location {
         if(!currentLocation.getDirections().isEmpty()) {
             System.out.println("\n\nFrom the " + currentLocation.getName() + " you can go to the:");
             for (Map.Entry<String, String> direction : currentLocation.getDirections().entrySet()) {
-                System.out.printf("       \u001B[31m %s: %s \u001B[0m%n", direction.getKey(), direction.getValue());
+                System.out.printf("       \u001B[31m %s: %s \u001B[0m%n\n", direction.getKey(), direction.getValue());
             }
         }
     }

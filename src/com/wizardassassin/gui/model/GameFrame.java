@@ -63,7 +63,7 @@ public class GameFrame {
                     }
                     try {
                         assert game != null;
-                        game.playGame();
+                        game.playGame(textArea);
                     } catch (IOException | URISyntaxException e) {
                         e.printStackTrace();
                     }

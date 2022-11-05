@@ -37,7 +37,7 @@ public class Items {
 
             // INVENTORY PRINT OUT
             checkInventory(inventoryItems);
-            System.out.printf("You now see these items in the room: \033[32m%s\033[0m", roomItems);
+//            System.out.printf("You now see these items in the room: \033[32m%s\033[0m", roomItems);
             // END of INVENTORY
 
             // NOTE convert roomItems List to array. Update masterObj with changes
