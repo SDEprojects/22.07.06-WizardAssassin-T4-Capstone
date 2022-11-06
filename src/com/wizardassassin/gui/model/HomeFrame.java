@@ -18,7 +18,7 @@ public class HomeFrame {
     private void initialize(JFrame frame) throws IOException, URISyntaxException {
         frame.setTitle("Wizard Assassin");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(850, 600);
+        frame.setSize(950, 700);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
 

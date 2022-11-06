@@ -4,7 +4,6 @@ import com.apps.util.Console;
 import com.google.gson.Gson;
 import com.wizardassassin.model.Introduction;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -62,7 +61,11 @@ public class Home {
         if (start.equals("yes") || start.equals("y")) {
 
             Console.clear();
-            newGame.playGame(null);
+            newGame.playGame(null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null);
         } else if (start.equals("no") || start.equals("n")) {
             System.out.println("Thank you for playing");
             System.exit(0);
