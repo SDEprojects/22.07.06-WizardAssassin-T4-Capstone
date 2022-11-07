@@ -45,6 +45,7 @@ public class Game {
     private JLabel labelInventory;
     private JButton talkButton;
     private JButton getButton;
+    private JButton useButton;
     private String inputGUI;
     private Characters object;
     private Map<String, String> characterQuotes;
@@ -65,7 +66,7 @@ public class Game {
                          JLabel labelNPC, JList listItem, DefaultListModel itemsList,
                          JLabel labelItem, JList listDirection, DefaultListModel directionsList,
                          JLabel labelDirection, JList listInventory, DefaultListModel inventoryList,
-                         JLabel labelInventory, JButton talkButton, JButton getButton) throws IOException, URISyntaxException {
+                         JLabel labelInventory, JButton talkButton, JButton getButton, JButton useButton) throws IOException, URISyntaxException {
         this.panel = panel;
         this.textArea = textArea;
         this.listNPC = listNPC;
@@ -83,6 +84,7 @@ public class Game {
         this.talkButton = talkButton;
         this.getButton = getButton;
         this.inputGUI = inputGUI;
+        this.useButton = useButton;
 
 
         System.out.println("Hello Play Game");
@@ -100,6 +102,15 @@ public class Game {
             getButton.addActionListener(e -> {
                 try {
                     handleEvents(getButton);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            useButton.addActionListener(e -> {
+                try {
+                    handleEvents(useButton);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 } catch (URISyntaxException ex) {
@@ -429,6 +440,10 @@ public class Game {
             } else if (button.equals(getButton)) {
                 System.out.println("Hello Get Button");
                 userInput = "get" + " " + listItem.getSelectedValue();
+            }
+            else if (button.equals(useButton)){
+                System.out.println("Hello Use Button");
+                userInput = "use" + " " + listItem.getSelectedValue();
             }
             playerActions(userInput);
             gameState();
