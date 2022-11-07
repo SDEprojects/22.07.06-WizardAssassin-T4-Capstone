@@ -61,7 +61,11 @@ public class Home {
         if (start.equals("yes") || start.equals("y")) {
 
             Console.clear();
-            newGame.playGame();
+            newGame.playGame(null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null,
+                    null, null, null);
         } else if (start.equals("no") || start.equals("n")) {
             System.out.println("Thank you for playing");
             System.exit(0);
