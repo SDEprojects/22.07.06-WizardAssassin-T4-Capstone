@@ -26,6 +26,7 @@ public class GameFrame {
     private JLabel labelInventory = new JLabel("Inventory:");
     JButton talkButton;
     JButton getButton;
+    JButton useButton;
 
     public GameFrame(JFrame frame) throws IOException, URISyntaxException {
         initialize(frame);
@@ -103,7 +104,7 @@ public class GameFrame {
         JButton goButton = new JButton("GO");
 
         // Use Button
-        JButton useButton = new JButton("USE");
+        useButton = new JButton("USE");
 
 
         // Dialogue Box
@@ -141,7 +142,7 @@ public class GameFrame {
                             listItem, itemsList, labelItem,
                             listDirection, directionsList, labelDirection,
                             listInventory, inventoryList, labelInventory,
-                            talkButton, getButton);
+                            talkButton, getButton, useButton);
                 } catch (IOException | URISyntaxException e) {
                     e.printStackTrace();
                 }
@@ -168,6 +169,9 @@ public class GameFrame {
             System.out.println("Hello Talk Button");
         } else if (button.equals(getButton)) {
             System.out.println("Hello Get Button");
+        }
+        else if(button.equals(useButton)){
+            System.out.println("Hello Use Button");
         }
 //        return userInput;
         System.console().readLine(userInput);
