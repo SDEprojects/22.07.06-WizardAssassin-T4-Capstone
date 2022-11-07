@@ -68,7 +68,6 @@ public class GameFrame {
 
 
         // NPC Box
-
         listNPC = new JList();
         listNPC.setModel(namesListNPC);
 
@@ -87,6 +86,21 @@ public class GameFrame {
         listInventory = new JList();
         listInventory.setModel(inventoryList);
 
+        // Talk Button
+        JButton talkButton = new JButton("TALK");
+
+        // GET Button
+        JButton getButton = new JButton("GET");
+
+        // Fight Button
+        JButton fightButton = new JButton("FIGHT");
+
+        // Go Button
+        JButton goButton = new JButton("GO");
+
+        // Use Button
+        JButton useButton = new JButton("USE");
+
 
         // Dialogue Box
         textArea = new JTextArea(10,50);
@@ -96,6 +110,11 @@ public class GameFrame {
         System.setErr(printStream);
 
         panel.add(title);
+        panel.add(talkButton);
+        panel.add(getButton);
+        panel.add(fightButton);
+        panel.add(goButton);
+        panel.add(useButton);
         panel.add(textArea);
 
         printLog();
