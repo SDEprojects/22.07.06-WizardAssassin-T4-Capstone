@@ -1,7 +1,9 @@
 package com.wizardassassin.controller;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -41,6 +43,11 @@ public class Game {
     private JLabel labelItem;
     private JLabel labelDirection;
     private JLabel labelInventory;
+    private JButton talkButton;
+    private JButton getButton;
+    private String inputGUI;
+    private Characters object;
+    private Map<String, String> characterQuotes;
 
     public Game() throws IOException, URISyntaxException {
     }
@@ -58,7 +65,7 @@ public class Game {
                          JLabel labelNPC, JList listItem, DefaultListModel itemsList,
                          JLabel labelItem, JList listDirection, DefaultListModel directionsList,
                          JLabel labelDirection, JList listInventory, DefaultListModel inventoryList,
-                         JLabel labelInventory) throws IOException, URISyntaxException {
+                         JLabel labelInventory, JButton talkButton, JButton getButton) throws IOException, URISyntaxException {
         this.panel = panel;
         this.textArea = textArea;
         this.listNPC = listNPC;
@@ -73,18 +80,40 @@ public class Game {
         this.labelItem = labelItem;
         this.labelDirection = labelDirection;
         this.labelInventory = labelInventory;
+        this.talkButton = talkButton;
+        this.getButton = getButton;
+        this.inputGUI = inputGUI;
 
 
+        System.out.println("Hello Play Game");
 
-        Characters object = characters.getCharacterData();
-        Map<String, String> characterQuotes = characters.getQuotes(object);
-        while (true) {
-            gameState(object, characterQuotes);
-            playerActions(object, characterQuotes);
-        }
+
+            talkButton.addActionListener(e -> {
+                try {
+                    handleEvents(talkButton);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            getButton.addActionListener(e -> {
+                try {
+                    handleEvents(getButton);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+            });
+//
+        gameLoop();
     }
 
-    private void gameState(Characters object, Map<String, String> characterQuotes) throws IOException, URISyntaxException {
+    private void gameState() throws IOException, URISyntaxException {
+        object = characters.getCharacterData();
+        characterQuotes = characters.getQuotes(object);
+
         if (currentLocation.getName().equals("Laboratory") && (inventoryItems.contains("poison"))) {
             System.out.println("\033[36mYou have poisoned the wizard. You return home as a hero who saved your kingdom\033[0m.");
             resetGame();
@@ -99,6 +128,8 @@ public class Game {
             oldLocation = currentLocation.getName();
         }
 
+
+
         // NPC state
         namesListNPC.clear();
         for (Characters extraCharacters : object.getCharacters()) {
@@ -109,6 +140,7 @@ public class Game {
         }
         panel.add(labelNPC);
         panel.add(listNPC);
+
 
         // Location Item State
         itemsList.clear();
@@ -139,12 +171,13 @@ public class Game {
         panel.add(labelDirection);
         panel.add(listDirection);
 
-        getStatus(object, characterQuotes);
+        getStatus();
     }
 
     // Parses User input for appropriate action paths
-    private void playerActions(Characters object,Map<String, String> characterQuotes) throws IOException, URISyntaxException {
-        String userInput = inputScanner.nextLine().trim().toLowerCase();
+    private void playerActions(String userInput) throws IOException, URISyntaxException {
+//        String userInput = u;
+
         String[] parseInput = userInput.split(" ");
         handleActions(userInput);
         if(parseInput.length == 2 || parseInput.length == 3) {
@@ -169,7 +202,9 @@ public class Game {
             else if (CharacterVerbs.set().contains(inputVerb)) {
                 textArea.setText("");
                 Console.clear();
-                handleCharacters(inputVerb, inputNoun, object, characterQuotes);
+                System.out.println("Verb: " + inputVerb);
+                System.out.println("Noun: " + inputNoun);
+                handleCharacters(inputVerb, inputNoun);
             }
         } else {
             System.out.println("I do not understand " + userInput.toUpperCase() + ". Format command as 'VERB<space>NOUN' or 'quit' or 'view' or 'help' or 'inventory'");
@@ -260,20 +295,22 @@ public class Game {
         }
     }
 
-    private void handleCharacters(String inputVerb, String inputNoun, Characters object, Map<String, String> characterQuotes) throws IOException, URISyntaxException {
-        if(npcNames.contains(inputNoun)) {
+    private void handleCharacters(String inputVerb, String inputNoun) throws IOException, URISyntaxException {
+        System.out.println("NPC Names: " + npcNames);
+        if(npcNames.contains(inputNoun.toLowerCase())) {
             if(inputVerb.equals("talk")) {
-                handleTalk(inputNoun, characterQuotes);
+                System.out.println("Inside talk conditional");
+                handleTalk(inputNoun);
             }
             else if(inputVerb.equals("fight")) {
-                handleFight(object, inputNoun);
+                handleFight(inputNoun);
             }
         } else {
             System.out.printf("There is no \u001B[93m%s\u001B[0m here... You must be seeing ghosts.%n", inputNoun.toUpperCase());
         }
     }
 
-    private void handleFight(Characters object, String inputNoun) throws IOException, URISyntaxException {
+    private void handleFight(String inputNoun) throws IOException, URISyntaxException {
         if(inputNoun.equals("evil wizard")) {
             if(!inventoryItems.contains("knife")) {
                 System.out.println("\033[91mThe Wizard suddenly blasts your head off with a thunder bolt... and you die!\033[0m");
@@ -307,47 +344,35 @@ public class Game {
         }
     }
 
-    private void handleTalk(String inputNoun, Map<String, String> characterQuotes) throws IOException, URISyntaxException {
+    private void handleTalk(String inputNoun) {
+        System.out.println("Inside handleTalk");
         if(!inputNoun.equals("queen")) {
             Console.clear();
             textArea.setText("");
+            System.out.println("Inside handleTalk 1st condition");
             System.out.printf("\u001B[93m%s\u001B[0m: '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
         } else {
             Console.clear();
             textArea.setText("");
+            System.out.println("Inside handleTalk 2nd condition");
             System.out.printf("\u001B[93m%s\u001B[0m: '\033[95m%s\033[0m'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
-            while(true) {
-                System.out.println("Hit 'enter' to continue");
-                String progress = inputScanner.nextLine();
-                if(progress.equals("")) {
-                    Console.clear();
-                    textArea.setText("");
-                    currentLocation = obj.getPickedLocation("Church");
-                }
-                    break;
-                }
 //            while(true) {
-//                System.out.println();
-//                System.out.println("Input 'yes' to continue, 'no' to quit");
-//                String userInput = inputScanner.nextLine().trim().toLowerCase();
-//                if(userInput.equals("yes")) {
+//                System.out.println("Hit 'enter' to continue");
+//                String progress = inputScanner.nextLine();
+//                if(progress.equals("")) {
 //                    Console.clear();
 //                    textArea.setText("");
-//                    currentLocation = obj.getPickedLocation("Church");
+                    currentLocation = obj.getPickedLocation("Church");
+//                }
 //                    break;
 //                }
-//                else if(userInput.equals("no")) {
-//                    quitGame();
-//                }
-//            }
         }
     }
 
 
-    private void getStatus(Characters object, Map<String, String> characterQuotes) {
+    private void getStatus() {
         System.out.println("\n\u001B[35m*********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
         System.out.println(currentLocation.getDescription() + "\n");
-//        System.out.println("You see the following characters: ");
         npcNames.clear();
         for (Characters extraCharacters : object.getCharacters()) {
             if ((currentLocation.getName().equals(extraCharacters.getRoom()))) {
@@ -355,30 +380,15 @@ public class Game {
                 characterQuotes.put(extraCharacters.getName(), extraCharacters.getQuote());
             }
         }
-
-
-//        if(currentLocation.getItem().length > 0) {
-////            System.out.printf("You see these items: \u001B[32m %s \u001B[0m%n",
-////                    Arrays.deepToString(currentLocation.getItem()));
-//        }
-//        if(!currentLocation.getDirections().isEmpty()) {
-////            location.printDirections(currentLocation);
-//        }
-        System.out.println("\033[36m What would you like to do now?" +
-                "\nEnter 'map' to see the map." +
-                "\nEnter 'help' for list of valid commands."
+        System.out.println("\033[36m What would you like to do now?"
+//                "\nEnter 'map' to see the map." +
+//                "\nEnter 'help' for list of valid commands."
         );
 
     }
 
-    private void handleActions (String userInput) throws IOException, URISyntaxException {
+    private void handleActions (String userInput) {
         switch (userInput) {
-//            case "quit":
-//                quitGame();
-//                break;
-//            case "inventory":
-//                items.checkInventory(inventoryItems);
-//                break;
             case "help":
                 Console.clear();
                 textArea.setText("");
@@ -403,18 +413,28 @@ public class Game {
         app.execute();
     }
 
-//    private void quitGame() throws IOException, URISyntaxException {
-//        System.out.println("Are you sure you want to 'quit'? yes| no");
-//        String quit = inputScanner.nextLine().trim().toLowerCase();
-//        if (quit.equals("yes")) {
-//            System.out.println("Thank you for playing");
-//            System.exit(0);
-//        }
-//        else {
-//            System.out.println("\n\u001B[91m*********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
-//            playGame(panel, textArea, listNPC, namesListNPC, );
-//        }
-//    }
+    private void gameLoop() throws IOException, URISyntaxException {
+        gameState();
+        while (true){
+
+        }
+    }
+
+    private void handleEvents(JButton button) throws IOException, URISyntaxException {
+        String userInput = null;
+        while (true) {
+            if (button.equals(talkButton)) {
+                System.out.println("Hello Talk Button");
+                userInput = "talk" + " " + listNPC.getSelectedValue().toString().toLowerCase();
+            } else if (button.equals(getButton)) {
+                System.out.println("Hello Get Button");
+                userInput = "get" + " " + listItem.getSelectedValue();
+            }
+            playerActions(userInput);
+            gameState();
+            break;
+        }
+    }
 
     public Location getObj() {
         return obj;
