@@ -24,6 +24,8 @@ public class GameFrame {
     private JLabel labelItem = new JLabel("Location Items:");
     private JLabel labelDirection = new JLabel("Directions:");
     private JLabel labelInventory = new JLabel("Inventory:");
+    JButton talkButton;
+    JButton getButton;
 
     public GameFrame(JFrame frame) throws IOException, URISyntaxException {
         initialize(frame);
@@ -87,10 +89,12 @@ public class GameFrame {
         listInventory.setModel(inventoryList);
 
         // Talk Button
-        JButton talkButton = new JButton("TALK");
+        talkButton = new JButton("TALK");
+//        talkButton.addActionListener(e -> handleEvents(talkButton));
 
         // GET Button
-        JButton getButton = new JButton("GET");
+        getButton = new JButton("GET");
+//        getButton.addActionListener(e -> handleEvents(getButton));
 
         // Fight Button
         JButton fightButton = new JButton("FIGHT");
@@ -136,7 +140,8 @@ public class GameFrame {
                             listNPC, namesListNPC, labelNPC,
                             listItem, itemsList, labelItem,
                             listDirection, directionsList, labelDirection,
-                            listInventory, inventoryList, labelInventory);
+                            listInventory, inventoryList, labelInventory,
+                            talkButton, getButton);
                 } catch (IOException | URISyntaxException e) {
                     e.printStackTrace();
                 }
@@ -145,5 +150,26 @@ public class GameFrame {
         });
         thread.start();
 
+    }
+
+    private void handleTalkButton(JButton talkButton) {
+//        System.out.println(e);
+        System.out.println("talk" + " " + listNPC.getSelectedValue());
+        System.console().readLine("talk" + " " + listNPC.getSelectedValue());
+
+//        return "GO" + listNPC.getSelectedValue();
+    }
+
+    private void handleEvents(JButton button) {
+        String userInput = null;
+        if (button.equals(talkButton)) {
+            userInput = "talk" + " " + listNPC.getSelectedValue();
+            System.out.println(userInput);
+            System.out.println("Hello Talk Button");
+        } else if (button.equals(getButton)) {
+            System.out.println("Hello Get Button");
+        }
+//        return userInput;
+        System.console().readLine(userInput);
     }
 }
