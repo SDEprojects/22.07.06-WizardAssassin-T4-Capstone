@@ -1,9 +1,7 @@
 package com.wizardassassin.controller;
 
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -45,9 +43,12 @@ public class Game {
     private JLabel labelInventory;
     private JButton talkButton;
     private JButton getButton;
-    private String inputGUI;
+    private JButton fightButton;
+    private JButton goButton;
     private Characters object;
     private Map<String, String> characterQuotes;
+
+
 
     public Game() throws IOException, URISyntaxException {
     }
@@ -65,7 +66,7 @@ public class Game {
                          JLabel labelNPC, JList listItem, DefaultListModel itemsList,
                          JLabel labelItem, JList listDirection, DefaultListModel directionsList,
                          JLabel labelDirection, JList listInventory, DefaultListModel inventoryList,
-                         JLabel labelInventory, JButton talkButton, JButton getButton) throws IOException, URISyntaxException {
+                         JLabel labelInventory, JButton talkButton, JButton getButton, JButton fightButton, JButton goButton) throws IOException, URISyntaxException {
         this.panel = panel;
         this.textArea = textArea;
         this.listNPC = listNPC;
@@ -82,7 +83,8 @@ public class Game {
         this.labelInventory = labelInventory;
         this.talkButton = talkButton;
         this.getButton = getButton;
-        this.inputGUI = inputGUI;
+        this.fightButton = fightButton;
+        this.goButton = goButton;
 
 
         System.out.println("Hello Play Game");
@@ -106,13 +108,31 @@ public class Game {
                     ex.printStackTrace();
                 }
             });
-//
+            fightButton.addActionListener(e -> {
+                try {
+                    handleEvents(fightButton);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            goButton.addActionListener(e -> {
+                try {
+                    handleEvents(goButton);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (URISyntaxException ex) {
+                    ex.printStackTrace();
+                }
+            });
+      object = characters.getCharacterData();
+      characterQuotes = characters.getQuotes(object);
         gameLoop();
     }
 
     private void gameState() throws IOException, URISyntaxException {
-        object = characters.getCharacterData();
-        characterQuotes = characters.getQuotes(object);
+
 
         if (currentLocation.getName().equals("Laboratory") && (inventoryItems.contains("poison"))) {
             System.out.println("\033[36mYou have poisoned the wizard. You return home as a hero who saved your kingdom\033[0m.");
@@ -297,7 +317,7 @@ public class Game {
 
     private void handleCharacters(String inputVerb, String inputNoun) throws IOException, URISyntaxException {
         System.out.println("NPC Names: " + npcNames);
-        if(npcNames.contains(inputNoun.toLowerCase())) {
+        if(npcNames.contains(inputNoun)) {
             if(inputVerb.equals("talk")) {
                 System.out.println("Inside talk conditional");
                 handleTalk(inputNoun);
@@ -424,11 +444,15 @@ public class Game {
         String userInput = null;
         while (true) {
             if (button.equals(talkButton)) {
-                System.out.println("Hello Talk Button");
-                userInput = "talk" + " " + listNPC.getSelectedValue().toString().toLowerCase();
+                userInput = "talk " + listNPC.getSelectedValue().toString().toLowerCase();
             } else if (button.equals(getButton)) {
-                System.out.println("Hello Get Button");
-                userInput = "get" + " " + listItem.getSelectedValue();
+                userInput = "get " + listItem.getSelectedValue();
+            } else if (button.equals(fightButton)) {
+                userInput = "fight " + listNPC.getSelectedValue().toString().toLowerCase();
+            } else if (button.equals(goButton)) {
+                String[] userNoun = listDirection.getSelectedValue().toString().toLowerCase().split(":");
+                System.out.println(userNoun);
+                userInput = "go " + userNoun[0];
             }
             playerActions(userInput);
             gameState();
