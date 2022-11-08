@@ -74,7 +74,7 @@ public class HomeFrame {
     private void startGame(JFrame frame, JPanel panel) throws IOException, URISyntaxException {
 
         panel.setVisible(false);
-        new GameFrame(frame);
+        new GameFrame(frame, panel);
     }
 
     public void quitGame(JFrame frame) {
