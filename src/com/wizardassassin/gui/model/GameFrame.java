@@ -26,6 +26,8 @@ public class GameFrame {
     private JLabel labelInventory = new JLabel("Inventory:");
     JButton talkButton;
     JButton getButton;
+    JButton fightButton;
+    JButton goButton;
     JButton useButton;
 
     public GameFrame(JFrame frame) throws IOException, URISyntaxException {
@@ -75,33 +77,28 @@ public class GameFrame {
         listNPC.setModel(namesListNPC);
 
         // Location Item Box
-//        labelItem = new JLabel("Location Items:");
         listItem = new JList();
         listItem.setModel(itemsList);
 
         // Direction Box
-//        labelDirection = new JLabel("Directions:");
         listDirection = new JList();
         listDirection.setModel(directionsList);
 
         // Inventory Box
-//        labelInventory = new JLabel("Inventory:");
         listInventory = new JList();
         listInventory.setModel(inventoryList);
 
         // Talk Button
         talkButton = new JButton("TALK");
-//        talkButton.addActionListener(e -> handleEvents(talkButton));
 
         // GET Button
         getButton = new JButton("GET");
-//        getButton.addActionListener(e -> handleEvents(getButton));
 
         // Fight Button
-        JButton fightButton = new JButton("FIGHT");
+        fightButton = new JButton("FIGHT");
 
         // Go Button
-        JButton goButton = new JButton("GO");
+        goButton = new JButton("GO");
 
         // Use Button
         useButton = new JButton("USE");
@@ -137,12 +134,13 @@ public class GameFrame {
                 }
                 try {
                     assert game != null;
-                    game.playGame(panel, textArea,
-                            listNPC, namesListNPC, labelNPC,
-                            listItem, itemsList, labelItem,
-                            listDirection, directionsList, labelDirection,
-                            listInventory, inventoryList, labelInventory,
-                            talkButton, getButton, useButton);
+                    game.playGame(panel, textArea, listNPC,
+                            namesListNPC, labelNPC, listItem,
+                            itemsList, labelItem, listDirection,
+                            directionsList, labelDirection, listInventory,
+                            inventoryList, labelInventory, talkButton,
+                            getButton, fightButton, goButton, useButton);
+
                 } catch (IOException | URISyntaxException e) {
                     e.printStackTrace();
                 }
