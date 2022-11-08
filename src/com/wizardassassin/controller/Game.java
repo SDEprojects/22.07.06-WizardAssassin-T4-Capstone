@@ -1,20 +1,19 @@
 package com.wizardassassin.controller;
 
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-
 import com.apps.util.Console;
 import com.google.gson.Gson;
 import com.wizardassassin.model.*;
-
 import javax.swing.*;
+import javax.swing.Timer;
 
 public class Game {
+    Timer timer;
     private final Items items = new Items();
     private final Characters characters = new Characters();
     private final Location locationObj = makeObj();
@@ -159,7 +158,6 @@ public class Game {
         panel.add(labelNPC);
         panel.add(listNPC);
 
-
         // Location Item State
         itemsList.clear();
         for (String item : currentLocation.getItem()) {
@@ -193,13 +191,13 @@ public class Game {
     }
 
     // Parses User input for appropriate action paths
-    private void playerActions(String userInput) throws IOException {
+    private void playerActions(String userInput) {
         System.out.println(userInput);
-        String[] parseInput = userInput.split(" ");
-        handleActions(userInput);
-        if (parseInput.length == 2 || parseInput.length == 3) {
+        String[] parseInput = userInput.toLowerCase().split(" ");
+        System.out.println(parseInput.length);
+        if (parseInput.length >= 2) {
             String inputVerb = parseInput[0];
-            String inputNoun = parseInput[1].toLowerCase();
+            String inputNoun = parseInput[1];
             if (parseInput.length == 3) {
                 inputNoun = String.format("%s %s", inputNoun, parseInput[2]);
             }
@@ -241,7 +239,6 @@ public class Game {
                     setCurrentLocation(getLocationObject().getPickedLocation(locationInput));
                 } else {
                     System.out.println("Guard: Wrong PASSWORD! Get outta here, ya scum!");
-                    System.out.println("\n*********  You remain in the " + getCurrentLocation().getName() + ". *********\n\n");
                 }
             } else if (locationInput.equals("Royal Lounge") && getCurrentLocation().getName().equals("Great Hall") && getCount() == 1) {
                 if (getInventoryItems().contains("tunic") && getInventoryItems().contains("sword")) {
@@ -251,18 +248,15 @@ public class Game {
                     setCurrentLocation(getLocationObject().getPickedLocation(locationInput));
                 } else {
                     System.out.println("Guard: Where do you think you're going? Only knights can pass through here.\nAnd not just any bloak with a Kingdom's TUNIC.\nYou need a SWORD too.");
-                    System.out.println("\n*********  You remain in the " + getCurrentLocation().getName() + ". *********\n\n");
                 }
             } else if (locationInput.equals("Wizard's Foyer") && getCurrentLocation().getName().equals("Great Hall") && getCount() <= 2) {
                 if (getInventoryItems().contains("diamond key")) {
                     System.out.println("Maybe I can USE that DIAMOND KEY on this door.");
                 } else {
                     System.out.println("Hmm, it's locked. There's an emblem in the shape of a DIAMOND on the door");
-                    System.out.println("\n*********  You remain in the " + getCurrentLocation().getName() + ". *********\n\n");
                 }
             } else {
                 setCurrentLocation(getLocationObject().getPickedLocation(locationInput));
-
             }
         } else {
             System.out.println("\n" + inputNoun.toUpperCase() + " is not a valid direction. Choose again...");
@@ -276,6 +270,7 @@ public class Game {
             count++;
             currentLocation = locationObj.getPickedLocation("Wizard's Foyer");
         } else if (inputVerb.equals("use") && inputNoun.equals("poison") && getCurrentLocation().getName().equals("Laboratory")) {
+            textArea.setText("");
             System.out.println("You have poisoned the wizard. You return home as a hero who saved your kingdom.");
             resetGame();
         } else if (Arrays.asList(currentLocation.getItem()).contains(inputNoun) || inventoryItems.contains(inputNoun)) {
@@ -300,9 +295,11 @@ public class Game {
     private void handleFight(String inputNoun) {
         if (inputNoun.equals("evil wizard")) {
             if (!inventoryItems.contains("knife")) {
+                textArea.setText("");
                 System.out.println("The Wizard suddenly blasts your head off with a thunder bolt... and you die!");
                 resetGame();
             } else if (inventoryItems.contains("knife")) {
+                textArea.setText("");
                 System.out.println("The Wizard suddenly attacks you with a thunder bolt but you matrix dodge it.\n You shank him with the KNIFE and he dies!");
                 System.out.println("You have shanked the wizard to death. You return home as a hero who saved your kingdom!");
                 resetGame();
@@ -312,6 +309,7 @@ public class Game {
             characterData.getCharacters().remove(characterIndex);
             npcNames.remove(inputNoun);
             if (!npcNames.isEmpty() || !inputNoun.equals("rat")) {
+                textArea.setText("");
                 System.out.println("You've been found out!");
                 System.out.println("Should've listened to the Queen and not gone on that killing spree... You lose!");
                 resetGame();
@@ -327,14 +325,12 @@ public class Game {
     }
 
     private void handleTalk(String inputNoun) {
-        System.out.println("Inside handleTalk");
         if (!inputNoun.equals("queen")) {
             textArea.setText("");
             System.out.printf("%s: '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
         } else {
-            Console.clear();
             textArea.setText("");
-            System.out.printf(": '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
+            System.out.printf("%s: '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
             currentLocation = locationObj.getPickedLocation("Church");
         }
     }
@@ -349,45 +345,30 @@ public class Game {
                 characterQuotes.put(extraCharacters.getName(), extraCharacters.getQuote());
             }
         }
-        System.out.println(" What would you like to do now?"
-        );
-    }
-
-    private void handleActions(String userInput) {
-        switch (userInput) {
-            case "help":
-                Console.clear();
-                textArea.setText("");
-                System.out.println("All commands must be in this format 'VERB<space>NOUN'\nOr 'quit' to exit game");
-                HelpMenu.printMenuHeader();
-                HelpMenu.buildMenu().forEach(HelpMenu::printMenu);
-                break;
-            case "map":
-                Console.clear();
-                textArea.setText("");
-                KingdomMap.printMapHeader();
-                KingdomMap.showKingdomMap().forEach(KingdomMap::printMap);
-                System.out.println("\n*********  You are in the " + currentLocation.getName() + ". *********\n\n");
-                break;
-        }
+        System.out.println(" What would you like to do now?");
     }
 
     private void handleAutoGameEndings() {
         if (getCurrentLocation().getName().equals("Wizard's Foyer") && !inventoryItems.contains("wizard robes")) {
+            textArea.setText("");
             System.out.println("The monster bites your head off and you die!");
             resetGame();
         }
     }
 
     private void resetGame() {
-        panel.setVisible(false);
-        homePanel.setVisible(true);
+        int delay = 5000;
+        timer = new Timer(delay, e -> {
+            panel.setVisible(false);
+            homePanel.setVisible(true);
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     private void gameLoop() {
         gameState();
         while (true) {
-
         }
     }
 
