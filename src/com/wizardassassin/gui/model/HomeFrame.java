@@ -9,6 +9,12 @@ import java.net.URISyntaxException;
 
 public class HomeFrame {
 
+    JPanel panel;
+    JLabel title;
+    JLabel description;
+    JButton startButton;
+    JButton quitButton;
+
     public HomeFrame(JFrame frame) throws IOException, URISyntaxException {
         initialize(frame);
     }
@@ -20,11 +26,11 @@ public class HomeFrame {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
 
-        JPanel panel = new JPanel();
+        panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
         panel.setBackground(Color.BLACK);
 
-        JLabel title = new JLabel();
+        title = new JLabel();
         title.setText("WIZARD ASSASSIN");
         title.setVerticalAlignment(JLabel.TOP);
         title.setHorizontalAlignment(JLabel.CENTER);
@@ -32,12 +38,12 @@ public class HomeFrame {
         title.setFont(new Font("papyrus", Font.BOLD, 50));
 
         Home home = new Home();
-        JLabel description = new JLabel();
+        description = new JLabel();
         description.setText(home.gameObjective());
         description.setForeground(Color.RED);
 
-        JButton startButton = new JButton("Start"),
-                quitButton = new JButton("Quit");
+        startButton = new JButton("Start");
+        quitButton = new JButton("Quit");
 
         startButton.setBounds(350, 400, 80, 35);
         startButton.setBackground(Color.BLACK);
@@ -70,5 +76,29 @@ public class HomeFrame {
 
         panel.setVisible(false);
         new GameFrame(frame, panel);
+    }
+
+    public void quitGame(JFrame frame) {
+        frame.dispose();
+    }
+
+    public JPanel getPanel() {
+        return panel;
+    }
+
+    public JLabel getTitle() {
+        return title;
+    }
+
+    public JLabel getDescription() {
+        return description;
+    }
+
+    public JButton getStartButton() {
+        return startButton;
+    }
+
+    public JButton getQuitButton() {
+        return quitButton;
     }
 }
