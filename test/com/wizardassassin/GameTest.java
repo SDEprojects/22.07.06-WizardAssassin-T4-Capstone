@@ -1,25 +1,57 @@
 package com.wizardassassin;
 
-
+import com.wizardassassin.controller.*;
+import com.wizardassassin.gui.model.*;
+import com.wizardassassin.model.*;
 import org.junit.*;
 
+import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import com.wizardassassin.*;
+import java.net.URISyntaxException;
+import java.util.*;
 
-class GameTest {
+import javax.swing.*;
+
+import static junit.framework.TestCase.*;
+
+public class GameTest {
 
 
     @Test
-    public void shouldReturnRoomItems() throws IOException {
-//        Data obj = makeObj();
-//        Location inventory = obj.getLocations().get(13);
-//        Location currentLocation = obj.getLocations().get(14);
-//        List<String> roomItems = new ArrayList<String>(Arrays.asList(currentLocation.getItem()));
-
+    public void shouldReturnHomeFrameTitle() throws IOException, URISyntaxException {
+        JFrame frame = new JFrame();
+        HomeFrame homeFrame = new HomeFrame(frame);
+        assertEquals("Wizard Assassin", frame.getTitle());
     }
 
+    @Test
+    public void shouldReturnHomePanelTitle() throws IOException, URISyntaxException {
+        JFrame frame = new JFrame();
+        HomeFrame homeFrame = new HomeFrame(frame);
+        assertEquals("WIZARD ASSASSIN", homeFrame.getTitle().getText());
+        }
 
+    @Test
+    public void shouldReturnHomePanelDescription() throws IOException, URISyntaxException {
+        JFrame frame = new JFrame();
+        HomeFrame homeFrame = new HomeFrame(frame);
+        Home home = new Home();
+        assertEquals(home.gameObjective(), homeFrame.getDescription().getText());
+    }
+
+    @Test
+    public void shouldReturnHomePanelStartButton() throws IOException, URISyntaxException {
+        JFrame frame = new JFrame();
+        HomeFrame homeFrame = new HomeFrame(frame);
+        Home home = new Home();
+        assertEquals("Start", homeFrame.getStartButton().getText());
+    }
+
+    @Test
+    public void shouldReturnHomePanelQuitButton() throws IOException, URISyntaxException {
+        JFrame frame = new JFrame();
+        HomeFrame homeFrame = new HomeFrame(frame);
+        Home home = new Home();
+        assertEquals("Quit", homeFrame.getQuitButton().getText());
+    }
 }
