@@ -10,7 +10,7 @@ public class Location {
         return locations;
     }
 
-    public Location getPickedLocation(String userInput){
+    public Location getPickedLocation(String userInput) {
         for (Location location : getLocations())
             if (location.getName().equals(userInput)) {
                 return location;
@@ -21,18 +21,9 @@ public class Location {
     public String name;
     public String description;
     Map<String, String> directions;
-    public String [] items;
+    public String[] items;
 
     public Location() {
-    }
-
-    public void printDirections(Location currentLocation) {
-        if(!currentLocation.getDirections().isEmpty()) {
-            System.out.println("\n\nFrom the " + currentLocation.getName() + " you can go to the:");
-            for (Map.Entry<String, String> direction : currentLocation.getDirections().entrySet()) {
-                System.out.printf("       \u001B[31m %s: %s \u001B[0m%n\n", direction.getKey(), direction.getValue());
-            }
-        }
     }
 
     public String getName() {

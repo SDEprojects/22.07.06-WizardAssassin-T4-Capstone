@@ -12,37 +12,36 @@ import java.net.URISyntaxException;
 public class GameFrame {
     private JPanel panel;
     private JTextArea textArea;
-    private JList listNPC;
-    private JList listItem;
-    private JList listDirection;
-    private JList listInventory;
+    private JList listNPC = new JList();
+    private JList listItem = new JList();
+    private JList listDirection = new JList();
+    private JList listInventory = new JList();
+    private final JButton talkButton = new JButton("TALK");
+    private final JButton getButton = new JButton("GET");
+    private JButton fightButton = new JButton("FIGHT");
+    private JButton goButton = new JButton("GO");
+    private JButton useButton = new JButton("USE");
+    private JButton dropButton = new JButton("DROP");
+    private final JPanel homePanel;
+    private final JLabel labelNPC = new JLabel("NPC:");
+    private final JLabel labelItem = new JLabel("Location Items:");
+    private final JLabel labelDirection = new JLabel("Directions:");
+    private final JLabel labelInventory = new JLabel("Inventory:");
     private final DefaultListModel namesListNPC = new DefaultListModel();
     private final DefaultListModel itemsList = new DefaultListModel();
     private final DefaultListModel directionsList = new DefaultListModel();
     private final DefaultListModel inventoryList = new DefaultListModel();
-    private JLabel labelNPC = new JLabel("NPC:");
-    private JLabel labelItem = new JLabel("Location Items:");
-    private JLabel labelDirection = new JLabel("Directions:");
-    private JLabel labelInventory = new JLabel("Inventory:");
-    private JButton talkButton;
-    private JButton getButton;
-    private JButton fightButton;
-    private JButton goButton;
-    private JButton useButton;
-    private JButton dropButton;
-    private JPanel homePanel;
 
-    public GameFrame(JFrame frame, JPanel homePanel) throws IOException, URISyntaxException {
+    public GameFrame(JFrame frame, JPanel homePanel) {
         this.homePanel = homePanel;
         initialize(frame);
     }
 
-    private void initialize(JFrame frame) throws IOException, URISyntaxException {
+    private void initialize(JFrame frame) {
 
         panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
         panel.setBackground(Color.BLACK);
-
 
         JLabel title = new JLabel();
         title.setText("Hello Game Frame");
@@ -53,10 +52,10 @@ public class GameFrame {
 
         //Menu
         Font f = new Font("sans-serif", Font.PLAIN, 18);
-        UIManager.put("Menu.font",f);
-        UIManager.put("MenuItem.font",f);
-        UIManager.put("CheckBoxMenuItem.font",f);
-        UIManager.put("RadioButtonMenuItem.font",f);
+        UIManager.put("Menu.font", f);
+        UIManager.put("MenuItem.font", f);
+        UIManager.put("CheckBoxMenuItem.font", f);
+        UIManager.put("RadioButtonMenuItem.font", f);
 
         JMenuBar menuBar = new JMenuBar();
         JMenu Menu = new JMenu("Menu");
@@ -76,42 +75,20 @@ public class GameFrame {
 
 
         // NPC Box
-        listNPC = new JList();
         listNPC.setModel(namesListNPC);
 
         // Location Item Box
-        listItem = new JList();
         listItem.setModel(itemsList);
 
         // Direction Box
-        listDirection = new JList();
         listDirection.setModel(directionsList);
 
         // Inventory Box
-        listInventory = new JList();
         listInventory.setModel(inventoryList);
-
-        // Talk Button
-        talkButton = new JButton("TALK");
-
-        // GET Button
-        getButton = new JButton("GET");
-
-        // Fight Button
-        fightButton = new JButton("FIGHT");
-
-        // Go Button
-        goButton = new JButton("GO");
-
-        // Use Button
-        useButton = new JButton("USE");
-
-        // Drop Button
-        dropButton = new JButton("DROP");
 
 
         // Dialogue Box
-        textArea = new JTextArea(10,50);
+        textArea = new JTextArea(10, 50);
         textArea.setEditable(false);
         PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
         System.setOut(printStream);
@@ -153,9 +130,7 @@ public class GameFrame {
                     e.printStackTrace();
                 }
             }
-
         });
         thread.start();
-
     }
 }

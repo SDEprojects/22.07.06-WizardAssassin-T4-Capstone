@@ -21,7 +21,6 @@ public class HelpMenu {
         this.setExample(example);
     }
 
-
     public String getPurpose() {
         return purpose;
     }
@@ -55,11 +54,12 @@ public class HelpMenu {
     }
 
     public static void printMenuHeader() {
-        System.out.println(String.format("\033[91m%25s %10s %20s %10s %15s %10s %10s\033[0m", "Purpose", "|", "Possible VERBs", "|", "NOUN", "|", "Example"));
+        System.out.println(String.format("Purpose", "|", "Possible VERBs", "|", "NOUN", "|", "Example"));
         System.out.println(String.format("%s", "----------------------------------------------------------------------------------------------------------------"));
     }
+
     public void printMenu() {
-        System.out.println(String.format("\033[34m%25s %10s %20s %10s %15s %10s %10s\033[0m", this.getPurpose(), "|", this.getVerbs(), "|", this.getNoun(), "|", this.getExample()));
+        System.out.println(String.format(this.getPurpose(), "|", this.getVerbs(), "|", this.getNoun(), "|", this.getExample()));
     }
 
     public static List<HelpMenu> buildMenu() {
