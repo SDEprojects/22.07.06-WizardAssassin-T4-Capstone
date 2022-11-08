@@ -17,11 +17,11 @@ import javax.swing.*;
 public class Game {
     private final Items items = new Items();
     private final Characters characters = new Characters();
-    private final Location obj = makeObj();
+    public final Location obj = makeObj();
     private final Location inventory = obj.getLocations().get(13);
     private final List<String> inventoryItems = new ArrayList<>(Arrays.asList(inventory.getItem()));
     private int count = 0;
-    private Location currentLocation = obj.getLocations().get(14);
+    public Location currentLocation = obj.getLocations().get(14);
     private String oldLocation = "";
     public List<String> npcNames = new ArrayList<>();
 
