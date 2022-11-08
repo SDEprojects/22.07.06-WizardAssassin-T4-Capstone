@@ -3,7 +3,7 @@
     {
       "name": "Church",
       "directions": {
-        "south": "Courtyard"
+        "south":"Courtyard"
       },
       "description": "You are in a church filled with wooden pews and an altar and nothing else.\n The window you entered by is to the north.\n There is a wooden door to the south.",
       "items": [
@@ -16,9 +16,9 @@
     {
       "name": "Courtyard",
       "directions": {
-        "north": "Church",
-        "south": "Watchtower",
-        "west" : "Great Hall"
+        "north":"Church",
+        "south":"Watchtower",
+        "west":"Great Hall"
       },
       "description": "The courtyard is an open area surrounded by tall stone walls.\n To the north is a door that leads to the church.\n To the south is a door to a tall watchtower.\n To the west are grand doors leading to the great hall.",
       "items" : [
@@ -33,9 +33,9 @@
 
       "name": "Watchtower",
       "directions": {
-        "north": "Courtyard",
-        "up": "Armory",
-        "down": "Dungeon"
+        "north":"Courtyard",
+        "up":"Armory",
+        "down":"Dungeon"
       },
       "description": "The WatchTower is a small room with a table, a chair, and a guard asleep slumped over the table.\n A KEY rests on the table next to his right hand.\n To your north is the door that leads to the courtyard.\n There is a NOTE on the table as well.\n There are narrow stairs that lead up to armory and stairs that lead down to a dungeon.",
       "items": [
@@ -49,8 +49,8 @@
     {
       "name": "Armory",
       "directions": {
-        "down": "Watchtower",
-        "north": "Courtyard"
+        "down":"Watchtower",
+        "north":"Courtyard"
       },
       "description": "The Armory is a small room contains many weapons: SWORDS, MACES, HALBERDS, the tools of the king’s guard.\n There is also a spare TUNIC that the guards wear.\n It has the INSIGNIA of the king.",
       "items": [
@@ -64,8 +64,8 @@
     {
       "name": "Dungeon",
       "directions": {
-        "up": "Watchtower",
-        "north": "Courtyard"
+        "up":"Watchtower",
+        "north":"Courtyard"
       },
       "description": "The Dungeon is gloomy, cold and dripping water.\n Shackles dangle from the walls.\n In one of the cells huddles a bloodied PRISONER.",
       "items": [
@@ -79,10 +79,10 @@
       "name": "Great Hall",
       "directions": {
 
-        "north": "Wizard's Foyer",
-        "south": "Kitchen",
-        "east": "Courtyard",
-        "west": "Royal Lounge"
+        "north":"Wizard's Foyer",
+        "south":"Kitchen",
+        "east":"Courtyard",
+        "west":"Royal Lounge"
       },
       "description": "The Great Hall ceiling is 20 feet high.\n Light pours in from big windows on each side of the room.\n To the north is a door leading to the wizard’s tower.\n However, explore the other rooms since you need important items to defeat the evil wizard.",
       "items": [
@@ -114,9 +114,9 @@
       "name": "Royal Lounge",
       "directions": {
 
-        "east": "Great Hall",
-        "south": "Royal Library",
-        "west": "King’s Chambers"
+        "east":"Great Hall",
+        "south":"Royal Library",
+        "west":"King’s Chambers"
       },
       "description": "The Royal Lounge has a few couches, a table surrounded with chairs.\n This room is usually used for important meetings with the king.\n In this room you will find a key that open the door to the Wizard’s Tower.",
       "items": [
@@ -144,7 +144,7 @@
       "name": "King’s Chambers",
       "directions": {
 
-        "east": "Royal Lounge"
+        "east":"Royal Lounge"
       },
       "description": "The King’s Chambers is off limits.",
       "items": [
@@ -158,9 +158,9 @@
       "name": "Wizard's Foyer",
       "directions": {
 
-        "north": "Wizard’s Chambers",
-        "south": "Great Hall",
-        "west": "Laboratory"
+        "north":"Wizard’s Chambers",
+        "south":"Great Hall",
+        "west":"Laboratory"
       },
       "description": "The Wizards Foyer is a wide large dimly lit room.\n As you enter you hear strange snorts and snarls.\n It’s a 10-foot, dragon-scaled, lion-headed chimera with what looks to be bat wings sprawling what must be 30 feet across,\n claws as sharp as daggers, a tail with the head of a serpent and venom dripping from its vampire fangs.\n A truly grotesque twisting of the natural world by the dark forces lurking nearby.\n Luckily, this thing appears to be sleeping.",
       "items": [
@@ -174,7 +174,7 @@
       "name": "Wizard’s Chambers",
       "directions": {
 
-        "south": "Wizard's Foyer"
+        "south":"Wizard's Foyer"
       },
       "description": "The Wizards Bedroom has a 4-post bed covered by a dark quilt.\n You see a table and chair.\n Sitting on the chair, looking at you, is the WIZARD.",
       "items": [

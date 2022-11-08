@@ -24,13 +24,16 @@ public class GameFrame {
     private JLabel labelItem = new JLabel("Location Items:");
     private JLabel labelDirection = new JLabel("Directions:");
     private JLabel labelInventory = new JLabel("Inventory:");
-    JButton talkButton;
-    JButton getButton;
-    JButton fightButton;
-    JButton goButton;
-    JButton useButton;
+    private JButton talkButton;
+    private JButton getButton;
+    private JButton fightButton;
+    private JButton goButton;
+    private JButton useButton;
+    private JButton dropButton;
+    private JPanel homePanel;
 
-    public GameFrame(JFrame frame) throws IOException, URISyntaxException {
+    public GameFrame(JFrame frame, JPanel homePanel) throws IOException, URISyntaxException {
+        this.homePanel = homePanel;
         initialize(frame);
     }
 
@@ -103,6 +106,9 @@ public class GameFrame {
         // Use Button
         useButton = new JButton("USE");
 
+        // Drop Button
+        dropButton = new JButton("DROP");
+
 
         // Dialogue Box
         textArea = new JTextArea(10,50);
@@ -112,34 +118,36 @@ public class GameFrame {
         System.setErr(printStream);
 
         panel.add(title);
-        panel.add(talkButton);
-        panel.add(getButton);
-        panel.add(fightButton);
         panel.add(goButton);
+        panel.add(talkButton);
+        panel.add(fightButton);
+        panel.add(getButton);
         panel.add(useButton);
+        panel.add(dropButton);
         panel.add(textArea);
 
         printLog();
         frame.add(panel);
     }
 
-    public void printLog() throws IOException, URISyntaxException {
+    public void printLog() {
         Thread thread = new Thread(() -> {
             while (true) {
                 Game game = null;
                 try {
-                    game = new Game();
+                    game = new Game(panel, homePanel, textArea, listNPC,
+                            namesListNPC, labelNPC, listItem,
+                            itemsList, labelItem, listDirection,
+                            directionsList, labelDirection, listInventory,
+                            inventoryList, labelInventory, talkButton,
+                            getButton, fightButton, goButton,
+                            useButton, dropButton);
                 } catch (IOException | URISyntaxException e) {
                     e.printStackTrace();
                 }
                 try {
                     assert game != null;
-                    game.playGame(panel, textArea, listNPC,
-                            namesListNPC, labelNPC, listItem,
-                            itemsList, labelItem, listDirection,
-                            directionsList, labelDirection, listInventory,
-                            inventoryList, labelInventory, talkButton,
-                            getButton, fightButton, goButton, useButton);
+                    game.playGame();
 
                 } catch (IOException | URISyntaxException e) {
                     e.printStackTrace();
@@ -149,29 +157,5 @@ public class GameFrame {
         });
         thread.start();
 
-    }
-
-    private void handleTalkButton(JButton talkButton) {
-//        System.out.println(e);
-        System.out.println("talk" + " " + listNPC.getSelectedValue());
-        System.console().readLine("talk" + " " + listNPC.getSelectedValue());
-
-//        return "GO" + listNPC.getSelectedValue();
-    }
-
-    private void handleEvents(JButton button) {
-        String userInput = null;
-        if (button.equals(talkButton)) {
-            userInput = "talk" + " " + listNPC.getSelectedValue();
-            System.out.println(userInput);
-            System.out.println("Hello Talk Button");
-        } else if (button.equals(getButton)) {
-            System.out.println("Hello Get Button");
-        }
-        else if(button.equals(useButton)){
-            System.out.println("Hello Use Button");
-        }
-//        return userInput;
-        System.console().readLine(userInput);
     }
 }
