@@ -45,6 +45,8 @@ public class Game {
     private JButton getButton;
     private JButton fightButton;
     private JButton goButton;
+    private JButton useButton;
+    private String inputGUI;
     private Characters object;
     private Map<String, String> characterQuotes;
 
@@ -61,12 +63,15 @@ public class Game {
         return gson.fromJson(reader, Location.class);
     }
 
-    public void playGame(JPanel panel, JTextArea textArea,
-                         JList listNPC, DefaultListModel namesListNPC,
-                         JLabel labelNPC, JList listItem, DefaultListModel itemsList,
-                         JLabel labelItem, JList listDirection, DefaultListModel directionsList,
-                         JLabel labelDirection, JList listInventory, DefaultListModel inventoryList,
-                         JLabel labelInventory, JButton talkButton, JButton getButton, JButton fightButton, JButton goButton) throws IOException, URISyntaxException {
+    public void playGame(
+            JPanel panel, JTextArea textArea, JList listNPC,
+            DefaultListModel namesListNPC, JLabel labelNPC, JList listItem,
+            DefaultListModel itemsList, JLabel labelItem, JList listDirection,
+            DefaultListModel directionsList, JLabel labelDirection, JList listInventory,
+            DefaultListModel inventoryList, JLabel labelInventory, JButton talkButton,
+            JButton getButton, JButton fightButton, JButton goButton,
+            JButton useButton) throws IOException, URISyntaxException {
+
         this.panel = panel;
         this.textArea = textArea;
         this.listNPC = listNPC;
@@ -85,10 +90,8 @@ public class Game {
         this.getButton = getButton;
         this.fightButton = fightButton;
         this.goButton = goButton;
-
-
-        System.out.println("Hello Play Game");
-
+        this.useButton = useButton;
+        this.inputGUI = inputGUI;
 
             talkButton.addActionListener(e -> {
                 try {
@@ -108,6 +111,7 @@ public class Game {
                     ex.printStackTrace();
                 }
             });
+
             fightButton.addActionListener(e -> {
                 try {
                     handleEvents(fightButton);
@@ -117,6 +121,7 @@ public class Game {
                     ex.printStackTrace();
                 }
             });
+
             goButton.addActionListener(e -> {
                 try {
                     handleEvents(goButton);
@@ -126,8 +131,20 @@ public class Game {
                     ex.printStackTrace();
                 }
             });
+
+        useButton.addActionListener(e -> {
+            try {
+                handleEvents(useButton);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (URISyntaxException ex) {
+                ex.printStackTrace();
+            }
+        });
+
       object = characters.getCharacterData();
       characterQuotes = characters.getQuotes(object);
+
         gameLoop();
     }
 
@@ -247,13 +264,13 @@ public class Game {
                 if(getInventoryItems().contains("password")) {
                     System.out.println("\033[31mGuard:\033[0m That's the right \033[92mPASSWORD\033[0m. Go ahead and pass.");
                     System.out.println();
-                    while(true) {
-                        System.out.println("Hit 'enter' to continue");
-                        String progress = getInputScanner().nextLine();
-                        if(progress.equals("")) {
-                            break;
-                        }
-                    }
+//                    while(true) {
+//                        System.out.println("Hit 'enter' to continue");
+//                        String progress = getInputScanner().nextLine();
+//                        if(progress.equals("")) {
+//                            break;
+//                        }
+//                    }
                     setCount(getCount()+1);
                     setCurrentLocation(getObj().getPickedLocation(locationInput));
                 } else {
@@ -265,13 +282,13 @@ public class Game {
                 if(getInventoryItems().contains("tunic") && getInventoryItems().contains("sword")) {
                     System.out.println("\033[31mGuard:\033[0m I don't know you... but you have the Kingdom's \033[92mTUNIC\033[0m... and that \033[92mSWORD\033[0m... You must be new... go ahead and pass.");
                     System.out.println();
-                    while(true) {
-                        System.out.println("Hit 'enter' to continue");
-                        String progress = getInputScanner().nextLine();
-                        if(progress.equals("")) {
-                            break;
-                        }
-                    }
+//                    while(true) {
+//                        System.out.println("Hit 'enter' to continue");
+//                        String progress = getInputScanner().nextLine();
+//                        if(progress.equals("")) {
+//                            break;
+//                        }
+//                    }
                     setCount(getCount()+1);
                     setCurrentLocation(getObj().getPickedLocation(locationInput));
                 } else {
@@ -298,13 +315,13 @@ public class Game {
         if(inputVerb.equals("use") && inputNoun.equals("diamond key") && getCurrentLocation().getName().equals("Great Hall")) {
             System.out.println("That \033[92mDIAMOND KEY\033[0m did the trick. You're in...");
             System.out.println();
-            while(true) {
-                System.out.println("Hit 'enter' to continue");
-                String progress = inputScanner.nextLine();
-                if(progress.equals("")) {
-                    break;
-                }
-            }
+//            while(true) {
+//                System.out.println("Hit 'enter' to continue");
+//                String progress = inputScanner.nextLine();
+//                if(progress.equals("")) {
+//                    break;
+//                }
+//            }
             count++;
             currentLocation = obj.getPickedLocation("Wizard's Foyer");
         }
@@ -453,6 +470,9 @@ public class Game {
                 String[] userNoun = listDirection.getSelectedValue().toString().toLowerCase().split(":");
                 System.out.println(userNoun);
                 userInput = "go " + userNoun[0];
+            } else if (button.equals(useButton)){
+                System.out.println("Hello Use Button");
+                userInput = "use " + listItem.getSelectedValue();
             }
             playerActions(userInput);
             gameState();

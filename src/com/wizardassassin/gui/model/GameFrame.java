@@ -28,6 +28,7 @@ public class GameFrame {
     JButton getButton;
     JButton fightButton;
     JButton goButton;
+    JButton useButton;
 
     public GameFrame(JFrame frame) throws IOException, URISyntaxException {
         initialize(frame);
@@ -100,7 +101,7 @@ public class GameFrame {
         goButton = new JButton("GO");
 
         // Use Button
-        JButton useButton = new JButton("USE");
+        useButton = new JButton("USE");
 
 
         // Dialogue Box
@@ -133,12 +134,13 @@ public class GameFrame {
                 }
                 try {
                     assert game != null;
-                    game.playGame(panel, textArea,
-                            listNPC, namesListNPC, labelNPC,
-                            listItem, itemsList, labelItem,
-                            listDirection, directionsList, labelDirection,
-                            listInventory, inventoryList, labelInventory,
-                            talkButton, getButton, fightButton, goButton);
+                    game.playGame(panel, textArea, listNPC,
+                            namesListNPC, labelNPC, listItem,
+                            itemsList, labelItem, listDirection,
+                            directionsList, labelDirection, listInventory,
+                            inventoryList, labelInventory, talkButton,
+                            getButton, fightButton, goButton, useButton);
+
                 } catch (IOException | URISyntaxException e) {
                     e.printStackTrace();
                 }
@@ -165,6 +167,9 @@ public class GameFrame {
             System.out.println("Hello Talk Button");
         } else if (button.equals(getButton)) {
             System.out.println("Hello Get Button");
+        }
+        else if(button.equals(useButton)){
+            System.out.println("Hello Use Button");
         }
 //        return userInput;
         System.console().readLine(userInput);
