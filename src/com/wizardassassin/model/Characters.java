@@ -3,12 +3,10 @@ package com.wizardassassin.model;
 import com.google.gson.Gson;
 
 import java.io.IOException;
-import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,27 +14,17 @@ import java.util.Map;
 public class Characters {
     List<Characters> characters;
 
-    public Characters()  {
+    public Characters() {
 
-    }
-
-    public Characters(List<Characters> characters) {
-        this.characters = characters;
     }
 
     public List<Characters> getCharacters() {
         return characters;
     }
 
-    String type;
     String name;
     String room;
     String quote;
-
-
-    public String getType() {
-        return type;
-    }
 
     public String getName() {
         return name;

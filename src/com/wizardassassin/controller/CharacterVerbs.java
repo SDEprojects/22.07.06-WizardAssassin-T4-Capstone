@@ -9,11 +9,15 @@ public enum CharacterVerbs {
     TALK("talk"),
     FIGHT("fight");
 
+    private String characterVerb;
+
+    public static Set<String> set() {
+        return verbSet;
+    }
+
     private static final Set<String> verbSet = Stream.of(values())
             .map(CharacterVerbs::toString)
             .collect(Collectors.toSet());
-
-    private String characterVerb;
 
     CharacterVerbs(String characterVerb) {
         this.characterVerb = characterVerb;
@@ -25,9 +29,5 @@ public enum CharacterVerbs {
 
     public String toString() {
         return characterVerb();
-    }
-
-    public static Set<String> set() {
-        return verbSet;
     }
 }

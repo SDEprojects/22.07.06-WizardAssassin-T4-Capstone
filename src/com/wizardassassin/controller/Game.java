@@ -17,42 +17,37 @@ import javax.swing.*;
 public class Game {
     private final Items items = new Items();
     private final Characters characters = new Characters();
-    public final Location obj = makeObj();
-    private final Location inventory = obj.getLocations().get(13);
+    private final Location locationObj = makeObj();
+    private final Location inventory = locationObj.getLocations().get(13);
     private final List<String> inventoryItems = new ArrayList<>(Arrays.asList(inventory.getItem()));
     private int count = 0;
-    public Location currentLocation = obj.getLocations().get(14);
+    private Location currentLocation = locationObj.getLocations().get(14);
     private String oldLocation = "";
     public List<String> npcNames = new ArrayList<>();
-
-    private JPanel panel = null;
-    private JPanel homePanel = null;
-    private JTextArea textArea = null;
-    private JList<Object> listNPC = null;
-    private DefaultListModel namesListNPC = null;
-    private JList listItem;
-    private JList listDirection;
-    private JList listInventory;
-    private DefaultListModel itemsList;
-    private DefaultListModel directionsList;
-    private DefaultListModel inventoryList;
-    private JLabel labelNPC;
-    private JLabel labelItem;
-    private JLabel labelDirection;
-    private JLabel labelInventory;
-    private JButton talkButton;
-    private JButton getButton;
-    private JButton fightButton;
-    private JButton goButton;
-    private JButton useButton;
-    private JButton dropButton;
-    private Characters object;
+    private Characters characterData;
     private Map<String, String> characterQuotes;
 
-
-    public Game() throws IOException, URISyntaxException {
-
-    }
+    private final JPanel panel;
+    private final JPanel homePanel;
+    private final JTextArea textArea;
+    private final JList listNPC;
+    private final DefaultListModel namesListNPC;
+    private final JList listItem;
+    private final JList listDirection;
+    private final JList listInventory;
+    private final DefaultListModel itemsList;
+    private final DefaultListModel directionsList;
+    private final DefaultListModel inventoryList;
+    private final JLabel labelNPC;
+    private final JLabel labelItem;
+    private final JLabel labelDirection;
+    private final JLabel labelInventory;
+    private final JButton talkButton;
+    private final JButton getButton;
+    private final JButton fightButton;
+    private final JButton goButton;
+    private final JButton useButton;
+    private final JButton dropButton;
 
     public Game(JPanel panel, JPanel homePanel, JTextArea textArea, JList listNPC,
                 DefaultListModel namesListNPC, JLabel labelNPC, JList listItem,
@@ -94,22 +89,17 @@ public class Game {
     }
 
     public void playGame() throws IOException, URISyntaxException {
-
         talkButton.addActionListener(e -> {
             try {
                 handleEvents(talkButton);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (URISyntaxException ex) {
+            } catch (IOException | URISyntaxException ex) {
                 ex.printStackTrace();
             }
         });
         getButton.addActionListener(e -> {
             try {
                 handleEvents(getButton);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (URISyntaxException ex) {
+            } catch (IOException | URISyntaxException ex) {
                 ex.printStackTrace();
             }
         });
@@ -117,9 +107,7 @@ public class Game {
         fightButton.addActionListener(e -> {
             try {
                 handleEvents(fightButton);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (URISyntaxException ex) {
+            } catch (IOException | URISyntaxException ex) {
                 ex.printStackTrace();
             }
         });
@@ -127,9 +115,7 @@ public class Game {
         goButton.addActionListener(e -> {
             try {
                 handleEvents(goButton);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (URISyntaxException ex) {
+            } catch (IOException | URISyntaxException ex) {
                 ex.printStackTrace();
             }
         });
@@ -137,9 +123,7 @@ public class Game {
         useButton.addActionListener(e -> {
             try {
                 handleEvents(useButton);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (URISyntaxException ex) {
+            } catch (IOException | URISyntaxException ex) {
                 ex.printStackTrace();
             }
         });
@@ -147,15 +131,13 @@ public class Game {
         dropButton.addActionListener(e -> {
             try {
                 handleEvents(dropButton);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (URISyntaxException ex) {
+            } catch (IOException | URISyntaxException ex) {
                 ex.printStackTrace();
             }
         });
 
-        object = characters.getCharacterData();
-        characterQuotes = characters.getQuotes(object);
+        characterData = characters.getCharacterData();
+        characterQuotes = characters.getQuotes(characterData);
 
         gameLoop();
     }
@@ -168,10 +150,10 @@ public class Game {
 
         // NPC state
         namesListNPC.clear();
-        for (Characters extraCharacters : object.getCharacters()) {
-            if ((currentLocation.getName().equals(extraCharacters.getRoom()))) {
-                namesListNPC.addElement(extraCharacters.getName().toUpperCase());
-                characterQuotes.put(extraCharacters.getName(), extraCharacters.getQuote());
+        for (Characters character : characterData.getCharacters()) {
+            if ((currentLocation.getName().equals(character.getRoom()))) {
+                namesListNPC.addElement(character.getName().toUpperCase());
+                characterQuotes.put(character.getName(), character.getQuote());
             }
         }
         panel.add(labelNPC);
@@ -211,7 +193,7 @@ public class Game {
     }
 
     // Parses User input for appropriate action paths
-    private void playerActions(String userInput) throws IOException, URISyntaxException {
+    private void playerActions(String userInput) throws IOException {
         System.out.println(userInput);
         String[] parseInput = userInput.split(" ");
         handleActions(userInput);
@@ -234,7 +216,6 @@ public class Game {
             // Path for character actions
             else if (CharacterVerbs.set().contains(inputVerb)) {
                 textArea.setText("");
-                ;
                 handleCharacters(inputVerb, inputNoun);
             }
         } else {
@@ -248,39 +229,39 @@ public class Game {
             String locationInput = getCurrentLocation().getDirections().get(inputNoun);
             if (locationInput.equals("Courtyard") && getCurrentLocation().getName().equals("Church")) {
                 if (npcNames.isEmpty()) {
-                    setCurrentLocation(getObj().getPickedLocation(locationInput));
+                    setCurrentLocation(getLocationObject().getPickedLocation(locationInput));
                 } else {
-                    System.out.printf("The \033[31m%s\033[0m blocks your path. You must fight it.\nUse the stick%n", getNpcNames().get(0).toUpperCase());
+                    System.out.printf("The %s blocks your path. You must fight it.\nUse the stick%n", getNpcNames().get(0).toUpperCase());
                 }
             } else if (locationInput.equals("Great Hall") && getCurrentLocation().getName().equals("Courtyard") && getCount() == 0) {
                 if (getInventoryItems().contains("password")) {
-                    System.out.println("\033[31mGuard:\033[0m That's the right \033[92mPASSWORD\033[0m. Go ahead and pass.");
+                    System.out.println("Guard: That's the right PASSWORD. Go ahead and pass.");
                     System.out.println();
                     setCount(getCount() + 1);
-                    setCurrentLocation(getObj().getPickedLocation(locationInput));
+                    setCurrentLocation(getLocationObject().getPickedLocation(locationInput));
                 } else {
-                    System.out.println("\033[31mGuard:\033[0m Wrong \033[92mPASSWORD\033[0m! Get outta here, ya scum!");
-                    System.out.println("\n\u001B[91m                         *********  You remain in the " + getCurrentLocation().getName() + ". *********\u001B[0m\n\n");
+                    System.out.println("Guard: Wrong PASSWORD! Get outta here, ya scum!");
+                    System.out.println("\n*********  You remain in the " + getCurrentLocation().getName() + ". *********\n\n");
                 }
             } else if (locationInput.equals("Royal Lounge") && getCurrentLocation().getName().equals("Great Hall") && getCount() == 1) {
                 if (getInventoryItems().contains("tunic") && getInventoryItems().contains("sword")) {
-                    System.out.println("\033[31mGuard:\033[0m I don't know you... but you have the Kingdom's \033[92mTUNIC\033[0m... and that \033[92mSWORD\033[0m... You must be new... go ahead and pass.");
+                    System.out.println("Guard: I don't know you... but you have the Kingdom's TUNIC... and that SWORD... You must be new... go ahead and pass.");
                     System.out.println();
                     setCount(getCount() + 1);
-                    setCurrentLocation(getObj().getPickedLocation(locationInput));
+                    setCurrentLocation(getLocationObject().getPickedLocation(locationInput));
                 } else {
-                    System.out.println("\033[31mGuard:\033[0m Where do you think you're going? Only knights can pass through here.\nAnd not just any bloak with a Kingdom's \033[92mTUNIC\033[0m.\nYou need a \033[92mSWORD\033[0m too.");
-                    System.out.println("\n\u001B[91m                         *********  You remain in the " + getCurrentLocation().getName() + ". *********\u001B[0m\n\n");
+                    System.out.println("Guard: Where do you think you're going? Only knights can pass through here.\nAnd not just any bloak with a Kingdom's TUNIC.\nYou need a SWORD too.");
+                    System.out.println("\n*********  You remain in the " + getCurrentLocation().getName() + ". *********\n\n");
                 }
             } else if (locationInput.equals("Wizard's Foyer") && getCurrentLocation().getName().equals("Great Hall") && getCount() <= 2) {
                 if (getInventoryItems().contains("diamond key")) {
-                    System.out.println("Maybe I can \033[31mUSE\033[0m that \033[92mDIAMOND KEY\033[0m on this door.");
+                    System.out.println("Maybe I can USE that DIAMOND KEY on this door.");
                 } else {
-                    System.out.println("Hmm, it's locked. There's an emblem in the shape of a \033[92mDIAMOND\033[0m on the door");
-                    System.out.println("\n\u001B[91m                         *********  You remain in the " + getCurrentLocation().getName() + ". *********\u001B[0m\n\n");
+                    System.out.println("Hmm, it's locked. There's an emblem in the shape of a DIAMOND on the door");
+                    System.out.println("\n*********  You remain in the " + getCurrentLocation().getName() + ". *********\n\n");
                 }
             } else {
-                setCurrentLocation(getObj().getPickedLocation(locationInput));
+                setCurrentLocation(getLocationObject().getPickedLocation(locationInput));
 
             }
         } else {
@@ -288,14 +269,14 @@ public class Game {
         }
     }
 
-    private void handleItems(String inputVerb, String inputNoun) throws IOException, URISyntaxException {
+    private void handleItems(String inputVerb, String inputNoun) {
         if (inputVerb.equals("use") && inputNoun.equals("diamond key") && getCurrentLocation().getName().equals("Great Hall")) {
-            System.out.println("That \033[92mDIAMOND KEY\033[0m did the trick. You're in...");
+            System.out.println("That DIAMOND KEY did the trick. You're in...");
             System.out.println();
             count++;
-            currentLocation = obj.getPickedLocation("Wizard's Foyer");
+            currentLocation = locationObj.getPickedLocation("Wizard's Foyer");
         } else if (inputVerb.equals("use") && inputNoun.equals("poison") && getCurrentLocation().getName().equals("Laboratory")) {
-            System.out.println("\033[36mYou have poisoned the wizard. You return home as a hero who saved your kingdom\033[0m.");
+            System.out.println("You have poisoned the wizard. You return home as a hero who saved your kingdom.");
             resetGame();
         } else if (Arrays.asList(currentLocation.getItem()).contains(inputNoun) || inventoryItems.contains(inputNoun)) {
             items.getItem(inputNoun, currentLocation, inputVerb, inventoryItems, inventory);
@@ -304,7 +285,7 @@ public class Game {
         }
     }
 
-    private void handleCharacters(String inputVerb, String inputNoun) throws IOException, URISyntaxException {
+    private void handleCharacters(String inputVerb, String inputNoun) {
         if (npcNames.contains(inputNoun)) {
             if (inputVerb.equals("talk")) {
                 handleTalk(inputNoun);
@@ -316,31 +297,29 @@ public class Game {
         }
     }
 
-    private void handleFight(String inputNoun) throws IOException, URISyntaxException {
+    private void handleFight(String inputNoun) {
         if (inputNoun.equals("evil wizard")) {
             if (!inventoryItems.contains("knife")) {
-                System.out.println("\033[91mThe Wizard suddenly blasts your head off with a thunder bolt... and you die!\033[0m");
-                System.out.println("\033[91mG\033[0m\033[30mA\033[0m\033[91mM\033[0m\033[30mE\033[0m \033[91mO\033[0m\033[30mV\033[0m\033[91mE\033[0m\033[30mR\033[0m!");
+                System.out.println("The Wizard suddenly blasts your head off with a thunder bolt... and you die!");
                 resetGame();
             } else if (inventoryItems.contains("knife")) {
-                System.out.println("\033[36mThe Wizard suddenly attacks you with a thunder bolt but you matrix dodge it.\n You shank him with the\033[0m \033[92mKNIFE\033[0m \033[36mand he dies!\033[0m");
+                System.out.println("The Wizard suddenly attacks you with a thunder bolt but you matrix dodge it.\n You shank him with the KNIFE and he dies!");
                 System.out.println("You have shanked the wizard to death. You return home as a hero who saved your kingdom!");
                 resetGame();
             }
         } else if (inventoryItems.contains("sword")) {
             int characterIndex = npcNames.indexOf(inputNoun);
-            object.getCharacters().remove(characterIndex);
+            characterData.getCharacters().remove(characterIndex);
             npcNames.remove(inputNoun);
             if (!npcNames.isEmpty() || !inputNoun.equals("rat")) {
                 System.out.println("You've been found out!");
-                System.out.println("Should've listened to the Queen and not gone on that killing spree... You lose");
-                System.out.println("\033[91mG\033[0m\033[30mA\033[0m\033[91mM\033[0m\033[30mE\033[0m \033[91mO\033[0m\033[30mV\033[0m\033[91mE\033[0m\033[30mR\033[0m!");
+                System.out.println("Should've listened to the Queen and not gone on that killing spree... You lose!");
                 resetGame();
             }
         } else if (inventoryItems.contains("stick") && inputNoun.equals("rat")) {
-            System.out.printf("You beat the \033[91m%s\033[0m to death with the \033[92mSTICK\033[0m", inputNoun.toUpperCase());
+            System.out.printf("You beat the %s to death with the STICK", inputNoun.toUpperCase());
             int characterIndex = npcNames.indexOf(inputNoun);
-            object.getCharacters().remove(characterIndex);
+            characterData.getCharacters().remove(characterIndex);
             npcNames.remove(inputNoun);
         } else {
             System.out.println("I'm going to advise against that.");
@@ -351,29 +330,27 @@ public class Game {
         System.out.println("Inside handleTalk");
         if (!inputNoun.equals("queen")) {
             textArea.setText("");
-            System.out.printf("\u001B[93m%s\u001B[0m: '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
+            System.out.printf("%s: '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
         } else {
             Console.clear();
             textArea.setText("");
-            System.out.printf("\u001B[93m%s\u001B[0m: '\033[95m%s\033[0m'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
-            currentLocation = obj.getPickedLocation("Church");
+            System.out.printf(": '%s'%n", inputNoun.toUpperCase(), characterQuotes.get(inputNoun));
+            currentLocation = locationObj.getPickedLocation("Church");
         }
     }
 
-
     private void getStatus() {
-        System.out.println("\n\u001B[35m*********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
+        System.out.println("\n*********  You are in the " + currentLocation.getName() + ". *********\n\n");
         System.out.println(currentLocation.getDescription() + "\n");
         npcNames.clear();
-        for (Characters extraCharacters : object.getCharacters()) {
+        for (Characters extraCharacters : characterData.getCharacters()) {
             if ((currentLocation.getName().equals(extraCharacters.getRoom()))) {
                 npcNames.add(extraCharacters.getName().toLowerCase());
                 characterQuotes.put(extraCharacters.getName(), extraCharacters.getQuote());
             }
         }
-        System.out.println("\033[36m What would you like to do now?"
+        System.out.println(" What would you like to do now?"
         );
-
     }
 
     private void handleActions(String userInput) {
@@ -390,15 +367,14 @@ public class Game {
                 textArea.setText("");
                 KingdomMap.printMapHeader();
                 KingdomMap.showKingdomMap().forEach(KingdomMap::printMap);
-                System.out.println("\n\u001B[91m*********  You are in the " + currentLocation.getName() + ". *********\u001B[0m\n\n");
+                System.out.println("\n*********  You are in the " + currentLocation.getName() + ". *********\n\n");
                 break;
         }
     }
 
     private void handleAutoGameEndings() {
         if (getCurrentLocation().getName().equals("Wizard's Foyer") && !inventoryItems.contains("wizard robes")) {
-            System.out.println("\033[91mThe monster bites your head off and you die!\033[0m");
-            System.out.println("\033[91mG\033[0m\033[30mA\033[0m\033[91mM\033[0m\033[30mE\033[0m \033[91mO\033[0m\033[30mV\033[0m\033[91mE\033[0m\033[30mR\033[0m!");
+            System.out.println("The monster bites your head off and you die!");
             resetGame();
         }
     }
@@ -425,8 +401,6 @@ public class Game {
             } else if (button.equals(fightButton)) {
                 userInput = "fight " + listNPC.getSelectedValue();
             } else if (button.equals(goButton)) {
-//                String[] userNoun = listDirection.getSelectedValue().toString().toLowerCase().split(":");
-//                userInput = "go " + userNoun[0];
                 userInput = "go " + listDirection.getSelectedValue();
             } else if (button.equals(useButton)) {
                 System.out.println("Hello Use Button");
@@ -440,31 +414,31 @@ public class Game {
         }
     }
 
-    public Location getObj() {
-        return obj;
+    private Location getLocationObject() {
+        return locationObj;
     }
 
-    public List<String> getInventoryItems() {
+    private List<String> getInventoryItems() {
         return inventoryItems;
     }
 
-    public int getCount() {
+    private int getCount() {
         return count;
     }
 
-    public Location getCurrentLocation() {
+    private Location getCurrentLocation() {
         return currentLocation;
     }
 
-    public List<String> getNpcNames() {
+    private List<String> getNpcNames() {
         return npcNames;
     }
 
-    public void setCount(int count) {
+    private void setCount(int count) {
         this.count = count;
     }
 
-    public void setCurrentLocation(Location currentLocation) {
+    private void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
     }
 }

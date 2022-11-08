@@ -9,11 +9,17 @@ public enum ItemVerbs {
     USE("use"),
     DROP("drop");
 
+    private String itemVerb;
+
+    public static Set<String> set() {
+        return verbSet;
+    }
+
+    ;
+
     private static final Set<String> verbSet = Stream.of(values())
             .map(ItemVerbs::toString)
             .collect(Collectors.toSet());
-
-    private String itemVerb;
 
     ItemVerbs(String itemVerb) {
         this.itemVerb = itemVerb;
@@ -27,7 +33,5 @@ public enum ItemVerbs {
         return itemVerb();
     }
 
-    public static Set<String> set() {
-        return verbSet;
-    };
+
 }

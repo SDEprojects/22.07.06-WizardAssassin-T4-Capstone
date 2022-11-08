@@ -9,11 +9,17 @@ public enum MoveVerbs {
     MOVE("move"),
     GO("go");
 
+    private final String moveVerb;
+
+    public static Set<String> set() {
+        return verbSet;
+    }
+
+    ;
+
     private static final Set<String> verbSet = Stream.of(values())
             .map(MoveVerbs::toString)
             .collect(Collectors.toSet());
-
-    private final String moveVerb;
 
     MoveVerbs(String moveVerb) {
         this.moveVerb = moveVerb;
@@ -27,7 +33,4 @@ public enum MoveVerbs {
         return moveVerb();
     }
 
-    public static Set<String> set() {
-        return verbSet;
-    };
 }

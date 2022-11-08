@@ -1,7 +1,6 @@
 package com.wizardassassin.gui.model;
 
-import com.wizardassassin.controller.Game;
-import com.wizardassassin.controller.Home;
+import com.wizardassassin.model.Home;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,7 +61,7 @@ public class HomeFrame {
         quitButton.setBounds(450, 400, 80, 35);
         quitButton.setBackground(Color.BLACK);
         quitButton.setForeground(Color.RED);
-        quitButton.addActionListener(e -> quitGame(frame));
+        quitButton.addActionListener(e -> frame.dispose());
 
         panel.add(title);
         panel.add(description);
@@ -72,9 +71,6 @@ public class HomeFrame {
         frame.add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
     }
-
-
-
 
     private void startGame(JFrame frame, JPanel panel) throws IOException, URISyntaxException {
 
