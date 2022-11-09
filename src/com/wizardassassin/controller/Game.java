@@ -1,11 +1,14 @@
 package com.wizardassassin.controller;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
+import java.util.List;
+
 import com.apps.util.Console;
 import com.google.gson.Gson;
 import com.wizardassassin.model.*;
@@ -13,6 +16,7 @@ import javax.swing.*;
 import javax.swing.Timer;
 
 public class Game {
+
     Timer timer;
     private final Items items = new Items();
     private final Characters characters = new Characters();
@@ -28,6 +32,7 @@ public class Game {
 
     private final JPanel panel;
     private final JPanel homePanel;
+    private final JPanel listPanel;
     private final JTextArea textArea;
     private final JList listNPC;
     private final DefaultListModel namesListNPC;
@@ -48,7 +53,7 @@ public class Game {
     private final JButton useButton;
     private final JButton dropButton;
 
-    public Game(JPanel panel, JPanel homePanel, JTextArea textArea, JList listNPC,
+    public Game(JPanel panel, JPanel homePanel, JPanel listPanel, JTextArea textArea, JList listNPC,
                 DefaultListModel namesListNPC, JLabel labelNPC, JList listItem,
                 DefaultListModel itemsList, JLabel labelItem, JList listDirection,
                 DefaultListModel directionsList, JLabel labelDirection, JList listInventory,
@@ -58,6 +63,7 @@ public class Game {
 
         this.panel = panel;
         this.homePanel = homePanel;
+        this.listPanel = listPanel;
         this.textArea = textArea;
         this.listNPC = listNPC;
         this.listItem = listItem;
@@ -147,6 +153,8 @@ public class Game {
             oldLocation = currentLocation.getName();
         }
 
+        listPanel.setBackground(Color.BLACK);
+
         // NPC state
         namesListNPC.clear();
         for (Characters character : characterData.getCharacters()) {
@@ -155,8 +163,14 @@ public class Game {
                 characterQuotes.put(character.getName(), character.getQuote());
             }
         }
-        panel.add(labelNPC);
-        panel.add(listNPC);
+        labelNPC.setForeground(Color.red);
+        listNPC.setForeground(Color.YELLOW);
+        listNPC.setBackground(Color.BLACK);
+        listNPC.setSelectionBackground(Color.BLUE);
+        listNPC.setSelectionForeground(Color.YELLOW);
+        listNPC.setFixedCellWidth(5);
+        listPanel.add(labelNPC);
+        listPanel.add(listNPC);
 
         // Location Item State
         itemsList.clear();
@@ -164,8 +178,13 @@ public class Game {
             String data = item;
             itemsList.addElement(data);
         }
-        panel.add(labelItem);
-        panel.add(listItem);
+        labelItem.setForeground(Color.red);
+        listItem.setForeground(Color.YELLOW);
+        listItem.setBackground(Color.BLACK);
+        listItem.setSelectionBackground(Color.BLUE);
+        listItem.setSelectionForeground(Color.YELLOW);
+        listPanel.add(labelItem);
+        listPanel.add(listItem);
 
         // Inventory Item State
         inventoryList.clear();
@@ -173,8 +192,13 @@ public class Game {
             String data = item;
             inventoryList.addElement(data);
         }
-        panel.add(labelInventory);
-        panel.add(listInventory);
+        labelInventory.setForeground(Color.red);
+        listInventory.setForeground(Color.YELLOW);
+        listInventory.setBackground(Color.BLACK);
+        listInventory.setSelectionBackground(Color.BLUE);
+        listInventory.setSelectionForeground(Color.YELLOW);
+        listPanel.add(labelInventory);
+        listPanel.add(listInventory);
 
         // Direction State
         directionsList.clear();
@@ -184,9 +208,15 @@ public class Game {
             String listItem = key + " : " + value;
             directionsList.addElement(listItem);
         }
-        panel.add(labelDirection);
-        panel.add(listDirection);
+        labelDirection.setForeground(Color.red);
+        listDirection.setForeground(Color.YELLOW);
+        listDirection.setBackground(Color.BLACK);
+        listDirection.setSelectionBackground(Color.BLUE);
+        listDirection.setSelectionForeground(Color.YELLOW);
+        listPanel.add(labelDirection);
+        listPanel.add(listDirection);
 
+        panel.add(listPanel);
         getStatus();
     }
 
@@ -242,12 +272,12 @@ public class Game {
                 }
             } else if (locationInput.equals("Royal Lounge") && getCurrentLocation().getName().equals("Great Hall") && getCount() == 1) {
                 if (getInventoryItems().contains("tunic") && getInventoryItems().contains("sword")) {
-                    System.out.println("Guard: I don't know you... but you have the Kingdom's TUNIC... and that SWORD... You must be new... go ahead and pass.");
+                    System.out.println("Guard: I don't know you... but you have the Kingdom's TUNIC...\n and that SWORD... You must be new... go ahead and pass.");
                     System.out.println();
                     setCount(getCount() + 1);
                     setCurrentLocation(getLocationObject().getPickedLocation(locationInput));
                 } else {
-                    System.out.println("Guard: Where do you think you're going? Only knights can pass through here.\nAnd not just any bloak with a Kingdom's TUNIC.\nYou need a SWORD too.");
+                    System.out.println("Guard: Where do you think you're going?\nOnly knights can pass through here.\nAnd not just any bloak with a Kingdom's TUNIC.\nYou need a SWORD too.");
                 }
             } else if (locationInput.equals("Wizard's Foyer") && getCurrentLocation().getName().equals("Great Hall") && getCount() <= 2) {
                 if (getInventoryItems().contains("diamond key")) {

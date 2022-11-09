@@ -11,6 +11,8 @@ import java.net.URISyntaxException;
 
 public class GameFrame {
     private JPanel panel;
+    private final JPanel homePanel;
+    private JPanel listPanel = new JPanel();
     private JTextArea textArea;
     private JList listNPC = new JList();
     private JList listItem = new JList();
@@ -22,7 +24,6 @@ public class GameFrame {
     private JButton goButton = new JButton("GO");
     private JButton useButton = new JButton("USE");
     private JButton dropButton = new JButton("DROP");
-    private final JPanel homePanel;
     private final JLabel labelNPC = new JLabel("NPC:");
     private final JLabel labelItem = new JLabel("Location Items:");
     private final JLabel labelDirection = new JLabel("Directions:");
@@ -46,7 +47,7 @@ public class GameFrame {
 
 
         JLabel title = new JLabel();
-        title.setText("Hello Game Frame");
+        title.setText("Wizard Assassin");
         title.setVerticalAlignment(JLabel.TOP);
         title.setHorizontalAlignment(JLabel.CENTER);
         title.setForeground(Color.RED);
@@ -62,7 +63,10 @@ public class GameFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu Menu = new JMenu("Menu");
         JMenuItem quitMenuItem = new JMenuItem("quit");
-        quitMenuItem.addActionListener(e -> frame.dispose());
+        quitMenuItem.addActionListener(e -> {
+            panel.setVisible(false);
+            homePanel.setVisible(true);
+                });
 
         JMenuItem helpMenuItem = new JMenuItem("help");
         //quitMenuItem.addActionListener(e -> ("help"));
@@ -72,9 +76,6 @@ public class GameFrame {
 
         menuBar.add(Menu);
         frame.setJMenuBar(menuBar);
-
-        panel.add(title);
-
 
         // NPC Box
         listNPC.setModel(namesListNPC);
@@ -90,6 +91,7 @@ public class GameFrame {
 
 
         // Dialogue Box
+        JPanel textBoxPanel = new JPanel();
         textArea = new JTextArea(10, 50);
         textArea.setBackground(Color.BLACK);
         textArea.setForeground(Color.RED);
@@ -98,16 +100,26 @@ public class GameFrame {
         PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
         System.setOut(printStream);
         System.setErr(printStream);
+        textBoxPanel.setBackground(Color.yellow);
+        textBoxPanel.add(textArea);
 
-        panel.add(title, BorderLayout.NORTH);
-        panel.add(goButton, BorderLayout.WEST);
-        panel.add(talkButton, BorderLayout.WEST);
-        panel.add(fightButton, BorderLayout.WEST);
-        panel.add(getButton, BorderLayout.WEST);
-        panel.add(useButton, BorderLayout.WEST);
-        panel.add(dropButton, BorderLayout.WEST);
-        panel.add(textArea, BorderLayout.SOUTH);
+        // Button Panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(2, 1));
+        buttonPanel.add(goButton);
+        buttonPanel.add(talkButton);
+        buttonPanel.add(fightButton);
+        buttonPanel.add(getButton);
+        buttonPanel.add(useButton);
+        buttonPanel.add(dropButton);
 
+        // List Panel
+        listPanel.setLayout(new GridLayout(1, 8));
+
+        panel.add(title);
+
+        panel.add(textBoxPanel);
+        panel.add(buttonPanel);
         printLog();
         frame.add(panel);
     }
@@ -117,7 +129,7 @@ public class GameFrame {
             while (true) {
                 Game game = null;
                 try {
-                    game = new Game(panel, homePanel, textArea, listNPC,
+                    game = new Game(panel, homePanel, listPanel, textArea, listNPC,
                             namesListNPC, labelNPC, listItem,
                             itemsList, labelItem, listDirection,
                             directionsList, labelDirection, listInventory,

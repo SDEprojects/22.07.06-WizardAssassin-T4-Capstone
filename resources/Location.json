@@ -5,7 +5,7 @@
       "directions": {
         "south":"Courtyard"
       },
-      "description": "You are in a church filled with wooden pews and an altar and nothing else.\n The window you entered by is to the north.\n There is a wooden door to the south.",
+      "description": "You are teleported to a church filled with wooden pews and an altar.\nThere is a wooden door to the south.",
       "items": [
         "stick"
       ],
@@ -20,7 +20,7 @@
         "south":"Watchtower",
         "west":"Great Hall"
       },
-      "description": "The courtyard is an open area surrounded by tall stone walls.\n To the north is a door that leads to the church.\n To the south is a door to a tall watchtower.\n To the west are grand doors leading to the great hall.",
+      "description": "Open area surrounded by stone walls.\nNorth is a door that leads to the church.\nSouth there is a door to the watchtower.\nWest are grand doors leading to the great hall.",
       "items" : [
 
       ],
@@ -37,7 +37,7 @@
         "up":"Armory",
         "down":"Dungeon"
       },
-      "description": "The WatchTower is a small room with a table, a chair, and a guard asleep slumped over the table.\n A KEY rests on the table next to his right hand.\n To your north is the door that leads to the courtyard.\n There is a NOTE on the table as well.\n There are narrow stairs that lead up to armory and stairs that lead down to a dungeon.",
+      "description": "A small room containing a table and chair, with a sleeping guard slumped over the table.\nNorth is a door that leads to the courtyard.\nNarrow stairs lead up to the armory and down to the dungeon.",
       "items": [
         "brass key",
         "note"
@@ -51,7 +51,7 @@
       "directions": {
         "down":"Watchtower"
       },
-      "description": "The Armory is a small room contains many weapons: SWORDS, MACES, HALBERDS, the tools of the king’s guard.\n There is also a spare TUNIC that the guards wear.\n It has the INSIGNIA of the king.",
+      "description": "A small room containing many weapons: SWORDS, MACES, and HALBERDS.\nThere is also a spare TUNIC that the guards wear.\nIt has the INSIGNIA of the king.",
       "items": [
         "sword",
         "tunic"
@@ -65,7 +65,7 @@
       "directions": {
         "up":"Watchtower"
       },
-      "description": "The Dungeon is gloomy, cold and dripping water.\n Shackles dangle from the walls.\n In one of the cells huddles a bloodied PRISONER.",
+      "description": "Gloomy, cold and dripping water.\nShackles dangle from the walls.\nIn one of the cells huddles a bloodied PRISONER.\nYou notice a piece of paper reading 'password'",
       "items": [
         "password"
       ],
@@ -82,7 +82,7 @@
         "east":"Courtyard",
         "west":"Royal Lounge"
       },
-      "description": "The Great Hall ceiling is 20 feet high.\n Light pours in from big windows on each side of the room.\n To the north is a door leading to the wizard's tower.\n However, explore the other rooms since you need important items to defeat the evil wizard.",
+      "description": "You notice the ceiling is 20 feet high.\nLight from elegant windows fills the room.\nNorth is a door leading to the wizard's tower.\nIt appears a diamond shaped key is needed to enter the tower.",
       "items": [
         "key",
         "note"
@@ -98,7 +98,7 @@
 
         "north": "Great Hall"
       },
-      "description": "The Kitchen has a few servants scrub pots, dishes, and the floor.\n The light from the large open hearth partially illuminates the room.\n On a table there is a KNIFE and in the corner there is a bottle labeled POISON that is usually used to kill rats. ",
+      "description": "You see servants scrubbing pots, dishes, and the floor.\nAn large hearth illuminates the room.\nOn a table there is a KNIFE and a bottle\n labeled Rat POISON.",
       "items": [
         "knife",
         "poison"
@@ -114,9 +114,9 @@
 
         "east":"Great Hall",
         "south":"Royal Library",
-        "west":"King’s Chambers"
+        "west":"King's Chambers"
       },
-      "description": "The Royal Lounge has a few couches, a table surrounded with chairs.\n This room is usually used for important meetings with the king.\n In this room you will find a key that open the door to the Wizard's Tower.",
+      "description": "The Royal Lounge has a few couches, a table surrounded with chairs.\nThis room is usually used for important meetings with the king.\nIn this room you will find a key that open the door to the Wizard's Tower.",
       "items": [
         "diamond key"
       ],
@@ -130,7 +130,7 @@
 
         "north": "Royal Lounge"
       },
-      "description": "The Library has shelves of books cover the walls from floor to ceiling.\n There are cushioned chairs and a table near the center of the room.\n At this table sits a tall gangly figure with a long white beard is seated in a chair, engrossed in a giant magical tome",
+      "description": "Filled with shelves of books, cushioned chairs and a table at the rooms center.\nAt the table sits a tall gangly figure with a long white beard.",
       "items": [
         "wizard robes"
       ],
@@ -160,7 +160,7 @@
         "south":"Great Hall",
         "west":"Laboratory"
       },
-      "description": "The Wizards Foyer is a wide large dimly lit room.\n As you enter you hear strange snorts and snarls.\n Its a 10-foot, dragon-scaled, lion-headed chimera with what looks to be bat wings sprawling what must be 30 feet across,\n claws as sharp as daggers, a tail with the head of a serpent and venom dripping from its vampire fangs.\n A truly grotesque twisting of the natural world by the dark forces lurking nearby.\n Luckily, this thing appears to be sleeping.",
+      "description": "Large dimly lit room.\nYou hear strange snorts and snarls.\nYou see a 10-foot, dragon-scaled, lion-headed chimera\n with bat wings spanning 30 feet,\nclaws as sharp as spikes, and a tail with the head of a serpent with venom dripping fangs.\nLuckily, it is asleep.",
       "items": [
 
       ],
@@ -174,7 +174,7 @@
 
         "south":"Wizard's Foyer"
       },
-      "description": "The Wizard's Bedroom has a 4-post bed covered by a dark quilt.\n You see a table and chair.\n Sitting on the chair, looking at you, is the WIZARD.",
+      "description": "You see a bed covered by a dark quilt, table, and chair.\nSitting in the chair, looking at you, is the WIZARD.",
       "items": [
 
       ],
@@ -188,7 +188,7 @@
 
         "east": "Wizard's Foyer"
       },
-      "description": "The Laboratory is full of tables crammed with beakers and vials filled with colorful, bubbling and smoking liquids.\n You see a jug of MEAD on one of the tables.\n There is a NOTE next to the MEAD.",
+      "description": "Beakers and vials filled with colorful, bubbling and smoking liquids fill the room.\nYou see a jug of MEAD and MEAT on a table. Perhaps this is the wizards dinner, I could possible poison it...",
       "items": [
         "mead",
         "hunk of meat",
@@ -214,7 +214,7 @@
       "directions": {
 
       },
-      "description": "The Queen's Garden is full of luscious greenery, with thousands of wild flowers. \n You received a summons from your Queen to meet her here.\n You should talk to her.",
+      "description": "The Queen's Garden is full of luscious greenery, with thousands of wild flowers. \nYou received a summons from your Queen to meet her here.\nYou should talk to her.",
       "items": [
       ],
       "characters": [
