@@ -64,13 +64,13 @@
       "type": "NPC",
       "name": "monster",
       "room": "Wizard's Foyer",
-      "quote": "The monster dazedly lifts it's head up, blinks it's eyes open,\n sniffs a bit... and goes back to sleep.\nThose robes must've fooled it."
+      "quote": "The monster dazedly lifts it's head up, blinks it's eyes open,\n sniffs a bit... and goes back to sleep. Those robes must've fooled it."
     },
     {
       "type": "NPC",
       "name": "evil wizard",
       "room": "Wizard's Chambers",
-      "quote": "What do you want, weakling? I suppose you were sent to kill me? *Laughs Maniacally* HAHAHAHAHAHAHA!!"
+      "quote": "What do you want, weakling? Get out!!\n *Laughs Maniacally* HAHAHAHAHAHAHA!!"
     },
     {
       "type": "NPC",

@@ -106,15 +106,24 @@ public class GameFrame {
         // Button Panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 1));
+        goButton.setBackground(Color.GREEN);
         buttonPanel.add(goButton);
+        talkButton.setBackground(Color.BLUE);
+        talkButton.setForeground(Color.YELLOW);
         buttonPanel.add(talkButton);
+        fightButton.setBackground(Color.RED);
         buttonPanel.add(fightButton);
+        getButton.setBackground(Color.ORANGE);
         buttonPanel.add(getButton);
+        useButton.setBackground(Color.magenta);
+        useButton.setForeground(Color.WHITE);
         buttonPanel.add(useButton);
+        dropButton.setBackground(Color.YELLOW);
         buttonPanel.add(dropButton);
 
         // List Panel
-        listPanel.setLayout(new GridLayout(1, 8));
+        listPanel.setLayout(new FlowLayout(15,15, FlowLayout.CENTER));
+//        listPanel.setBounds(5, 5, 300, 30);
 
         panel.add(title);
 
