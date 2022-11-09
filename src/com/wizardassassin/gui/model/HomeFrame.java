@@ -20,11 +20,6 @@ public class HomeFrame {
     }
 
     private void initialize(JFrame frame) throws IOException, URISyntaxException {
-        frame.setTitle("Wizard Assassin");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(950, 700);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
 
         panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 70));
@@ -43,6 +38,11 @@ public class HomeFrame {
         description.setForeground(Color.RED);
         description.setBackground(Color.BLACK);
         description.setFont(new Font("papyrus", Font.ITALIC, 17));
+        description.setEditable(false);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBounds(400, 200, 300, 400);
+        buttonPanel.setBackground(Color.BLACK);
 
         startButton = new JButton("Start");
         quitButton = new JButton("Quit");
@@ -63,10 +63,14 @@ public class HomeFrame {
         quitButton.setForeground(Color.RED);
         quitButton.addActionListener(e -> frame.dispose());
 
+        buttonPanel.add(startButton);
+        buttonPanel.add(quitButton);
+
         panel.add(title);
         panel.add(description);
-        panel.add(startButton);
-        panel.add(quitButton);
+        panel.add(buttonPanel);
+//        panel.add(startButton);
+//        panel.add(quitButton);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
