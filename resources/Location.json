@@ -39,8 +39,7 @@
       },
       "description": "A small room containing a table and chair, with a sleeping guard slumped over the table.\nNorth is a door that leads to the courtyard.\nNarrow stairs lead up to the armory and down to the dungeon.",
       "items": [
-        "brass key",
-        "note"
+
       ],
       "characters": [
         "guard"
@@ -84,8 +83,7 @@
       },
       "description": "You notice the ceiling is 20 feet high.\nLight from elegant windows fills the room.\nNorth is a door leading to the wizard's tower.\nIt appears a diamond shaped key is needed to enter the tower.",
       "items": [
-        "key",
-        "note"
+
       ],
       "characters": [
         "guard",
@@ -160,7 +158,7 @@
         "south":"Great Hall",
         "west":"Laboratory"
       },
-      "description": "Large dimly lit room.\nYou hear strange snorts and snarls.\nYou see a 10-foot, dragon-scaled, lion-headed chimera\n with bat wings spanning 30 feet,\nclaws as sharp as spikes, and a tail with the head of a serpent with venom dripping fangs.\nLuckily, it is asleep.",
+      "description": "Large dimly lit room. You hear strange snorts and snarls.\nYou see a 10-foot, dragon-scaled, lion-headed chimera with bat wings spanning 30 feet,\nclaws as sharp as spikes, and a tail with the head of a serpent with venom dripping fangs.\nLuckily, it is asleep.",
       "items": [
 
       ],
@@ -188,11 +186,9 @@
 
         "east": "Wizard's Foyer"
       },
-      "description": "Beakers and vials filled with colorful, bubbling and smoking liquids fill the room.\nYou see a jug of MEAD and MEAT on a table. Perhaps this is the wizards dinner, I could possible poison it...",
+      "description": "Beakers and vials filled with colorful, bubbling and\n smoking liquids fill the room. You see a jug of MEAD and MEAT on a table.\n Perhaps this is the wizards dinner, I could possible poison it...",
       "items": [
-        "mead",
-        "hunk of meat",
-        "jewels"
+
       ],
       "characters": [
         "monster"

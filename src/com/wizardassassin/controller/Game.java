@@ -168,7 +168,7 @@ public class Game {
         listNPC.setBackground(Color.BLACK);
         listNPC.setSelectionBackground(Color.BLUE);
         listNPC.setSelectionForeground(Color.YELLOW);
-        listNPC.setFixedCellWidth(5);
+//        listNPC.setFixedCellWidth(100);
         listPanel.add(labelNPC);
         listPanel.add(listNPC);
 
@@ -197,6 +197,7 @@ public class Game {
         listInventory.setBackground(Color.BLACK);
         listInventory.setSelectionBackground(Color.BLUE);
         listInventory.setSelectionForeground(Color.YELLOW);
+        listInventory.setLayout(new GridLayout(5,2));
         listPanel.add(labelInventory);
         listPanel.add(listInventory);
 
@@ -366,8 +367,8 @@ public class Game {
     }
 
     private void getStatus() {
-        System.out.println("\n*********  You are in the " + currentLocation.getName() + ". *********\n\n");
-        System.out.println(currentLocation.getDescription() + "\n");
+        System.out.println("\n*********  You are in the " + currentLocation.getName() + ". *********\n");
+        System.out.println(currentLocation.getDescription());
         npcNames.clear();
         for (Characters extraCharacters : characterData.getCharacters()) {
             if ((currentLocation.getName().equals(extraCharacters.getRoom()))) {
@@ -375,7 +376,7 @@ public class Game {
                 characterQuotes.put(extraCharacters.getName(), extraCharacters.getQuote());
             }
         }
-        System.out.println(" What would you like to do now?");
+        System.out.println("\nWhat would you like to do now?");
     }
 
     private void handleAutoGameEndings() {
