@@ -21,13 +21,13 @@ public class Home {
         final URI uri = loader.getResource("introduction.json").toURI();
         Map<String, String> env = new HashMap<>();
         env.put("create", "true");
-        FileSystem zipfs = FileSystems.newFileSystem(uri, env);
+//        FileSystem zipfs = FileSystems.newFileSystem(uri, env);
         Path myFolderPath = Paths.get(uri);
         String reader = Files.readString(Path.of(uri));
         Introduction obj = gson.fromJson(reader, (Type) Introduction.class);
         String gameIntro = obj.getIntroduction();
-        String gameObj = obj.getObjective();
-        String gameWin = obj.getWin();
-        return "\033[35m" + gameIntro + "\n" + gameObj + "\n" + gameWin + "\033[0m";
+//        String gameObj = obj.getObjective();
+//        String gameWin = obj.getWin();
+        return gameIntro;
     }
 }

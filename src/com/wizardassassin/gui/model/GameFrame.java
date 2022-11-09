@@ -40,8 +40,10 @@ public class GameFrame {
     private void initialize(JFrame frame) {
 
         panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+//        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
+        panel.setLayout(new FlowLayout());
         panel.setBackground(Color.BLACK);
+
 
         JLabel title = new JLabel();
         title.setText("Hello Game Frame");
@@ -89,19 +91,22 @@ public class GameFrame {
 
         // Dialogue Box
         textArea = new JTextArea(10, 50);
+        textArea.setBackground(Color.BLACK);
+        textArea.setForeground(Color.RED);
+        textArea.setFont(new Font("papyrus", Font.ITALIC, 17));
         textArea.setEditable(false);
         PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
         System.setOut(printStream);
         System.setErr(printStream);
 
-        panel.add(title);
-        panel.add(goButton);
-        panel.add(talkButton);
-        panel.add(fightButton);
-        panel.add(getButton);
-        panel.add(useButton);
-        panel.add(dropButton);
-        panel.add(textArea);
+        panel.add(title, BorderLayout.NORTH);
+        panel.add(goButton, BorderLayout.WEST);
+        panel.add(talkButton, BorderLayout.WEST);
+        panel.add(fightButton, BorderLayout.WEST);
+        panel.add(getButton, BorderLayout.WEST);
+        panel.add(useButton, BorderLayout.WEST);
+        panel.add(dropButton, BorderLayout.WEST);
+        panel.add(textArea, BorderLayout.SOUTH);
 
         printLog();
         frame.add(panel);

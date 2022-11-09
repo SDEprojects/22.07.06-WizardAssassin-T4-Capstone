@@ -11,7 +11,7 @@ public class HomeFrame {
 
     JPanel panel;
     JLabel title;
-    JLabel description;
+    JTextArea description;
     JButton startButton;
     JButton quitButton;
 
@@ -27,7 +27,7 @@ public class HomeFrame {
         frame.setResizable(false);
 
         panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 5));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 70));
         panel.setBackground(Color.BLACK);
 
         title = new JLabel();
@@ -38,14 +38,15 @@ public class HomeFrame {
         title.setFont(new Font("papyrus", Font.BOLD, 50));
 
         Home home = new Home();
-        description = new JLabel();
+        description = new JTextArea();
         description.setText(home.gameObjective());
         description.setForeground(Color.RED);
+        description.setBackground(Color.BLACK);
+        description.setFont(new Font("papyrus", Font.ITALIC, 17));
 
         startButton = new JButton("Start");
         quitButton = new JButton("Quit");
 
-        startButton.setBounds(350, 400, 80, 35);
         startButton.setBackground(Color.BLACK);
         startButton.setForeground(Color.RED);
         startButton.addActionListener(e -> {
@@ -58,7 +59,6 @@ public class HomeFrame {
             }
         });
 
-        quitButton.setBounds(450, 400, 80, 35);
         quitButton.setBackground(Color.BLACK);
         quitButton.setForeground(Color.RED);
         quitButton.addActionListener(e -> frame.dispose());
@@ -90,7 +90,7 @@ public class HomeFrame {
         return title;
     }
 
-    public JLabel getDescription() {
+    public JTextArea getDescription() {
         return description;
     }
 
