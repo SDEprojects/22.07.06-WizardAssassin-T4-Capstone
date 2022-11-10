@@ -13,6 +13,9 @@ public class GameFrame {
     private JPanel panel;
     private final JPanel homePanel;
     private JPanel listPanel = new JPanel();
+    private JPanel inventoryPanel = new JPanel();
+    private JPanel rightPanel = new JPanel();
+    private JPanel leftPanel = new JPanel();
     private JTextArea textArea;
     private JList listNPC = new JList();
     private JList listItem = new JList();
@@ -28,6 +31,7 @@ public class GameFrame {
     private final JLabel labelItem = new JLabel("Location Items:");
     private final JLabel labelDirection = new JLabel("Directions:");
     private final JLabel labelInventory = new JLabel("Inventory:");
+    private final JLabel labelActions = new JLabel("Actions");
     private final DefaultListModel namesListNPC = new DefaultListModel();
     private final DefaultListModel itemsList = new DefaultListModel();
     private final DefaultListModel directionsList = new DefaultListModel();
@@ -42,7 +46,7 @@ public class GameFrame {
 
         panel = new JPanel();
 //        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
-        panel.setLayout(new FlowLayout());
+//        panel.setLayout(new FlowLayout());
         panel.setBackground(Color.BLACK);
 
 
@@ -98,40 +102,74 @@ public class GameFrame {
         textArea.setForeground(Color.RED);
         textArea.setFont(new Font("papyrus", Font.ITALIC, 17));
         textArea.setEditable(false);
+        textArea.setPreferredSize(new Dimension(100, 450));
         PrintStream printStream = new PrintStream(new CustomOutputStream(textArea));
         System.setOut(printStream);
         System.setErr(printStream);
         textBoxPanel.setBackground(Color.yellow);
         textBoxPanel.add(textArea);
 
+        // Button panel label
+        labelActions.setForeground(Color.RED);
+        labelActions.setFont(new Font("papyrus", Font.BOLD, 20));
+        labelActions.setHorizontalAlignment(JLabel.CENTER);
+        labelActions.setVerticalAlignment(JLabel.NORTH);
+
         // Button Panel
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 1));
         goButton.setBackground(Color.GREEN);
         goButton.setOpaque(true);
-//        goButton.setBorderPainted(false);
+        goButton.setBorderPainted(false);
         buttonPanel.add(goButton);
         talkButton.setBackground(Color.BLUE);
+        talkButton.setOpaque(true);
+        talkButton.setBorderPainted(false);
         talkButton.setForeground(Color.YELLOW);
         buttonPanel.add(talkButton);
         fightButton.setBackground(Color.RED);
+        fightButton.setOpaque(true);
+        fightButton.setBorderPainted(false);
         buttonPanel.add(fightButton);
         getButton.setBackground(Color.ORANGE);
+        getButton.setOpaque(true);
+        getButton.setBorderPainted(false);
         buttonPanel.add(getButton);
         useButton.setBackground(Color.magenta);
+        useButton.setOpaque(true);
+        useButton.setBorderPainted(false);
         useButton.setForeground(Color.WHITE);
         buttonPanel.add(useButton);
         dropButton.setBackground(Color.YELLOW);
+        dropButton.setOpaque(true);
+        dropButton.setBorderPainted(false);
         buttonPanel.add(dropButton);
 
+        // Inventory Panel
+        inventoryPanel.setBackground(Color.BLACK);
+
         // List Panel
-        listPanel.setLayout(new FlowLayout(15,15, FlowLayout.CENTER));
+        listPanel.setLayout(new FlowLayout(15,15, FlowLayout.LEADING));
 //        listPanel.setBounds(5, 5, 300, 30);
 
-        panel.add(title);
+        // Right Panel
+       rightPanel.setBackground(Color.BLACK);
+       rightPanel.setLayout(new GridLayout(3, 1));
 
-        panel.add(textBoxPanel);
-        panel.add(buttonPanel);
+       // Left Panel
+        leftPanel.setBackground(Color.BLACK);
+        leftPanel.add(textBoxPanel);
+        leftPanel.add(listPanel);
+        leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        rightPanel.add(labelActions);
+        rightPanel.add(buttonPanel);
+        rightPanel.add(inventoryPanel);
+
+        panel.add(title);
+//        panel.add(textBoxPanel);
+        panel.add(leftPanel);
+        panel.add(rightPanel);
         printLog();
         frame.add(panel);
     }
@@ -141,7 +179,7 @@ public class GameFrame {
             while (true) {
                 Game game = null;
                 try {
-                    game = new Game(panel, homePanel, listPanel, textArea, listNPC,
+                    game = new Game(panel, homePanel, listPanel, inventoryPanel, textArea, listNPC,
                             namesListNPC, labelNPC, listItem,
                             itemsList, labelItem, listDirection,
                             directionsList, labelDirection, listInventory,

@@ -10,7 +10,7 @@
       "type": "NPC",
       "name": "guard1",
       "room": "Courtyard",
-      "quote": "The food today taste great. You should go to the Kitchen and have some...\nIf you have the PASSWORD, of course."
+      "quote": "The food today tastes great. You should go to the Kitchen and have\nsome...If you have the PASSWORD, of course."
     },
     {
       "type": "NPC",
@@ -34,7 +34,7 @@
       "type": "NPC",
       "name": "cook",
       "room": "Kitchen",
-      "quote": "Now where did I put that nightshade? We need that to POISON... err, Hey, there!..."
+      "quote": "Now where did I put that nightshade? We need that to POISON... err,\nHey, there!..."
     },
     {
       "type": "NPC",
@@ -76,7 +76,7 @@
       "type": "NPC",
       "name": "queen",
       "room": "Queen's Garden",
-      "quote": "Greetings Assassin, you've been summoned for a special mission.\nThe Southern Kingdom has laid siege upon the continent.\nWe must take action, before our own walls are toppled.\nIntel infers that influence by an Evil Wizard is over the Kingdom .\nInfiltrate the Southern Kingdom and ASSASSINATE this Evil Wizard.\nSpare as many lives as you can, since the inhabitants are not acting of their own volition.\nThis teleportation scroll will transport you to the Southern Kingdom.\n"
+      "quote": "Greetings Assassin, you've been summoned for a special mission.\nThe Southern Kingdom has laid siege upon the continent.\nWe must take action, before our own walls are toppled.\nIntel infers that influence by an Evil Wizard is over the Kingdom .\nInfiltrate the Southern Kingdom and ASSASSINATE this Evil Wizard.\nSpare as many lives as you can, since the inhabitants are not acting of their\nown volition.\nThis teleportation scroll will transport you to the Southern Kingdom."
     }
   ]
 }
