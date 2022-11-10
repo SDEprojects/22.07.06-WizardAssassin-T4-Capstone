@@ -1,6 +1,7 @@
 package com.wizardassassin.gui.model;
 
 import com.wizardassassin.controller.Game;
+import com.wizardassassin.model.KingdomMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,8 +77,12 @@ public class GameFrame {
         JMenuItem helpMenuItem = new JMenuItem("help");
         helpMenuItem.addActionListener(e -> helpWindow());
 
+        JMenuItem MapItem = new JMenuItem("map");
+        MapItem.addActionListener(e -> MapWindow());
+
         Menu.add(quitMenuItem);
         Menu.add(helpMenuItem);
+        Menu.add(MapItem);
 
         menuBar.add(Menu);
         frame.setJMenuBar(menuBar);
@@ -223,4 +228,20 @@ public class GameFrame {
         frame.add(text);
         frame.setVisible(true);
     }
+    public void MapWindow() {
+        JFrame frame1 = new JFrame();
+        JTextArea text1 = new JTextArea();
+        frame1.setTitle("Wizard Assassin: MAP");
+        frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame1.setSize(500, 500);
+        frame1.setLocationRelativeTo(null);
+        frame1.setResizable(false);
+
+        //text1.setText("h);
+        text1.setForeground(Color.RED);
+
+        frame1.add(text1);
+        frame1.setVisible(true);
+    }
+
 }
