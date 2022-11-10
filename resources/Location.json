@@ -37,7 +37,7 @@
         "up":"Armory",
         "down":"Dungeon"
       },
-      "description": "A small room containing a table and chair, with a sleeping guard slumped over the table.\nNorth is a door that leads to the courtyard.\nNarrow stairs lead up to the armory and down to the dungeon.",
+      "description": "A small room containing a table and chair, with a sleeping guard slumped\nover the table. North is a door that leads to the courtyard.\nNarrow stairs lead up to the armory and down to the dungeon.",
       "items": [
 
       ],
@@ -50,7 +50,7 @@
       "directions": {
         "down":"Watchtower"
       },
-      "description": "A small room containing many weapons: SWORDS, MACES, and HALBERDS.\nThere is also a spare TUNIC that the guards wear.\nIt has the INSIGNIA of the king.",
+      "description": "A small room containing a SWORD.\nThere is also a spare TUNIC that the guards wear.\nIt has the INSIGNIA of the king.",
       "items": [
         "sword",
         "tunic"
@@ -128,7 +128,7 @@
 
         "north": "Royal Lounge"
       },
-      "description": "Filled with shelves of books, cushioned chairs and a table at the rooms center.\nAt the table sits a tall gangly figure with a long white beard.",
+      "description": "Filled with shelves of books, cushioned chairs and a table at the room's center.",
       "items": [
         "wizard robes"
       ],
@@ -142,7 +142,7 @@
 
         "east":"Royal Lounge"
       },
-      "description": "The King's Chambers is off limits.",
+      "description": "The King's Chambers is empty.\nThe Evil Wizard must have done something with him.",
       "items": [
 
       ],
@@ -158,7 +158,7 @@
         "south":"Great Hall",
         "west":"Laboratory"
       },
-      "description": "Large dimly lit room. You hear strange snorts and snarls.\nYou see a 10-foot, dragon-scaled, lion-headed chimera with bat wings spanning 30 feet,\nclaws as sharp as spikes, and a tail with the head of a serpent with venom dripping fangs.\nLuckily, it is asleep.",
+      "description": "Large dimly lit room. You hear strange snorts and snarls.\nYou see a 10-foot, dragon-scaled, lion-headed chimera with bat wings\n spanning 30 feet,claws as sharp as spikes, and a tail with the head\nof a serpent with venom dripping fangs.\nLuckily, it is asleep.",
       "items": [
 
       ],
@@ -186,7 +186,7 @@
 
         "east": "Wizard's Foyer"
       },
-      "description": "Beakers and vials filled with colorful, bubbling and\n smoking liquids fill the room. You see a jug of MEAD and MEAT on a table.\n Perhaps this is the wizards dinner, I could possible poison it...",
+      "description": "Beakers and vials filled with colorful, bubbling and\n smoking liquids fill the room. You see a jug of MEAD and plate of MEAT on a table.\n Perhaps this is the wizard's dinner, I could possibly poison it...",
       "items": [
 
       ],
@@ -210,7 +210,7 @@
       "directions": {
 
       },
-      "description": "The Queen's Garden is full of luscious greenery, with thousands of wild flowers. \nYou received a summons from your Queen to meet her here.\nYou should talk to her.",
+      "description": "The Queen's Garden is full of luscious greenery, with thousands of wild\n flowers. You received a summons from your Queen to meet her here.\nYou should talk to her.",
       "items": [
       ],
       "characters": [

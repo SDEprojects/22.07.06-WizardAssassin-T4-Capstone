@@ -33,6 +33,7 @@ public class Game {
     private final JPanel panel;
     private final JPanel homePanel;
     private final JPanel listPanel;
+    private final JPanel inventoryPanel;
     private final JTextArea textArea;
     private final JList listNPC;
     private final DefaultListModel namesListNPC;
@@ -53,7 +54,9 @@ public class Game {
     private final JButton useButton;
     private final JButton dropButton;
 
-    public Game(JPanel panel, JPanel homePanel, JPanel listPanel, JTextArea textArea, JList listNPC,
+    public Game(JPanel panel, JPanel homePanel, JPanel listPanel, JPanel inventoryPanel,
+                JTextArea textArea,
+                JList listNPC,
                 DefaultListModel namesListNPC, JLabel labelNPC, JList listItem,
                 DefaultListModel itemsList, JLabel labelItem, JList listDirection,
                 DefaultListModel directionsList, JLabel labelDirection, JList listInventory,
@@ -64,6 +67,7 @@ public class Game {
         this.panel = panel;
         this.homePanel = homePanel;
         this.listPanel = listPanel;
+        this.inventoryPanel = inventoryPanel;
         this.textArea = textArea;
         this.listNPC = listNPC;
         this.listItem = listItem;
@@ -198,8 +202,10 @@ public class Game {
         listInventory.setSelectionBackground(Color.BLUE);
         listInventory.setSelectionForeground(Color.YELLOW);
         listInventory.setLayout(new GridLayout(5,2));
-        listPanel.add(labelInventory);
-        listPanel.add(listInventory);
+//        listPanel.add(labelInventory);
+//        listPanel.add(listInventory);
+        inventoryPanel.add(labelInventory);
+        inventoryPanel.add(listInventory);
 
         // Direction State
         directionsList.clear();
@@ -302,7 +308,7 @@ public class Game {
             currentLocation = locationObj.getPickedLocation("Wizard's Foyer");
         } else if (inputVerb.equals("use") && inputNoun.equals("poison") && getCurrentLocation().getName().equals("Laboratory")) {
             textArea.setText("");
-            System.out.println("You have poisoned the wizard. You return home as a hero who saved your kingdom.");
+            System.out.println("You have poisoned the wizard.\nYou return home as a hero who saved your kingdom.");
             resetGame();
         } else if (Arrays.asList(currentLocation.getItem()).contains(inputNoun) || inventoryItems.contains(inputNoun)) {
             items.getItem(inputNoun, currentLocation, inputVerb, inventoryItems, inventory);
