@@ -62,6 +62,7 @@ public class GameFrame {
 
         JMenuBar menuBar = new JMenuBar();
         JMenu Menu = new JMenu("Menu");
+
         JMenuItem quitMenuItem = new JMenuItem("quit");
         quitMenuItem.addActionListener(e -> {
             panel.setVisible(false);
@@ -69,7 +70,7 @@ public class GameFrame {
                 });
 
         JMenuItem helpMenuItem = new JMenuItem("help");
-        //quitMenuItem.addActionListener(e -> ("help"));
+        helpMenuItem.addActionListener(e -> helpWindow());
 
         Menu.add(quitMenuItem);
         Menu.add(helpMenuItem);
@@ -107,6 +108,8 @@ public class GameFrame {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(2, 1));
         goButton.setBackground(Color.GREEN);
+        goButton.setOpaque(true);
+//        goButton.setBorderPainted(false);
         buttonPanel.add(goButton);
         talkButton.setBackground(Color.BLUE);
         talkButton.setForeground(Color.YELLOW);
@@ -158,5 +161,28 @@ public class GameFrame {
             }
         });
         thread.start();
+    }
+
+    public void helpWindow() {
+        JFrame frame = new JFrame();
+        JTextArea text = new JTextArea();
+        frame.setTitle("Wizard Assassin: HELP");
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(480, 200);
+        frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
+
+        text.setText(" To play the game, select a yellow colored item from any list, followed by clicking a\n button from the Actions panel.\n" +
+                "\n Possible Combinations:\n" +
+                "   select NPC name     -> click TAlk or FIGHT\n" +
+                "   select LocationItem -> click GET\n" +
+                "   select Directions   -> click GO\n" +
+                "   select Inventory    -> click USE or DROP");
+        text.setBackground(Color.BLACK);
+        text.setForeground(Color.RED);
+        text.setEditable(false);
+
+        frame.add(text);
+        frame.setVisible(true);
     }
 }
