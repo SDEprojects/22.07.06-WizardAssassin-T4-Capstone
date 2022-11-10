@@ -2,6 +2,8 @@ package com.wizardassassin.controller;
 
 import java.awt.*;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -92,9 +94,13 @@ public class Game {
     public Location makeObj() throws IOException, URISyntaxException {
         Gson gson = new Gson();
         ClassLoader loader = getClass().getClassLoader();
-        URI uri = loader.getResource("Location.json").toURI();
-        String reader = Files.readString(Path.of(uri));
-        return gson.fromJson(reader, Location.class);
+//        URI uri = loader.getResource("Location.json").toURI();
+//        String reader = Files.readString(Path.of(uri));
+//        return gson.fromJson(reader, Location.class);
+        //noinspection ConstantConditions
+        try (Reader reader = new InputStreamReader(loader.getResourceAsStream("Location.json"))) {
+            return gson.fromJson(reader, Location.class);
+        }
     }
 
     public void playGame() throws IOException, URISyntaxException {
