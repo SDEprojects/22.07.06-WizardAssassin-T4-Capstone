@@ -1,14 +1,20 @@
 package com.wizardassassin.gui.model;
 
 import com.wizardassassin.controller.Game;
-import com.wizardassassin.model.KingdomMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 public class GameFrame {
     private JPanel panel;
@@ -37,6 +43,9 @@ public class GameFrame {
     private final DefaultListModel itemsList = new DefaultListModel();
     private final DefaultListModel directionsList = new DefaultListModel();
     private final DefaultListModel inventoryList = new DefaultListModel();
+    public BufferedImage image;
+    public boolean collision = false;
+
 
     public GameFrame(JFrame frame, JPanel homePanel) {
         this.homePanel = homePanel;
@@ -77,12 +86,12 @@ public class GameFrame {
         JMenuItem helpMenuItem = new JMenuItem("help");
         helpMenuItem.addActionListener(e -> helpWindow());
 
-        JMenuItem MapItem = new JMenuItem("map");
-        MapItem.addActionListener(e -> MapWindow());
+        JMenuItem mapMenuItem = new JMenuItem("map");
+        mapMenuItem.addActionListener(e -> mapWindow());
 
         Menu.add(quitMenuItem);
         Menu.add(helpMenuItem);
-        Menu.add(MapItem);
+        Menu.add(mapMenuItem);
 
         menuBar.add(Menu);
         frame.setJMenuBar(menuBar);
@@ -228,20 +237,18 @@ public class GameFrame {
         frame.add(text);
         frame.setVisible(true);
     }
-    public void MapWindow() {
-        JFrame frame1 = new JFrame();
-        JTextArea text1 = new JTextArea();
-        frame1.setTitle("Wizard Assassin: MAP");
-        frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame1.setSize(500, 500);
-        frame1.setLocationRelativeTo(null);
-        frame1.setResizable(false);
+    public void mapWindow() {
+        JFrame mapFrame = new JFrame();
+        mapFrame.setTitle("Wizard Assassin: MAP");
+        mapFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mapFrame.setSize(800, 410);
 
-        //text1.setText("h);
-        text1.setForeground(Color.RED);
+        mapFrame.setLayout(null);
+        mapFrame.setResizable(false);
+        mapFrame.setLocationRelativeTo(null);
+        mapFrame.setContentPane(new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("NewMap.png")))));
 
-        frame1.add(text1);
-        frame1.setVisible(true);
+        mapFrame.setVisible(true);
     }
 
 }
