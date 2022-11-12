@@ -5,6 +5,8 @@ import com.wizardassassin.controller.Game;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -15,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
+
 
 public class GameFrame {
     private JPanel panel;
@@ -43,8 +46,11 @@ public class GameFrame {
     private final DefaultListModel itemsList = new DefaultListModel();
     private final DefaultListModel directionsList = new DefaultListModel();
     private final DefaultListModel inventoryList = new DefaultListModel();
+    Music music = new Music();
+    String sound_track = "resources/music.wav";
     public BufferedImage image;
     public boolean collision = false;
+
 
 
     public GameFrame(JFrame frame, JPanel homePanel) {
@@ -89,9 +95,14 @@ public class GameFrame {
         JMenuItem mapMenuItem = new JMenuItem("map");
         mapMenuItem.addActionListener(e -> mapWindow());
 
+        JMenuItem musicItem = new JMenuItem("music");
+        musicItem.addActionListener(e -> musicWindow());
+
         Menu.add(quitMenuItem);
         Menu.add(helpMenuItem);
+        Menu.add(musicItem);
         Menu.add(mapMenuItem);
+
 
         menuBar.add(Menu);
         frame.setJMenuBar(menuBar);
@@ -223,6 +234,8 @@ public class GameFrame {
         frame.setSize(480, 200);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
+        ImageIcon help = new ImageIcon("resources/help.jpg");
+        frame.setIconImage(help.getImage());
 
         text.setText(" To play the game, select a yellow colored item from any list, followed by clicking a\n button from the Actions panel.\n" +
                 "\n Possible Combinations:\n" +
@@ -237,6 +250,7 @@ public class GameFrame {
         frame.add(text);
         frame.setVisible(true);
     }
+
     public void mapWindow() {
         JFrame mapFrame = new JFrame();
         mapFrame.setTitle("Wizard Assassin: MAP");
@@ -250,5 +264,60 @@ public class GameFrame {
 
         mapFrame.setVisible(true);
     }
+
+    public void musicWindow(){
+        JFrame musicFrame = new JFrame();
+        musicFrame.setTitle("Wizard Assassin: Music");
+        musicFrame.setBackground(Color.white);
+        musicFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        musicFrame.setLayout(new GridLayout(1,3));
+        ImageIcon musicIcon = new ImageIcon("resources/music.png");
+        musicFrame.setIconImage(musicIcon.getImage());
+
+
+        JButton volumeUp = new JButton("start");
+        volumeUp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                music.play(sound_track);
+            }
+        });
+        volumeUp.setBackground(Color.GREEN);
+        volumeUp.setForeground(Color.BLACK);
+        musicFrame.add(volumeUp);
+
+        JButton volumeDown = new JButton("stop");
+        volumeDown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    music.stop(sound_track);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        volumeDown.setBackground(Color.RED);
+        volumeDown.setForeground(Color.BLACK);
+        musicFrame.add(volumeDown);
+
+        JButton mute = new JButton("Mute");
+        mute.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                music.volumeMute();
+            }
+        });
+        mute.setBackground(Color.YELLOW);
+        mute.setForeground(Color.BLACK);
+        musicFrame.add(mute);
+
+        musicFrame.pack();
+        musicFrame.setVisible(true);
+
+    }
+
+
+
 
 }
