@@ -14,7 +14,6 @@ public class HomeFrame {
     JTextArea description;
     JButton startButton;
     JButton quitButton;
-
     public HomeFrame(JFrame frame) throws IOException, URISyntaxException {
         initialize(frame);
     }
