@@ -57,8 +57,6 @@ public class GameFrame {
     private void initialize(JFrame frame) {
 
         panel = new JPanel();
-//        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15));
-//        panel.setLayout(new FlowLayout());
         panel.setBackground(Color.BLACK);
 
 
@@ -79,19 +77,19 @@ public class GameFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu Menu = new JMenu("Menu");
 
-        JMenuItem quitMenuItem = new JMenuItem("quit");
+        JMenuItem quitMenuItem = new JMenuItem("Quit");
         quitMenuItem.addActionListener(e -> {
             panel.setVisible(false);
             homePanel.setVisible(true);
                 });
 
-        JMenuItem helpMenuItem = new JMenuItem("help");
+        JMenuItem helpMenuItem = new JMenuItem("Help");
         helpMenuItem.addActionListener(e -> helpWindow());
 
-        JMenuItem mapMenuItem = new JMenuItem("map");
+        JMenuItem mapMenuItem = new JMenuItem("Map");
         mapMenuItem.addActionListener(e -> mapWindow());
 
-        JMenuItem musicItem = new JMenuItem("music");
+        JMenuItem musicItem = new JMenuItem("Music");
         musicItem.addActionListener(e -> musicWindow());
 
         Menu.add(quitMenuItem);
@@ -171,7 +169,6 @@ public class GameFrame {
 
         // List Panel
         listPanel.setLayout(new FlowLayout(15,15, FlowLayout.LEADING));
-//        listPanel.setBounds(5, 5, 300, 30);
 
         // Right Panel
        rightPanel.setBackground(Color.BLACK);
@@ -225,7 +222,7 @@ public class GameFrame {
     public void helpWindow() {
         JFrame frame = new JFrame();
         JTextArea text = new JTextArea();
-        frame.setTitle("Wizard Assassin: HELP");
+        frame.setTitle("Wizard Assassin: Help");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(480, 200);
         frame.setLocationRelativeTo(null);
@@ -233,13 +230,16 @@ public class GameFrame {
         ImageIcon help = new ImageIcon("resources/help.jpg");
         frame.setIconImage(help.getImage());
 
-        text.setText(" To play the game, select a yellow colored item from any list, followed by clicking a\n button from the Actions panel.\n" +
+        text.setText(" To play the game, select a yellow colored object from the lists\n below the dialogue box (NPC," +
+                " " +
+                "Location Items, Directions), or from the\n Inventory list below the Actions panel, followed by " +
+                "clicking a button\n from the Actions panel. Ex. 'QUEEN' + TALK.\n" +
                 "\n Possible Combinations:\n" +
-                "   select NPC name     -> click TAlk or FIGHT\n" +
-                "   select LocationItem -> click GET\n" +
-                "   select Directions   -> click GO\n" +
-                "   select Inventory    -> click USE or DROP");
-        text.setBackground(Color.BLACK);
+                "   select NPC              -> click TALK or FIGHT\n" +
+                "   select Location Items -> click GET\n" +
+                "   select Directions      -> click GO\n" +
+                "   select Inventory       -> click USE or DROP");
+        text.setBackground(Color.WHITE);
         text.setForeground(Color.RED);
         text.setEditable(false);
 
@@ -249,7 +249,7 @@ public class GameFrame {
 
     public void mapWindow() {
         JFrame mapFrame = new JFrame();
-        mapFrame.setTitle("Wizard Assassin: MAP");
+        mapFrame.setTitle("Wizard Assassin: Map");
         mapFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mapFrame.setSize(800, 410);
 
@@ -280,8 +280,8 @@ public class GameFrame {
         playMusic.setBackground(Color.GREEN);
         musicFrame.add(playMusic);
 
-        JButton volumeUp = new JButton("Stop");
-        volumeUp.addActionListener(new ActionListener() {
+        JButton stopMusic = new JButton("Stop");
+        stopMusic.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -291,19 +291,10 @@ public class GameFrame {
                 }
             }
         });
-        volumeUp.setBackground(Color.RED);
-        volumeUp.setForeground(Color.BLACK);
-        musicFrame.add(volumeUp);
-
-
+        stopMusic.setBackground(Color.RED);
+        stopMusic.setForeground(Color.BLACK);
+        musicFrame.add(stopMusic);
         musicFrame.pack();
         musicFrame.setVisible(true);
-
-
     }
-
-
-
-
-
 }
