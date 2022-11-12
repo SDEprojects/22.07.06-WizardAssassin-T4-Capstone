@@ -2,7 +2,6 @@ package com.wizardassassin.gui.model;
 
 import com.wizardassassin.controller.Game;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,11 +10,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URL;
 import java.util.Objects;
 
 
@@ -47,7 +43,7 @@ public class GameFrame {
     private final DefaultListModel directionsList = new DefaultListModel();
     private final DefaultListModel inventoryList = new DefaultListModel();
     Music music = new Music();
-    String sound_track = "resources/music.wav";
+    URL url = getClass().getResource("wizard.wav");
     public BufferedImage image;
     public boolean collision = false;
 
@@ -265,7 +261,7 @@ public class GameFrame {
         mapFrame.setVisible(true);
     }
 
-    public void musicWindow(){
+    public void musicWindow() {
         JFrame musicFrame = new JFrame();
         musicFrame.setTitle("Wizard Assassin: Music");
         musicFrame.setBackground(Color.white);
@@ -274,48 +270,38 @@ public class GameFrame {
         ImageIcon musicIcon = new ImageIcon("resources/music.png");
         musicFrame.setIconImage(musicIcon.getImage());
 
+        JButton playMusic = new JButton("Play");
+        playMusic.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                music.play();
+            }
+        });
+        playMusic.setBackground(Color.GREEN);
+        musicFrame.add(playMusic);
 
-        JButton volumeUp = new JButton("start");
+        JButton volumeUp = new JButton("Stop");
         volumeUp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                music.play(sound_track);
-            }
-        });
-        volumeUp.setBackground(Color.GREEN);
-        volumeUp.setForeground(Color.BLACK);
-        musicFrame.add(volumeUp);
-
-        JButton volumeDown = new JButton("stop");
-        volumeDown.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
                 try {
-                    music.stop(sound_track);
+                    music.stop();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
             }
         });
-        volumeDown.setBackground(Color.RED);
-        volumeDown.setForeground(Color.BLACK);
-        musicFrame.add(volumeDown);
+        volumeUp.setBackground(Color.RED);
+        volumeUp.setForeground(Color.BLACK);
+        musicFrame.add(volumeUp);
 
-        JButton mute = new JButton("Mute");
-        mute.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                music.volumeMute();
-            }
-        });
-        mute.setBackground(Color.YELLOW);
-        mute.setForeground(Color.BLACK);
-        musicFrame.add(mute);
 
         musicFrame.pack();
         musicFrame.setVisible(true);
 
+
     }
+
 
 
 

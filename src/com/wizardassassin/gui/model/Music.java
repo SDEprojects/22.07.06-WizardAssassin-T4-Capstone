@@ -1,60 +1,70 @@
 package com.wizardassassin.gui.model;
 
-import com.apps.util.Prompter;
-
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.util.Scanner;
 
 public class Music {
-
-
     //Field
-    Prompter prompter = new Prompter(new Scanner(System.in));
     Clip clip;
-    FloatControl fc;
+    private FloatControl fc;
     float currentVolume = 0;
     float previousVolume =0;
     boolean mute = false;
-    String musicLocation = "resources/music.wav";
+    Boolean playCompleted = false;
 
-    //Methods
-    public void play(String musicLocation) {
+    public InputStream fileGetter(String fileName)  {
 
         try {
-            File musicPath = new File(musicLocation);
-            if (musicPath.exists()){
-            AudioInputStream audio = AudioSystem.getAudioInputStream(musicPath);
+            InputStream input = this.getClass()
+                    .getClassLoader()
+                    .getResourceAsStream(fileName);
+            return  input;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //Methods
+    public void play()  {
+        try {
+           AudioInputStream audioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(fileGetter("wizard.wav")));
             clip = AudioSystem.getClip();
-            clip.open(audio);
-            clip.start();
+            clip.open(audioStream);
+            fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            fc.setValue(6f);
+           setPlayCompleted(false);
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (!playCompleted) {
+                        try {
+                            Thread.sleep(1000);
+
+                        } catch (InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    clip.close();
+                }
+            });
+            thread.start();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
         }
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
 
-    }
-//    public void play(String sound_track){
-//        clip.start();
-//    }
 
-    public void loop() {
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
 
-
-    public void stop(String musicLocation) throws IOException {
-        clip.close();
-        clip.stop();
+    public void stop() throws IOException {
+        setPlayCompleted(true);
     }
+
     public void volumeUp(){
         currentVolume += 1.0f;
         if(currentVolume > 6.0f){
@@ -86,45 +96,14 @@ public class Music {
 
     }
 
-    public Clip getClip() {
-        return clip;
+    public Boolean getPlayCompleted() {
+        return playCompleted;
     }
 
-    public FloatControl getFc() {
-        return fc;
+    public void setPlayCompleted(Boolean playCompleted) {
+        this.playCompleted = playCompleted;
     }
 
-    public float getCurrentVolume() {
-        return currentVolume;
-    }
-
-    public float getPreviousVolume() {
-        return previousVolume;
-    }
-
-    public boolean isMute() {
-        return mute;
-    }
-
-    public void setClip(Clip clip) {
-        this.clip = clip;
-    }
-
-    public void setFc(FloatControl fc) {
-        this.fc = fc;
-    }
-
-    public void setCurrentVolume(float currentVolume) {
-        this.currentVolume = currentVolume;
-    }
-
-    public void setPreviousVolume(float previousVolume) {
-        this.previousVolume = previousVolume;
-    }
-
-    public void setMute(boolean mute) {
-        this.mute = mute;
-    }
 
 
 }
