@@ -11,17 +11,17 @@ public class Music {
     Clip clip;
     private FloatControl fc;
     float currentVolume = 0;
-    float previousVolume =0;
+    float previousVolume = 0;
     boolean mute = false;
     Boolean playCompleted = false;
 
-    public InputStream fileGetter(String fileName)  {
+    public InputStream fileGetter(String fileName) {
 
         try {
             InputStream input = this.getClass()
                     .getClassLoader()
                     .getResourceAsStream(fileName);
-            return  input;
+            return input;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -29,15 +29,15 @@ public class Music {
     }
 
     //Methods
-    public void play()  {
+    public void play() {
         try {
-           AudioInputStream audioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(fileGetter("wizard.wav")));
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(new BufferedInputStream(fileGetter("wizard.wav")));
             clip = AudioSystem.getClip();
             clip.open(audioStream);
             fc = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             fc.setValue(6f);
-           setPlayCompleted(false);
+            setPlayCompleted(false);
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -56,44 +56,39 @@ public class Music {
         } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
             e.printStackTrace();
         }
-
-
     }
-
 
     public void stop() throws IOException {
         setPlayCompleted(true);
     }
 
-    public void volumeUp(){
+    public void volumeUp() {
         currentVolume += 1.0f;
-        if(currentVolume > 6.0f){
-            currentVolume = 6.0f;
+        if (getCurrentVolume() > 6.0f) {
+            setCurrentVolume(6.0f);
         }
-        fc.setValue(currentVolume);
+        getFc().setValue(getCurrentVolume());
     }
 
-    public void volumeDown(){
+    public void volumeDown() {
         currentVolume -= 1.0f;
-        if(currentVolume < -80.0f){
-            currentVolume = -80.0f;
+        if (getCurrentVolume() < -80.0f) {
+            setCurrentVolume(-80.0f);
         }
-        fc.setValue(currentVolume);
+        getFc().setValue(getCurrentVolume());
     }
 
-    public void volumeMute(){
-        if(!mute){
-            previousVolume  = currentVolume;
+    public void volumeMute() {
+        if (!mute) {
+            previousVolume = currentVolume;
             currentVolume = 80.0f;
-            fc.setValue(currentVolume);
+            getFc().setValue(getCurrentVolume());
             mute = true;
-        }
-        else if(mute){
+        } else if (mute) {
             currentVolume = previousVolume;
-            fc.setValue(currentVolume);
+            getFc().setValue(getCurrentVolume());
             mute = false;
         }
-
     }
 
     public Boolean getPlayCompleted() {
@@ -104,6 +99,16 @@ public class Music {
         this.playCompleted = playCompleted;
     }
 
+    public FloatControl getFc() {
+        return fc;
+    }
 
+    public float getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public void setCurrentVolume(float currentVolume) {
+        this.currentVolume = currentVolume;
+    }
 
 }
