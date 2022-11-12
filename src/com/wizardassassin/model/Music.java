@@ -1,10 +1,9 @@
-package com.wizardassassin.gui.model;
+package com.wizardassassin.model;
 
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
 public class Music {
     //Field

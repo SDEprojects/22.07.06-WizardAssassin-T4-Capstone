@@ -1,14 +1,11 @@
 package com.wizardassassin;
 
-import com.wizardassassin.controller.*;
-import com.wizardassassin.gui.model.*;
+import com.wizardassassin.view.model.*;
 import com.wizardassassin.model.*;
 import org.junit.*;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.*;
 
 import javax.swing.*;
 

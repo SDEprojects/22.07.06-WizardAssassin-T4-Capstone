@@ -1,6 +1,6 @@
-package com.wizardassassin.gui.client;
+package com.wizardassassin.view.client;
 
-import com.wizardassassin.gui.model.HomeFrame;
+import com.wizardassassin.view.model.HomeFrame;
 
 import javax.swing.*;
 import java.io.IOException;
