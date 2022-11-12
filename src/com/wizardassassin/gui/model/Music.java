@@ -19,6 +19,7 @@ public class Music {
     float currentVolume = 0;
     float previousVolume =0;
     boolean mute = false;
+    String musicLocation = "resources/music.wav";
 
     //Methods
     public void play(String musicLocation) {

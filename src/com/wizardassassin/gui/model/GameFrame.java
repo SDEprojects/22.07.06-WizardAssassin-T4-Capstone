@@ -254,7 +254,7 @@ public class GameFrame {
     public void mapWindow() {
         JFrame mapFrame = new JFrame();
         mapFrame.setTitle("Wizard Assassin: MAP");
-        mapFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mapFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mapFrame.setSize(800, 410);
 
         mapFrame.setLayout(null);
