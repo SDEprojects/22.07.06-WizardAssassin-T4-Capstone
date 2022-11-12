@@ -13,13 +13,13 @@ public class Items {
         if (verb.equals("get") && !inventoryItems.contains(itemInput)) {
             roomItems.remove(itemInput);
             inventoryItems.add(itemInput);
-            System.out.printf("You picked up a %s and added it to your inventory.\n", itemInput);
+            System.out.printf("\nYou picked up a %s and added it to your inventory.\n", itemInput);
         } else if (verb.equals("get") && inventoryItems.contains(itemInput)) {
             System.out.println("\nCan not " + verb.toUpperCase() + " " + itemInput.toUpperCase() + ". It's already in your inventory. Choose again...");
         } else if (verb.equals("drop") && inventoryItems.contains(itemInput)) {
             inventoryItems.remove(itemInput);
             roomItems.add(itemInput);
-            System.out.printf("You dropped the %s and removed it from your inventory.\n", itemInput);
+            System.out.printf("\nYou dropped the %s and removed it from your inventory.\n", itemInput);
         } else if (verb.equals("drop") && !inventoryItems.contains(itemInput)) {
             System.out.println("\nCan not " + verb.toUpperCase() + " m" + itemInput.toUpperCase() + ". It is not in your inventory. Choose again...");
         }

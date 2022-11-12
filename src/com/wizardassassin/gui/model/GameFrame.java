@@ -294,6 +294,29 @@ public class GameFrame {
         stopMusic.setBackground(Color.RED);
         stopMusic.setForeground(Color.BLACK);
         musicFrame.add(stopMusic);
+
+        JButton volumeUp = new JButton("Volume Up");
+        volumeUp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                music.volumeUp();
+            }
+        });
+        volumeUp.setBackground(Color.BLUE);
+        volumeUp.setForeground(Color.BLACK);
+        musicFrame.add(volumeUp);
+
+        JButton volumeDown = new JButton("Volume Down");
+        volumeUp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                music.volumeDown();
+            }
+        });
+        volumeUp.setBackground(Color.YELLOW);
+        volumeUp.setForeground(Color.BLACK);
+        musicFrame.add(volumeDown);
+
         musicFrame.pack();
         musicFrame.setVisible(true);
     }
