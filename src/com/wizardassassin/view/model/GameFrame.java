@@ -1,6 +1,7 @@
-package com.wizardassassin.gui.model;
+package com.wizardassassin.view.model;
 
 import com.wizardassassin.controller.Game;
+import com.wizardassassin.model.Music;
 
 import javax.swing.*;
 import java.awt.*;

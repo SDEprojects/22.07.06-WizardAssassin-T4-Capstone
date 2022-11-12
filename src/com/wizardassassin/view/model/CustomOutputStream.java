@@ -1,4 +1,4 @@
-package com.wizardassassin.gui.model;
+package com.wizardassassin.view.model;
 
 import javax.swing.*;
 import java.io.OutputStream;
