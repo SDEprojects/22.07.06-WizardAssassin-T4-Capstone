@@ -68,8 +68,6 @@ public class HomeFrame {
         panel.add(title);
         panel.add(description);
         panel.add(buttonPanel);
-//        panel.add(startButton);
-//        panel.add(quitButton);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setVisible(true);

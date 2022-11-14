@@ -332,7 +332,7 @@ public class Game {
                 handleFight(inputNoun);
             }
         } else {
-            System.out.print("\nSelect a valid NPC... You must be seeing ghosts.\n");
+            System.out.print("\nSelect a valid NPC...\n");
         }
     }
 

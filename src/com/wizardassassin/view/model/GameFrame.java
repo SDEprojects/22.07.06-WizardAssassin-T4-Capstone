@@ -117,7 +117,7 @@ public class GameFrame {
 
         // Dialogue Box
         JPanel textBoxPanel = new JPanel();
-        textArea = new JTextArea(10, 50);
+        textArea = new JTextArea(10, 53);
         textArea.setBackground(Color.BLACK);
         textArea.setForeground(Color.RED);
         textArea.setFont(new Font("papyrus", Font.ITALIC, 17));
@@ -140,29 +140,23 @@ public class GameFrame {
         buttonPanel.setLayout(new GridLayout(2, 1));
         goButton.setBackground(Color.GREEN);
         goButton.setOpaque(true);
-        goButton.setBorderPainted(false);
         buttonPanel.add(goButton);
         talkButton.setBackground(Color.BLUE);
         talkButton.setOpaque(true);
-        talkButton.setBorderPainted(false);
         talkButton.setForeground(Color.YELLOW);
         buttonPanel.add(talkButton);
         fightButton.setBackground(Color.RED);
         fightButton.setOpaque(true);
-        fightButton.setBorderPainted(false);
         buttonPanel.add(fightButton);
         getButton.setBackground(Color.ORANGE);
         getButton.setOpaque(true);
-        getButton.setBorderPainted(false);
         buttonPanel.add(getButton);
         useButton.setBackground(Color.magenta);
         useButton.setOpaque(true);
-        useButton.setBorderPainted(false);
         useButton.setForeground(Color.WHITE);
         buttonPanel.add(useButton);
         dropButton.setBackground(Color.YELLOW);
         dropButton.setOpaque(true);
-        dropButton.setBorderPainted(false);
         buttonPanel.add(dropButton);
 
         // Inventory Panel
@@ -186,7 +180,6 @@ public class GameFrame {
         rightPanel.add(inventoryPanel);
 
         panel.add(title);
-//        panel.add(textBoxPanel);
         panel.add(leftPanel);
         panel.add(rightPanel);
         printLog();
@@ -257,7 +250,7 @@ public class GameFrame {
         mapFrame.setLayout(null);
         mapFrame.setResizable(false);
         mapFrame.setLocationRelativeTo(null);
-        mapFrame.setContentPane(new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("NewMap.png")))));
+        mapFrame.setContentPane(new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Map.png")))));
 
         mapFrame.setVisible(true);
     }
