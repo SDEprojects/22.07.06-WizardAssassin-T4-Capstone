@@ -224,8 +224,6 @@ public class GameFrame {
         frame.setSize(480, 200);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        ImageIcon help = new ImageIcon("help.jpg");
-        frame.setIconImage(help.getImage());
 
         text.setText(" To play the game, select a yellow colored object from the lists\n below the dialogue box (NPC," +
                 " " +
@@ -264,8 +262,6 @@ public class GameFrame {
         musicFrame.setBackground(Color.white);
         musicFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         musicFrame.setLayout(new GridLayout(1,3));
-        ImageIcon musicIcon = new ImageIcon("music.png");
-        musicFrame.setIconImage(musicIcon.getImage());
 
         JButton playMusic = new JButton("Play");
         playMusic.addActionListener(new ActionListener() {
