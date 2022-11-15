@@ -15,8 +15,6 @@ public enum MoveVerbs {
         return verbSet;
     }
 
-    ;
-
     private static final Set<String> verbSet = Stream.of(values())
             .map(MoveVerbs::toString)
             .collect(Collectors.toSet());
@@ -32,5 +30,4 @@ public enum MoveVerbs {
     public String toString() {
         return moveVerb();
     }
-
 }
