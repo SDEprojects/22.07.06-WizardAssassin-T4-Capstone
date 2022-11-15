@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Objects;
 
 public class HomeFrame {
 
@@ -28,12 +29,11 @@ public class HomeFrame {
         title.setText("WIZARD ASSASSIN");
         title.setForeground(Color.RED);
         title.setFont(new Font("papyrus", Font.BOLD, 50));
-        ImageIcon image = new ImageIcon("resources/homelogo.jpg");
+        ImageIcon image =
+                (new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("homelogo.jpg"))));
         title.setIcon(image);
         title.setHorizontalTextPosition(JLabel.CENTER);
         title.setVerticalTextPosition(JLabel.TOP);
-
-
 
         Home home = new Home();
         description = new JTextArea();
