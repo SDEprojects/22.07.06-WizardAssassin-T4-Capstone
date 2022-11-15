@@ -11,7 +11,7 @@ public class MainFrame {
     public static void main(String[] args) {
         JFrame frame = new JFrame();
         frame.setTitle("Wizard Assassin");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(950, 700);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);

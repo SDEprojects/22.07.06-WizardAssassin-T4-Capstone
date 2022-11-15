@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.wizardassassin.model.*;
+
 import javax.swing.*;
 import javax.swing.Timer;
 
@@ -27,11 +28,13 @@ public class Game {
     public List<String> npcNames = new ArrayList<>();
     private Characters characterData;
     private Map<String, String> characterQuotes;
+    private boolean isGameOver = false;
 
     private final JPanel panel;
     private final JPanel homePanel;
     private final JPanel listPanel;
     private final JPanel inventoryPanel;
+    private final JMenuBar menuBar;
     private final JTextArea textArea;
     private final JList listNPC;
     private final DefaultListModel namesListNPC;
@@ -53,7 +56,7 @@ public class Game {
     private final JButton dropButton;
 
     public Game(JPanel panel, JPanel homePanel, JPanel listPanel, JPanel inventoryPanel,
-                JTextArea textArea,
+                JMenuBar menuBar, JTextArea textArea,
                 JList listNPC,
                 DefaultListModel namesListNPC, JLabel labelNPC, JList listItem,
                 DefaultListModel itemsList, JLabel labelItem, JList listDirection,
@@ -66,6 +69,7 @@ public class Game {
         this.homePanel = homePanel;
         this.listPanel = listPanel;
         this.inventoryPanel = inventoryPanel;
+        this.menuBar = menuBar;
         this.textArea = textArea;
         this.listNPC = listNPC;
         this.listItem = listItem;
@@ -90,9 +94,7 @@ public class Game {
     public Location makeObj() throws IOException, URISyntaxException {
         Gson gson = new Gson();
         ClassLoader loader = getClass().getClassLoader();
-//        URI uri = loader.getResource("location.json").toURI();
-//        String reader = Files.readString(Path.of(uri));
-//        return gson.fromJson(reader, Location.class);
+
         //noinspection ConstantConditions
         try (Reader reader = new InputStreamReader(loader.getResourceAsStream("location.json"))) {
             return gson.fromJson(reader, Location.class);
@@ -174,7 +176,6 @@ public class Game {
         listNPC.setBackground(Color.BLACK);
         listNPC.setSelectionBackground(Color.BLUE);
         listNPC.setSelectionForeground(Color.YELLOW);
-//        listNPC.setFixedCellWidth(100);
         listPanel.add(labelNPC);
         listPanel.add(listNPC);
 
@@ -199,13 +200,14 @@ public class Game {
             inventoryList.addElement(data);
         }
         labelInventory.setForeground(Color.red);
+        labelInventory.setAlignmentX(JLabel.LEFT_ALIGNMENT);
+        labelInventory.setAlignmentY(JLabel.TOP_ALIGNMENT);
+
         listInventory.setForeground(Color.YELLOW);
         listInventory.setBackground(Color.BLACK);
         listInventory.setSelectionBackground(Color.BLUE);
         listInventory.setSelectionForeground(Color.YELLOW);
-        listInventory.setLayout(new GridLayout(5,2));
-//        listPanel.add(labelInventory);
-//        listPanel.add(listInventory);
+
         inventoryPanel.add(labelInventory);
         inventoryPanel.add(listInventory);
 
@@ -226,7 +228,10 @@ public class Game {
         listPanel.add(listDirection);
 
         panel.add(listPanel);
-        getStatus();
+        if (!isGameOver) {
+            getStatus();
+        }
+        ;
     }
 
     // Parses User input for appropriate action paths
@@ -260,7 +265,6 @@ public class Game {
         }
     }
 
-
     private void handleMovement(String inputNoun) {
         if (getCurrentLocation().getDirections().get(inputNoun) != null) {
             String locationInput = getCurrentLocation().getDirections().get(inputNoun);
@@ -268,7 +272,7 @@ public class Game {
                 if (npcNames.isEmpty()) {
                     setCurrentLocation(getLocationObject().getPickedLocation(locationInput));
                 } else {
-                    System.out.printf("\nThe %s blocks your path. You must fight it.\nUse the stick%n",
+                    System.out.printf("\nThe %s blocks your path. You must fight it.\nUse the stick.",
                             getNpcNames().get(0).toUpperCase());
                 }
             } else if (locationInput.equals("Great Hall") && getCurrentLocation().getName().equals("Courtyard") && getCount() == 0) {
@@ -313,6 +317,7 @@ public class Game {
             currentLocation = locationObj.getPickedLocation("Wizard's Foyer");
         } else if (inputVerb.equals("use") && inputNoun.equals("poison") && getCurrentLocation().getName().equals("Laboratory")) {
             textArea.setText("");
+            setGameOver(true);
             System.out.println("\nYou have poisoned the wizard.\nYou return home as a hero who saved your kingdom. " +
                     "You win!");
             resetGame();
@@ -340,10 +345,12 @@ public class Game {
         if (inputNoun.equals("evil wizard")) {
             if (!inventoryItems.contains("knife")) {
                 textArea.setText("");
+                setGameOver(true);
                 System.out.println("\nThe Wizard suddenly blasts your head off with a thunder bolt... and you die!");
                 resetGame();
             } else if (inventoryItems.contains("knife")) {
                 textArea.setText("");
+                setGameOver(true);
                 System.out.println("\nThe Wizard suddenly attacks you with a thunder bolt but you matrix dodge it.\n " +
                         "You shank him with the KNIFE and he dies!");
                 System.out.println("\nYou have shanked the wizard to death. You return home as a hero who saved your " +
@@ -356,12 +363,13 @@ public class Game {
             npcNames.remove(inputNoun);
             if (!npcNames.isEmpty() || !inputNoun.equals("rat")) {
                 textArea.setText("");
+                setGameOver(true);
                 System.out.println("\nYou've been found out!");
                 System.out.println("\nShould've listened to the Queen and not gone on that killing spree... You lose!");
                 resetGame();
             }
         } else if (inventoryItems.contains("stick") && inputNoun.equals("rat")) {
-            System.out.printf("\nYou beat the %s to death with the STICK\n", inputNoun.toUpperCase());
+            System.out.printf("\nYou beat the %s to death with the STICK.\n", inputNoun.toUpperCase());
             int characterIndex = npcNames.indexOf(inputNoun);
             characterData.getCharacters().remove(characterIndex);
             npcNames.remove(inputNoun);
@@ -397,6 +405,7 @@ public class Game {
     private void handleAutoGameEndings() {
         if (getCurrentLocation().getName().equals("Wizard's Foyer") && !inventoryItems.contains("wizard robes")) {
             textArea.setText("");
+            setGameOver(true);
             System.out.println("\nThe monster bites your head off and you die!");
             resetGame();
         }
@@ -407,6 +416,7 @@ public class Game {
         timer = new Timer(delay, e -> {
             panel.setVisible(false);
             homePanel.setVisible(true);
+            menuBar.setVisible(false);
         });
         timer.setRepeats(false);
         timer.start();
@@ -466,5 +476,9 @@ public class Game {
 
     private void setCurrentLocation(Location currentLocation) {
         this.currentLocation = currentLocation;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        isGameOver = gameOver;
     }
 }
