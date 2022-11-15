@@ -64,7 +64,11 @@ public class HomeFrame {
 
         quitButton.setBackground(Color.BLACK);
         quitButton.setForeground(Color.RED);
-        quitButton.addActionListener(e -> frame.dispose());
+        quitButton.addActionListener(e -> {
+            frame.dispose();
+            System.exit(0);
+        });
+
 
         buttonPanel.add(startButton);
         buttonPanel.add(quitButton);

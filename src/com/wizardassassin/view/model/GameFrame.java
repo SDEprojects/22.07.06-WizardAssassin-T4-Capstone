@@ -4,6 +4,7 @@ import com.wizardassassin.controller.Game;
 import com.wizardassassin.model.Music;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,6 +24,7 @@ public class GameFrame {
     private JPanel inventoryPanel = new JPanel();
     private JPanel rightPanel = new JPanel();
     private JPanel leftPanel = new JPanel();
+    private JMenuBar menuBar = new JMenuBar();
     private JTextArea textArea;
     private JList listNPC = new JList();
     private JList listItem = new JList();
@@ -75,13 +77,14 @@ public class GameFrame {
         UIManager.put("CheckBoxMenuItem.font", f);
         UIManager.put("RadioButtonMenuItem.font", f);
 
-        JMenuBar menuBar = new JMenuBar();
+        menuBar = new JMenuBar();
         JMenu Menu = new JMenu("Menu");
 
         JMenuItem quitMenuItem = new JMenuItem("Quit");
         quitMenuItem.addActionListener(e -> {
             panel.setVisible(false);
             homePanel.setVisible(true);
+            menuBar.setVisible(false);
                 });
 
         JMenuItem helpMenuItem = new JMenuItem("Help");
@@ -132,8 +135,7 @@ public class GameFrame {
         // Button panel label
         labelActions.setForeground(Color.RED);
         labelActions.setFont(new Font("papyrus", Font.BOLD, 20));
-        labelActions.setHorizontalAlignment(JLabel.CENTER);
-        labelActions.setVerticalAlignment(JLabel.NORTH);
+        labelActions.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
         // Button Panel
         JPanel buttonPanel = new JPanel();
@@ -143,7 +145,6 @@ public class GameFrame {
         buttonPanel.add(goButton);
         talkButton.setBackground(Color.BLUE);
         talkButton.setOpaque(true);
-        talkButton.setForeground(Color.YELLOW);
         buttonPanel.add(talkButton);
         fightButton.setBackground(Color.RED);
         fightButton.setOpaque(true);
@@ -153,7 +154,6 @@ public class GameFrame {
         buttonPanel.add(getButton);
         useButton.setBackground(Color.magenta);
         useButton.setOpaque(true);
-        useButton.setForeground(Color.WHITE);
         buttonPanel.add(useButton);
         dropButton.setBackground(Color.YELLOW);
         dropButton.setOpaque(true);
@@ -161,13 +161,15 @@ public class GameFrame {
 
         // Inventory Panel
         inventoryPanel.setBackground(Color.BLACK);
+        inventoryPanel.setLayout(new FlowLayout(15, 15, FlowLayout.CENTER));
+        inventoryPanel.setPreferredSize(new Dimension(50, 150));
 
         // List Panel
         listPanel.setLayout(new FlowLayout(15,15, FlowLayout.LEADING));
 
         // Right Panel
-       rightPanel.setBackground(Color.BLACK);
-       rightPanel.setLayout(new GridLayout(3, 1));
+        rightPanel.setBackground(Color.BLACK);
+        rightPanel.setLayout(new BoxLayout(rightPanel, BoxLayout.Y_AXIS));
 
        // Left Panel
         leftPanel.setBackground(Color.BLACK);
@@ -184,6 +186,7 @@ public class GameFrame {
         panel.add(rightPanel);
         printLog();
         frame.add(panel);
+
     }
 
     public void printLog() {
@@ -191,7 +194,7 @@ public class GameFrame {
             while (true) {
                 Game game = null;
                 try {
-                    game = new Game(panel, homePanel, listPanel, inventoryPanel, textArea, listNPC,
+                    game = new Game(panel, homePanel, listPanel, inventoryPanel, menuBar, textArea, listNPC,
                             namesListNPC, labelNPC, listItem,
                             itemsList, labelItem, listDirection,
                             directionsList, labelDirection, listInventory,
@@ -221,13 +224,13 @@ public class GameFrame {
         frame.setSize(480, 200);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        ImageIcon help = new ImageIcon("resources/help.jpg");
+        ImageIcon help = new ImageIcon("help.jpg");
         frame.setIconImage(help.getImage());
 
         text.setText(" To play the game, select a yellow colored object from the lists\n below the dialogue box (NPC," +
                 " " +
-                "Location Items, Directions), or from the\n Inventory list below the Actions panel, followed by " +
-                "clicking a button\n from the Actions panel. Ex. 'QUEEN' + TALK.\n" +
+                "Location Items, Directions), or from the\n Inventory list below the Actions panel. Then click" +
+                " an action verb\n from the Actions panel. Ex. 'QUEEN' + TALK.\n" +
                 "\n Possible Combinations:\n" +
                 "   select NPC              -> click TALK or FIGHT\n" +
                 "   select Location Items -> click GET\n" +
@@ -243,7 +246,7 @@ public class GameFrame {
 
     public void mapWindow() {
         JFrame mapFrame = new JFrame();
-        mapFrame.setTitle("Wizard Assassin: Map");
+        mapFrame.setTitle("Wizard Assassin: Castle Map");
         mapFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         mapFrame.setSize(800, 410);
 
@@ -261,7 +264,7 @@ public class GameFrame {
         musicFrame.setBackground(Color.white);
         musicFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         musicFrame.setLayout(new GridLayout(1,3));
-        ImageIcon musicIcon = new ImageIcon("resources/music.png");
+        ImageIcon musicIcon = new ImageIcon("music.png");
         musicFrame.setIconImage(musicIcon.getImage());
 
         JButton playMusic = new JButton("Play");
@@ -272,6 +275,7 @@ public class GameFrame {
             }
         });
         playMusic.setBackground(Color.GREEN);
+        playMusic.setOpaque(true);
         musicFrame.add(playMusic);
 
         JButton stopMusic = new JButton("Stop");
@@ -286,30 +290,9 @@ public class GameFrame {
             }
         });
         stopMusic.setBackground(Color.RED);
+        stopMusic.setOpaque(true);
         stopMusic.setForeground(Color.BLACK);
         musicFrame.add(stopMusic);
-
-        JButton volumeUp = new JButton("Volume Up");
-        volumeUp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                music.volumeUp();
-            }
-        });
-        volumeUp.setBackground(Color.BLUE);
-        volumeUp.setForeground(Color.BLACK);
-        musicFrame.add(volumeUp);
-
-        JButton volumeDown = new JButton("Volume Down");
-        volumeUp.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                music.volumeDown();
-            }
-        });
-        volumeUp.setBackground(Color.YELLOW);
-        volumeUp.setForeground(Color.BLACK);
-        musicFrame.add(volumeDown);
 
         musicFrame.pack();
         musicFrame.setVisible(true);

@@ -64,7 +64,7 @@
       "directions": {
         "up":"Watchtower"
       },
-      "description": "Gloomy, cold and dripping water.\nShackles dangle from the walls.\nIn one of the cells huddles a bloodied PRISONER.\nYou notice a piece of paper reading 'password'",
+      "description": "Gloomy, cold and dripping water.\nShackles dangle from the walls.\nIn one of the cells huddles a bloodied PRISONER.\nYou notice a piece of paper reading 'password'.",
       "items": [
         "password"
       ],
@@ -142,7 +142,7 @@
 
         "east":"Royal Lounge"
       },
-      "description": "The King's Chambers is empty.\nThe Evil Wizard must have done something with him.",
+      "description": "The King's Chambers are empty.\nThe Evil Wizard must have done something with him.",
       "items": [
 
       ],
@@ -210,7 +210,7 @@
       "directions": {
 
       },
-      "description": "The Queen's Garden is full of luscious greenery, with thousands of wild\n flowers. You received a summons from your Queen to meet her here.\nYou should talk to her.",
+      "description": "The Queen's Garden is full of luscious greenery, with thousands of wild\n flowers. You received a summons from your Queen to meet her here.\nYou should talk to her.\n \nTo speak to a character, select the character's name and then click TALK.\nSee the Help Menu if you have questions.",
       "items": [
       ],
       "characters": [
