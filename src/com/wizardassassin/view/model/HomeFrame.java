@@ -21,15 +21,19 @@ public class HomeFrame {
     private void initialize(JFrame frame) throws IOException, URISyntaxException {
 
         panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 70));
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 60));
         panel.setBackground(Color.BLACK);
 
         title = new JLabel();
         title.setText("WIZARD ASSASSIN");
-        title.setVerticalAlignment(JLabel.TOP);
-        title.setHorizontalAlignment(JLabel.CENTER);
         title.setForeground(Color.RED);
         title.setFont(new Font("papyrus", Font.BOLD, 50));
+        ImageIcon image = new ImageIcon("resources/homelogo.jpg");
+        title.setIcon(image);
+        title.setHorizontalTextPosition(JLabel.CENTER);
+        title.setVerticalTextPosition(JLabel.TOP);
+
+
 
         Home home = new Home();
         description = new JTextArea();
