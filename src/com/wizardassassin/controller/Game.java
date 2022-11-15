@@ -351,7 +351,7 @@ public class Game {
                 setGameOver(true);
                 System.out.println("\nThe Wizard suddenly blasts your head off with a thunder bolt... and you die!");
                 System.out.println("\n-------------------------------------------------------------------------");
-                System.out.println("***********************  You Loss the Game     *********************");
+                System.out.println("***********************  You Lost the Game     *********************");
                 System.out.println("----------------------------------------------------------------------------");
                 resetGame();
             } else if (inventoryItems.contains("knife")) {
@@ -381,7 +381,7 @@ public class Game {
                 System.out.println("\nYou've been found out!");
                 System.out.println("\nShould've listened to the Queen and not gone on that killing spree... You lose!");
                 System.out.println("\n--------------------------------------------------------------------------");
-                System.out.println("***********************  You Loss the Game     *********************");
+                System.out.println("***********************  You Lost the Game     *********************");
                 System.out.println("----------------------------------------------------------------------------");
                 resetGame();
             }
