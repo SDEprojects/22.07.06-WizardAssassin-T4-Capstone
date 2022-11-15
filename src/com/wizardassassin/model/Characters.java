@@ -3,6 +3,8 @@ package com.wizardassassin.model;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -42,9 +44,13 @@ public class Characters {
     public Characters getCharacterData() throws IOException, URISyntaxException {
         Gson gson = new Gson();
         ClassLoader loader = getClass().getClassLoader();
-        URI uri = loader.getResource("characters.json").toURI();
-        String read = Files.readString(Path.of(uri));
-        return gson.fromJson(read, Characters.class);
+        try (Reader reader = new InputStreamReader(loader.getResourceAsStream("characters.json"))) {
+            return gson.fromJson(reader, Characters.class);
+
+        }
+//        URI uri = loader.getResource("characters.json").toURI();
+//        String read = Files.readString(Path.of(uri));
+//        return gson.fromJson(read, Characters.class);
     }
 
     // extracts character quotes from json data

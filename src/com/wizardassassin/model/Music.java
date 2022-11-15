@@ -61,22 +61,6 @@ public class Music {
         setPlayCompleted(true);
     }
 
-    public void volumeUp() {
-        currentVolume += 1.0f;
-        if (getCurrentVolume() > 6.0f) {
-            setCurrentVolume(6.0f);
-        }
-        getFc().setValue(getCurrentVolume());
-    }
-
-    public void volumeDown() {
-        currentVolume -= 1.0f;
-        if (getCurrentVolume() < -80.0f) {
-            setCurrentVolume(-80.0f);
-        }
-        getFc().setValue(getCurrentVolume());
-    }
-
     public void volumeMute() {
         if (!mute) {
             previousVolume = currentVolume;
