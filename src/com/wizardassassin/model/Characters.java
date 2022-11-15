@@ -46,11 +46,7 @@ public class Characters {
         ClassLoader loader = getClass().getClassLoader();
         try (Reader reader = new InputStreamReader(loader.getResourceAsStream("characters.json"))) {
             return gson.fromJson(reader, Characters.class);
-
         }
-//        URI uri = loader.getResource("characters.json").toURI();
-//        String read = Files.readString(Path.of(uri));
-//        return gson.fromJson(read, Characters.class);
     }
 
     // extracts character quotes from json data

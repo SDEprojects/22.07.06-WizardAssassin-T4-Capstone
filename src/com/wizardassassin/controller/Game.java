@@ -353,8 +353,8 @@ public class Game {
                 setGameOver(true);
                 System.out.println("\nThe Wizard suddenly attacks you with a thunder bolt but you matrix dodge it.\n " +
                         "You shank him with the KNIFE and he dies!");
-                System.out.println("\nYou have shanked the wizard to death. You return home as a hero who saved your " +
-                        "kingdom!");
+                System.out.println("\nYou have shanked the wizard to death.\nYou return home as a hero who saved " +
+                        "your kingdom!");
                 resetGame();
             }
         } else if (inventoryItems.contains("sword")) {
