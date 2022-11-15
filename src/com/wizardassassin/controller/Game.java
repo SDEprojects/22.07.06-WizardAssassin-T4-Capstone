@@ -320,6 +320,9 @@ public class Game {
             setGameOver(true);
             System.out.println("\nYou have poisoned the wizard.\nYou return home as a hero who saved your kingdom. " +
                     "You win!");
+            System.out.println("\n-------------------------------------------------------------------");
+            System.out.println("***********************  You Won the Game     *********************");
+            System.out.println("-------------------------------------------------------------------");
             resetGame();
         } else if (Arrays.asList(currentLocation.getItem()).contains(inputNoun) || inventoryItems.contains(inputNoun)) {
             items.getItem(inputNoun, currentLocation, inputVerb, inventoryItems, inventory);
@@ -347,14 +350,20 @@ public class Game {
                 textArea.setText("");
                 setGameOver(true);
                 System.out.println("\nThe Wizard suddenly blasts your head off with a thunder bolt... and you die!");
+                System.out.println("\n-------------------------------------------------------------------");
+                System.out.println("***********************  You Lost the Game     *********************");
+                System.out.println("-------------------------------------------------------------------");
                 resetGame();
             } else if (inventoryItems.contains("knife")) {
                 textArea.setText("");
                 setGameOver(true);
                 System.out.println("\nThe Wizard suddenly attacks you with a thunder bolt but you matrix dodge it.\n " +
                         "You shank him with the KNIFE and he dies!");
-                System.out.println("\nYou have shanked the wizard to death. You return home as a hero who saved your " +
-                        "kingdom!");
+                System.out.println("\nYou have shanked the wizard to death.\nYou return home as a hero who saved " +
+                        "your kingdom!");
+                System.out.println("\n-------------------------------------------------------------------");
+                System.out.println("***********************  You Won the Game     *********************");
+                System.out.println("-------------------------------------------------------------------");
                 resetGame();
             }
         } else if (inventoryItems.contains("sword")) {
@@ -366,6 +375,9 @@ public class Game {
                 setGameOver(true);
                 System.out.println("\nYou've been found out!");
                 System.out.println("\nShould've listened to the Queen and not gone on that killing spree... You lose!");
+                System.out.println("\n-------------------------------------------------------------------");
+                System.out.println("***********************  You Lost the Game     *********************");
+                System.out.println("-------------------------------------------------------------------");
                 resetGame();
             }
         } else if (inventoryItems.contains("stick") && inputNoun.equals("rat")) {
